@@ -1,0 +1,102 @@
+.container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #EDEAE5;
+}
+
+.loginCard {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    max-width: 500px;
+    padding: 50px;
+    margin: 0 auto 0 auto;
+    background-color: white;
+    border-radius: 15px;
+    transition: 200ms;
+}
+.loginCard:hover {
+    -webkit-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+}
+
+.txt {
+    font-size: 16px;
+    margin-bottom: 8px;
+
+}
+
+.inp {
+    width: 100%;
+    height: 40px;
+    border: 1px solid black;
+    padding-left: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    transition: 200ms;
+}
+.inp:focus {
+    -webkit-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+}
+
+.link {
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+.link a {
+    color: black;
+    text-decoration: underline;
+}
+.but {
+    height: 40px;
+    width: 100%;
+    border-radius: 15px;
+    font-size: 18px;
+    font-weight: 500;
+    background-color: #9FEDD7;
+    transition: 200ms;
+}
+.but:hover {
+    background-color: #026670;
+    color: white;
+    font-weight: 600;
+}
+.but:active {
+    -webkit-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 1) inset;
+    -moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 1) inset;
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 1) inset;
+}
+
+@media screen and (max-width: 915px) {
+    .loginCard {
+        width: 100%;
+    }
+    .container {
+        position: relative;
+        height: 100vh;
+    }
+}
+@media screen and (max-width: 530px) {
+    .loginCard {
+        background-color: #EDEAE5;
+    }
+    .loginCard:hover {
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+    }
+}
+@media screen and (max-width: 438px) {
+    .linkText span{
+        margin-bottom: 5px;
+    }
+}
