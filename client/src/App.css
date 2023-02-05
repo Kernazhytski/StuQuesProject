@@ -37,7 +37,7 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 #root {
 	min-height: 100%;
 	position: relative;
-	font-family: "Girloy";
+	font-family: "Girloy-bold";
 }
 
 .container {
@@ -51,7 +51,13 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 }
 
 @font-face {
-	font-family: 'Girloy';
+	font-family: 'Girloy-bold';
 	src: local('Girloy'),
-	url("assets/fonts/PTM55FT.ttf") format('opentype');
+	url("assets/fonts/Gilroy-ExtraBold.otf") format('opentype');
+}
+
+@font-face {
+	font-family: 'Girloy-light';
+	src: local('Girloy'),
+	url("assets/fonts/Gilroy-Light.otf") format('opentype');
 }

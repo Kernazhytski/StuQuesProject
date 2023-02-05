@@ -2,9 +2,9 @@ import React from 'react';
 
 import StyleButton from './ButtonOne.module.css'
 
-const ButtonOne = ({children,...props}) => {
+const ButtonOne = ({children,width}) => {
     return (
-        <button className={StyleButton.but} style={{width:props.width}}>{children}</button>
+        <button className={StyleButton.but} style={{width}}>{children}</button>
     );
 };
 
