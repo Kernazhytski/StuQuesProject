@@ -9,6 +9,7 @@ import styles from './MenuBar.module.css'
 const MenuBar = () => {
   return(
       <header className={styles.containerHeader}>
+
           <div className={styles.container}>
               <div className={styles.logo}/>
               <div className={styles.containerInput}>
@@ -17,6 +18,8 @@ const MenuBar = () => {
               </div>
               <ButtonOne width={"125px"} >Вход</ButtonOne>
           </div>
+
+         
       </header>
   )
 }

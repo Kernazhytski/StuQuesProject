@@ -17,6 +17,7 @@
 
 .logo:hover{
     content: url("../../assets/pictures/logos/logo-dark.png");
+
 }
 
 .lupa{
@@ -54,4 +55,5 @@
     display: inline-block;
     position: relative;
     width: 400px;
+
 }
