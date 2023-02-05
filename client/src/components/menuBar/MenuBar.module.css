@@ -1,8 +1,22 @@
 .containerHeader{
     position: relative;
-    display: block;
+    display: flex;
+    align-items: center;
     width: 100%;
-    background: #FEF9C7;
+    background: #222;
     max-width: 1920px;
+    height: 60px;
 }
 
+.logo{
+    display: inline-block;
+    content: url("../../assets/pictures/logos/logo-light.png");
+    width: 60px;
+    float: left;
+    cursor: pointer;
+}
+
+.logo:hover{
+    content: url("../../assets/pictures/logos/logo-dark.png");
+
+}
