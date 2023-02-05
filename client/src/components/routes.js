@@ -1,5 +1,6 @@
 import AuthPage from "../pages/authPage/AuthPage";
-import { LOG_ROUTE, REG_ROUTE } from "../utils/routes";
+import MainPage from "../pages/mainPage/MainPage"
+import {LOG_ROUTE, MAIN_ROUTE, REG_ROUTE} from "../utils/routes";
 
 export const userRotues = [
     {
@@ -9,5 +10,13 @@ export const userRotues = [
     {
         path: REG_ROUTE,
         component: AuthPage
+    },
+    {
+        path: MAIN_ROUTE,
+        component: MainPage
+    },
+    {
+        path: "*",
+        component: MainPage
     }
 ]

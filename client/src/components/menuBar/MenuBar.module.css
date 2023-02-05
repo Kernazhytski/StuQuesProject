@@ -1,0 +1,8 @@
+.containerHeader{
+    position: relative;
+    display: block;
+    width: 100%;
+    background: #FEF9C7;
+    max-width: 1920px;
+}
+
