@@ -4,7 +4,6 @@
     align-items: center;
     width: 100%;
     background: #222;
-    max-width: 1920px;
     height: 60px;
 }
 
@@ -18,5 +17,41 @@
 
 .logo:hover{
     content: url("../../assets/pictures/logos/logo-dark.png");
+}
 
+.lupa{
+    position: absolute;
+    content: url("../../assets/pictures/sprites/lupa.png");
+    width: 30px;
+    top:7px;
+    left: 7px;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 1400px;
+    margin: 0 auto 0 auto;
+}
+@media screen and (max-width: 1300px) {
+    .container {
+        width: 1000px;
+    }
+}
+@media screen and (max-width: 1000px) {
+    .container {
+        width: 700px;
+    }
+}
+@media screen and (max-width: 700px) {
+    .container {
+        width: 400px;
+    }
+}
+
+.containerInput{
+    display: inline-block;
+    position: relative;
+    width: 400px;
 }
