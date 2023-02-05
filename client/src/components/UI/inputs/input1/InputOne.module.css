@@ -1,0 +1,15 @@
+.inp {
+    font-family: Girloy-light;
+    height: 40px;
+    border: 1px solid black;
+    padding-left: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    transition: 200ms;
+}
+.inp:focus {
+    -webkit-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+}

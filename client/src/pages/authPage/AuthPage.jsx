@@ -4,6 +4,7 @@ import { LOG_ROUTE, REG_ROUTE } from '../../utils/routes'
 
 import classes from './AuthPage.module.css'
 import ButtonOne from "../../components/UI/buttons/button1/ButtonOne";
+import InputOne from "../../components/UI/inputs/input1/InputOne";
 
 const AuthPage = () => {
   const loginPage = useLocation().pathname.split('/').reverse()[0];
@@ -14,20 +15,20 @@ const AuthPage = () => {
         ?
         <form className={classes.loginCard} >
           <p className={classes.txt}>Электронная почта:</p>
-          <input className={classes.inp} placeholder='Введите почту'/>
+          <InputOne width={"100%"} placeholder={"Введите логин"}/>
           <p className={classes.txt}>Пароль:</p>
-          <input className={classes.inp} placeholder='Введите пароль'/>
+          <InputOne width={"100%"} placeholder={"Введите пароль"}/>
           <p className={classes.link}>Нет аккаунта? <Link to={REG_ROUTE}> Зарегистрироваться</Link></p>
           <ButtonOne width={"100%"}>Авторизоваться</ButtonOne>
         </form>
         :
         <form className={classes.loginCard}>
           <p className={classes.txt}>Никнейм:</p>
-          <input className={classes.inp} placeholder='Введите никнейм'/>
+          <InputOne width={"100%"} placeholder={"Введите никнейм"}/>
           <p className={classes.txt}>Электронная почта:</p>
-          <input className={classes.inp} placeholder='Введите почту'/>
+          <InputOne width={"100%"} placeholder={"Введите логин"}/>
           <p className={classes.txt}>Пароль:</p>
-          <input className={classes.inp} placeholder='Введите пароль'/>
+          <InputOne width={"100%"} placeholder={"Введите пароль"}/>
           <p className={classes.link}>Есть аккаунт?<Link to={LOG_ROUTE}> Авторизоваться</Link></p>
           <ButtonOne width={"100%"}>Зарегистрироваться</ButtonOne>
         </form>
