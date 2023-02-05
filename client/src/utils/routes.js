@@ -1,3 +1,7 @@
 export const LOG_ROUTE = '/auth/login'
 export const REG_ROUTE = '/auth/register'
 export const MAIN_ROUTE = '/'
+export const MY_QUES = '/myQuestions'
+export const ADD_QUES = '/addQUestion'
+export const ALL_USERS = '/allUsers'
+export const MY_ANSW = '/allUsers'
