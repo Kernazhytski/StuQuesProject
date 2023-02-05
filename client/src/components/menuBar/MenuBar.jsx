@@ -9,10 +9,10 @@ import styles from './MenuBar.module.css'
 
 const MenuBar = () => {
   return(
-      <div className={styles.containerHeader}>
+      <header className={styles.containerHeader}>
           <div className={styles.logo}/>
           <ButtonOne width={"125px"} >О продукте</ButtonOne>
-      </div>
+      </header>
   )
 }
 

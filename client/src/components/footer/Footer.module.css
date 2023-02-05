@@ -1,0 +1,92 @@
+.footer {
+    background: #222;
+    padding: 40px 0 40px 0;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto 0 auto;
+}
+.column {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.socialMedia {
+    margin-bottom: 50px;
+}
+.info {
+    display: flex;
+    justify-content: center;
+}
+.list {
+    display: flex;
+    flex-direction: row;
+}
+.listItem {
+    font-family: Girloy-light;
+    font-size: 16px;
+    color: white;
+    margin-right: 20px;
+    cursor: pointer;
+}
+.listItem:hover {
+    text-decoration: underline;
+}
+.pictInst {
+    width: 30px;
+    display: inline-block;
+    content: url("../../assets/pictures/socialMedia/instagramIcon-light.png");
+    cursor: pointer;
+    margin-right: 50px;
+}
+.pictTg {
+    width: 30px;
+    display: inline-block;
+    content: url("../../assets/pictures/socialMedia/telegramIcon-light.png");
+    cursor: pointer;
+    margin-right: 50px;
+}
+.pictTwit {
+    width: 30px;
+    display: inline-block;
+    content: url("../../assets/pictures/socialMedia/twitterIcon-light.png");
+    cursor: pointer;
+    margin-right: 50px;
+}
+.pictVk {
+    width: 30px;
+    display: inline-block;
+    content: url("../../assets/pictures/socialMedia/vkIcon-light.png");
+    cursor: pointer;
+    margin-right: 50px;
+}
+
+.pictInst:hover {
+    content: url("../../assets/pictures/socialMedia/instagramIcon-dark.png");
+}
+.pictTg:hover {
+    content: url("../../assets/pictures/socialMedia/telegramIcon-dark.png");
+}
+.pictTwit:hover {
+    content: url("../../assets/pictures/socialMedia/twitterIcon-dark.png");
+}
+.pictVk:hover {
+    content: url("../../assets/pictures/socialMedia/vkIcon-dark.png");
+}
+
+
+@media screen and (max-width: 1300px) {
+    .container {
+        width: 1000px;
+    }
+}
+@media screen and (max-width: 1000px) {
+    .container {
+        width: 700px;
+    }
+}
+@media screen and (max-width: 700px) {
+    .container {
+        width: 400px;
+    }
+}
