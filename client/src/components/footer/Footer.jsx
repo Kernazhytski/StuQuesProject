@@ -17,8 +17,6 @@ const Footer = () => {
                         <li className={styles.listItem}>Контакты</li>
                         <li className={styles.listItem}>О нас</li>
                         <li className={styles.listItem}>FAQs</li>
-                        <li className={styles.listItem}></li>
-                        <li className={styles.listItem}></li>
                     </ul>
                 </div>        
             </div>

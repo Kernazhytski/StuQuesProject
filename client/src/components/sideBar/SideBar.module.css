@@ -1,0 +1,23 @@
+.listItemPassive {
+    font-family: Girloy-light;
+    font-size: 18px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    position: relative;
+}
+.listItemPassive:hover {
+    font-weight: 600;
+}
+
+.listItemPassive a, .listItemActive a{
+    color: black;
+}
+.listItemActive {
+    font-family: Girloy-light;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 15px;
+    position: relative;
+    text-decoration: underline;
+}

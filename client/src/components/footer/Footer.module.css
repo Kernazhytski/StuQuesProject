@@ -3,7 +3,7 @@
     padding: 40px 0 40px 0;
 }
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto 0 auto;
 }
 .column {
@@ -32,6 +32,9 @@
 .listItem:hover {
     text-decoration: underline;
 }
+.listItem:last-of-type {
+    margin-right: 0px;
+}
 .pictInst {
     width: 30px;
     display: inline-block;
@@ -51,7 +54,6 @@
     display: inline-block;
     content: url("../../assets/pictures/socialMedia/twitterIcon-light.png");
     cursor: pointer;
-    margin-right: 50px;
 }
 .pictVk {
     width: 30px;
@@ -88,5 +90,13 @@
 @media screen and (max-width: 700px) {
     .container {
         width: 400px;
+    }
+}
+@media screen and (max-width: 350px) {
+    .socialMedia {
+        width: 320px;
+    }
+    .info {
+        width: 320px;
     }
 }

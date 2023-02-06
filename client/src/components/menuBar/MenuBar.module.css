@@ -35,6 +35,13 @@
     width: 1400px;
     margin: 0 auto 0 auto;
 }
+
+.containerInput{
+    display: inline-block;
+    position: relative;
+    width: 400px;
+
+}
 @media screen and (max-width: 1300px) {
     .container {
         width: 1000px;
@@ -49,11 +56,23 @@
     .container {
         width: 400px;
     }
+    .logo {
+        display: none;
+    }
+    .containerInput {
+        margin-right: 20px;
+    }
+
 }
-
-.containerInput{
-    display: inline-block;
-    position: relative;
-    width: 400px;
-
+@media screen and (max-width: 470px) {
+    .container button {
+        display: none;
+    }
+    .container {
+        justify-content: center;
+    }
+    .containerInput {
+        width: 300px;
+        margin-right: 0;
+    }
 }

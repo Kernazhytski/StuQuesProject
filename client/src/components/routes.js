@@ -14,9 +14,5 @@ export const userRotues = [
     {
         path: MAIN_ROUTE,
         component: MainPage
-    },
-    {
-        path: "*",
-        component: MainPage
     }
 ]
