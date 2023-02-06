@@ -4,7 +4,7 @@ import { LOG_ROUTE, REG_ROUTE } from '../../utils/routes'
 
 import classes from './AuthPage.module.css'
 import ButtonOne from "../../components/UI/buttons/button1/ButtonOne";
-import InputOne from "../../components/UI/inputs/input1/InputOne";
+import InputOne from "../../components/UI/inputs/loginInput/InputOne";
 
 const AuthPage = () => {
   const loginPage = useLocation().pathname.split('/').reverse()[0];
