@@ -9,7 +9,11 @@
     font-weight: 600;
 }
 
-.listItemPassive a, .listItemActive a{
+ .listItemActive a{
+    color: #026670;
+}
+
+.listItemPassive a{
     color: black;
 }
 .listItemActive {
