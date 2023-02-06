@@ -1,6 +1,11 @@
 import AuthPage from "../pages/authPage/AuthPage";
 import MainPage from "../pages/mainPage/MainPage"
-import {LOG_ROUTE, MAIN_ROUTE, REG_ROUTE} from "../utils/routes";
+import {AddQuesPage} from "../pages/addQuesPage/AddQuesPage";
+import AllUsers from "../pages/allUsersPage/AllUsers";
+import MyAnswersPage from "../pages/myAnswersPage/MyAnswersPage";
+import MyQuestions from "../pages/myQuestions/MyQuestions";
+
+import {ADD_QUES, ALL_USERS, LOG_ROUTE, MAIN_ROUTE, MY_ANSW, MY_QUES, REG_ROUTE} from "../utils/routes";
 
 export const userRotues = [
     {
@@ -14,5 +19,21 @@ export const userRotues = [
     {
         path: MAIN_ROUTE,
         component: MainPage
+    },
+    {
+        path: ADD_QUES,
+        component: AddQuesPage
+    },
+    {
+        path: ALL_USERS,
+        component: AllUsers
+    },
+    {
+        path: MY_ANSW,
+        component: MyAnswersPage
+    },
+    {
+        path: MY_QUES,
+        component: MyQuestions
     }
 ]
