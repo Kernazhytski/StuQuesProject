@@ -1,27 +1,35 @@
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { LOG_ROUTE, REG_ROUTE } from '../../utils/routes'
+import { useNavigate} from 'react-router-dom'
 import ButtonOne from "../UI/buttons/button1/ButtonOne";
 import InputTwo from "../UI/inputs/findInput/InputTwo";
 
 import styles from './MenuBar.module.css'
 
+
 const MenuBar = () => {
-  return(
-      <header className={styles.containerHeader}>
+    let loc = useNavigate();
 
-          <div className={styles.container}>
-              <div className={styles.logo}/>
-              <div className={styles.containerInput}>
-                  <InputTwo placeholder={"Поиск"}></InputTwo>
-                  <div className={styles.lupa}></div>
-              </div>
-              <ButtonOne width={"125px"} >Вход</ButtonOne>
-          </div>
+    const logoClick=()=> {
+        console.log("pushed")
+        loc('/')
+    }
 
-         
-      </header>
-  )
+    return (
+        <header className={styles.containerHeader}>
+
+            <div className={styles.container}>
+                <div className={styles.logo} onClick={logoClick}/>
+                <div className={styles.containerInput}>
+                    <InputTwo placeholder={"Поиск"}></InputTwo>
+                    <div className={styles.lupa}></div>
+                </div>
+                <ButtonOne width={"125px"}>Вход</ButtonOne>
+            </div>
+
+
+        </header>
+    )
 }
+
 
 export default MenuBar

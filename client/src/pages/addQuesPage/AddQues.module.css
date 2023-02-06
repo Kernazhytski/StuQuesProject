@@ -22,6 +22,7 @@
 }
 
 .enterForm{
+    border-radius: 5px;
     background: #FEF9C7;
     width: 100%;
     transition: 200ms;
