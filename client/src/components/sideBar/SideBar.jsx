@@ -5,10 +5,8 @@ import { ADD_QUES, ALL_USERS, MAIN_ROUTE, MY_ANSW, MY_QUES } from '../../utils/r
 import styles from './SideBar.module.css'
 
 export const SideBar = () => {
+
   const location = useLocation().pathname.split('/').reverse()[0];
-  useMemo(() => {
-    console.log(location)
-  }, [])
   return (
     <aside className={styles.container}>
         <ul className={styles.list}>
@@ -24,8 +22,9 @@ export const SideBar = () => {
             </li>
           }
           {
-            location === ADD_QUES 
-            ?            
+
+            "/"+location === ADD_QUES
+            ?
             <li className={styles.listItemActive}>
               <Link to={ADD_QUES} >Задать вопрос</Link> 
             </li>
@@ -35,7 +34,7 @@ export const SideBar = () => {
             </li>
           }
           {
-            location === MY_QUES 
+              "/"+location === MY_QUES
             ?            
             <li className={styles.listItemActive}>
               <Link to={MY_QUES} >Мои вопросы</Link> 
@@ -46,7 +45,7 @@ export const SideBar = () => {
             </li>
           }
           {
-            location === MY_ANSW 
+              "/"+location === MY_ANSW
             ?            
             <li className={styles.listItemActive}>
               <Link to={MY_ANSW} >Мои ответы</Link> 
@@ -57,7 +56,7 @@ export const SideBar = () => {
             </li>
           }
           {
-            location === ALL_USERS 
+              "/"+location === ALL_USERS
             ?            
             <li className={styles.listItemActive}>
               <Link to={ALL_USERS} >Пользователи</Link> 
