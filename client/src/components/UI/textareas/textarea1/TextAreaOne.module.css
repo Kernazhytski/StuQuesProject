@@ -6,9 +6,10 @@
     border-radius: 5px;
     font-size: 16px;
     transition: 200ms;
-    width: 90%;
+    width: 100%;
     margin-bottom: 30px;
     position: relative;
+    padding-top: 5px;
 }
 .inp:focus {
     border: 3px solid #026670;
