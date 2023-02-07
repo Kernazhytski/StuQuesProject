@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './selectAddQuestion.module.css'
 
-const SelectAddQuestion = () => {
+const SelectAddQuestion = (props) => {
     return (
-        <select className={styles.inp}>
+        <select className={styles.inp} {...props} required={true    }>
             <option>Математика</option>
             <option>Философия</option>
             <option>Физика</option>

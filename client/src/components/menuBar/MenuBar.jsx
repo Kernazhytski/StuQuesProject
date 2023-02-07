@@ -10,7 +10,6 @@ const MenuBar = () => {
     let loc = useNavigate();
 
     const logoClick=()=> {
-        console.log("pushed")
         loc('/')
     }
     return (

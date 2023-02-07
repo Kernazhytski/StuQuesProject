@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './TextAreaOne.module.css'
 
-const TextAreaOne = () => {
+const TextAreaOne = (props) => {
     return (
-        <textarea className={styles.inp}></textarea>
+        <textarea className={styles.inp} {...props}></textarea>
     );
 };
 
