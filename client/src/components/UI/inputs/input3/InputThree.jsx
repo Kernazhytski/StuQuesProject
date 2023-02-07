@@ -2,9 +2,9 @@ import React from 'react';
 
 import styles from "./InputThree.module.css";
 
-const InputThree = () => {
+const InputThree = (props) => {
     return (
-        <input className={styles.inp} type={"text"}/>
+        <input className={styles.inp} type={"text"} {...props}/>
     );
 };
 
