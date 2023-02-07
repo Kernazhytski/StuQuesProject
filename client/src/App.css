@@ -33,3 +33,31 @@ ul li{list-style: none;}
 img{vertical-align: top;}
 h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 /*----------------*/
+
+#root {
+	min-height: 100%;
+	position: relative;
+	font-family: "Girloy-bold";
+}
+
+.container {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: #EDEAE5;
+	overflow: auto;
+}
+
+@font-face {
+	font-family: 'Girloy-bold';
+	src: local('Girloy'),
+	url("assets/fonts/Gilroy-ExtraBold.otf") format('opentype');
+}
+
+@font-face {
+	font-family: 'Girloy-light';
+	src: local('Girloy'),
+	url("assets/fonts/Gilroy-Light.otf") format('opentype');
+}
