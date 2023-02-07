@@ -5,8 +5,10 @@ const cookieParser = require('cookie-parser');
 
 const sequelize = require('./db');
 const models = require('./models');
-const userRouter = require('./routes/authRoutes')
+
 const questionRouter = require('./routes/questionRoutes')
+const authRouter = require('./routes/authRoutes')
+
 require('dotenv').config()
 
 const app = express();
@@ -18,8 +20,12 @@ app.use(cookieParser());
 
 app.use(express.static(path.resolve(__dirname, 'static', 'usersAvatars')));
 
-app.use('/auth', userRouter);
+
+
 app.use('/question',questionRouter)
+
+app.use('/api', authRouter);
+
 
 async function start() {
     try {
