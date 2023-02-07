@@ -1,0 +1,78 @@
+.containerHeader{
+    position: sticky;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background: #222;
+    height: 60px;
+}
+
+.logo{
+    display: inline-block;
+    content: url("../../assets/pictures/logos/logo-light.png");
+    width: 60px;
+    float: left;
+    cursor: pointer;
+}
+
+.logo:hover{
+    content: url("../../assets/pictures/logos/logo-dark.png");
+
+}
+
+.lupa{
+    position: absolute;
+    content: url("../../assets/pictures/sprites/lupa.png");
+    width: 30px;
+    top:7px;
+    left: 7px;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 1400px;
+    margin: 0 auto 0 auto;
+}
+
+.containerInput{
+    display: inline-block;
+    position: relative;
+    width: 400px;
+
+}
+@media screen and (max-width: 1300px) {
+    .container {
+        width: 1000px;
+    }
+}
+@media screen and (max-width: 1000px) {
+    .container {
+        width: 700px;
+    }
+}
+@media screen and (max-width: 700px) {
+    .container {
+        width: 400px;
+    }
+    .logo {
+        display: none;
+    }
+    .containerInput {
+        margin-right: 20px;
+    }
+
+}
+@media screen and (max-width: 470px) {
+    .container button {
+        display: none;
+    }
+    .container {
+        justify-content: center;
+    }
+    .containerInput {
+        width: 300px;
+        margin-right: 0;
+    }
+}
