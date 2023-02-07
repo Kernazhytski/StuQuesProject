@@ -1,8 +1,10 @@
 import React from 'react';
-import styles from "./MyQuestions.module.css";
+
 import MenuBar from "../../components/menuBar/MenuBar";
 import {SideBar} from "../../components/sideBar/SideBar";
 import Footer from "../../components/footer/Footer";
+
+import styles from "./MyQuestions.module.css";
 
 const MyQuestions = () => {
     return (

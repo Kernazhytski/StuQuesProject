@@ -1,0 +1,37 @@
+#fileInput {
+    display: none;
+
+}
+.labelInp {
+    display: block;
+    text-align: center;
+    width: 300px;
+    height: 50px;
+    border-radius: 15px;
+    font-size: 18px;
+    line-height: 50px;
+    font-weight: 500;
+    background-color: #9FEDD7;
+    border: 2px dashed #026670;
+    transition: 200ms;
+    cursor: pointer;
+}
+.labelInp:hover {
+    background-color: #026670;
+    color: white;
+    border: 2px dashed #9FEDD7;
+} 
+.labelInpAct {
+    display: block;
+    text-align: center;
+    width: 300px;
+    height: 50px;
+    border-radius: 15px;
+    font-size: 18px;
+    line-height: 50px;
+    font-weight: 500;
+    cursor: pointer;
+    background-color: #026670;
+    color: white;
+    border: 2px dashed #9FEDD7;
+}

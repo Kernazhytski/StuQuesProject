@@ -1,10 +1,10 @@
 import React from 'react'
 import { useNavigate} from 'react-router-dom'
+
 import ButtonOne from "../UI/buttons/button1/ButtonOne";
 import InputTwo from "../UI/inputs/findInput/InputTwo";
 
 import styles from './MenuBar.module.css'
-
 
 const MenuBar = () => {
     let loc = useNavigate();
@@ -13,7 +13,6 @@ const MenuBar = () => {
         console.log("pushed")
         loc('/')
     }
-
     return (
         <header className={styles.containerHeader}>
 
