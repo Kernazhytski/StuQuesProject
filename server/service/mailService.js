@@ -13,8 +13,7 @@ class MailService {
             }
         })
     }
-    async sendActivationMail(email, code) {
-        console.log(process.env.SMTP_USER, process.env.SMTP_PASSWORD)
+    async sendActivationMail(email, link) {
         await this.transporter.sendMail({
             from: process.env.SMTP_USER,
             to: email,
@@ -22,8 +21,10 @@ class MailService {
             text: '',
             html: `
                 <div>
-                    <h1>Код для активации: </h1>
-                    <p>${code}</p>
+                    <h1>Перейдите по ссылке для активации </h1>
+                    <div>
+                        <a href="${link}">${link}</a>
+                    </div>
                 </div>
             `
         })

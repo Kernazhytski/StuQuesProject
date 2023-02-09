@@ -1,9 +1,14 @@
-//const { User } = require('../models');
+const { User } = require('../models');
 
 class UserController {
-
-    async register(req, res) {
-        res.send()
+    async getAllUsers(req, res) {
+        const allUsers = await User.findAll();
+        return allUsers
+    }
+    async getOneuser(req, res) {
+        const {id} = req.params;
+        const surchUser = await User.findAll({where: {id}});
+        return surchUser
     }
 }
 

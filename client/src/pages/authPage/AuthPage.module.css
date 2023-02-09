@@ -39,6 +39,20 @@
 }
 
 
+.mistake {
+    color: red;
+    display: none;
+}
+.passwordMistake {
+    display: block;
+}
+.nicknameMistake {
+    display: block;
+}
+.emailMistake {
+    display: block;
+}
+
 @media screen and (max-width: 915px) {
     .loginCard {
         width: 100%;

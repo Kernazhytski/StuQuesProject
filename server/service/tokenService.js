@@ -4,6 +4,22 @@ require('dotenv').config();
 const { Token } = require('../models')
 
 class TokenService {
+    validateAccessToken(token) {
+        try {
+            const userData = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
+            return userData
+        } catch (error) {
+            return null
+        }
+    }
+    validateRefreshToken(token) {
+        try {
+            const userData = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
+            return userData
+        } catch (error) {
+            return null
+        }
+    }
     //Функция генерирует два токена и возвращает их
     generateToken(payload) {
         const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET, {expiresIn: '1d'});
@@ -22,6 +38,15 @@ class TokenService {
             await tokenCandidate.update({refreshToken})
         }
         const token = await Token.create({userId, refreshToken});
+        return token
+    }
+
+    async removeToken(refreshToken) {
+        const removedToken = await Token.destroy({where: {refreshToken}});
+        return removedToken
+    }
+    async findToken(refreshToken) {
+        const token = await Token.findOne({where: {refreshToken}});
         return token
     }
 }

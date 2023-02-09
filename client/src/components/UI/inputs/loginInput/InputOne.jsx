@@ -2,9 +2,9 @@ import React from 'react';
 
 import styles from './InputOne.module.css'
 
-const InputOne = ({placeholder}) => {
+const InputOne = (props) => {
     return (
-        <input className={styles.inp} placeholder={placeholder}></input>
+        <input className={styles.inp} {...props}></input>
     );
 };
 
