@@ -8,6 +8,7 @@ import InputOne from "../../components/UI/inputs/loginInput/InputOne";
 import {observer} from 'mobx-react-lite'
 import styles from './AuthPage.module.css'
 import { Context } from '../../index';
+import EmailNotify from "../../components/UI/notifications/emailNotify/EmailNotify";
 
 const AuthPage = () => {
   const loginPage = useLocation().pathname.split('/').reverse()[0];
@@ -21,6 +22,8 @@ const AuthPage = () => {
   const emailMistake = useRef();
   const passwordMistake = useRef();
   const nicknameMistake = useRef();
+
+  const [flag, setFlag] = useState(false)
 
   const validateEmail = (email) => {
     let re = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
@@ -57,6 +60,7 @@ const AuthPage = () => {
 
   return (
     <div className={styles.con}>
+      <EmailNotify active={flag} setActive={setFlag}/>
         {
         loginPage !== 'register'
         ?
@@ -112,6 +116,7 @@ const AuthPage = () => {
               if(response) {
                 store.register(email, password, nickname);
               }
+              setFlag(true);
             }}>
               Зарегистрироваться
           </ButtonOne>
