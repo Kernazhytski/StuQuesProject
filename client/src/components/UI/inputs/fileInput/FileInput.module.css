@@ -1,9 +1,8 @@
 #fileInput {
     display: none;
-
 }
 .labelInp {
-    display: block;
+    display: inline-block;
     text-align: center;
     width: 300px;
     height: 50px;
@@ -20,9 +19,9 @@
     background-color: #026670;
     color: white;
     border: 2px dashed #9FEDD7;
-} 
+}
 .labelInpAct {
-    display: block;
+    display: inline-block;
     text-align: center;
     width: 300px;
     height: 50px;
@@ -34,4 +33,38 @@
     background-color: #026670;
     color: white;
     border: 2px dashed #9FEDD7;
+}
+
+.text{
+    padding: 0;
+    margin: 0;
+    line-height: 25px;
+}
+.text2{
+    margin-block-start: 0;
+    margin-block-end: 0;
+    font-family: Girloy-light;
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+.imgs{
+    width: 100px;
+}
+
+.label_error{
+    color: red;
+}
+
+.knopkaDel{
+    display: inline-block;
+    float: left;
+    content:url("../../../../assets/pictures/sprites/delete.png");
+    width: 50px;
+    cursor: pointer;
+}
+.knopkaDel:hover{
+    content: url("../../../../assets/pictures/sprites/deleteA.png");
 }

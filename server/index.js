@@ -8,12 +8,14 @@ const models = require('./models');
 
 const questionRouter = require('./routes/questionRoutes')
 const authRouter = require('./routes/authRoutes')
+const fileUpload = require("express-fileupload")
 
 require('dotenv').config()
 
 const app = express();
 const PORT = process.env.PORT || 2000;
 
+app.use(fileUpload({}))
 app.use(cors({
     credentials: true,
     origin: process.env.CLIENT_URL
