@@ -13,7 +13,8 @@ const QuesstionHasBeenSent = ({active,setActive}) => {
     return (
         <div className={active ? styles.activefon : styles.fon} onClick={relocate}>
             <div className={active?  styles.formac : styles.form} onClick={event => event.stopPropagation()}>
-                <p>Вопрос успешно отправлен!</p><br/>
+                <p>Вопрос успешно отправлен!</p>
+                <br/>
                 <ButtonOne width={"100px"} onClick={relocate}>Хорошо</ButtonOne>
             </div>
         </div>
