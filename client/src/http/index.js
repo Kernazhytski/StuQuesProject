@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-
-
 const $api = axios.create({
     //автоматическое добавление куки к каждому запросу
     withCredentials: true,
@@ -14,7 +12,7 @@ $api.interceptors.request.use((config) => {
     return config
 });
 
-//
+//Перехватывает ответы от сервера с ошибкой и обновляет токен
 $api.interceptors.response.use((config) => {
     return config
 }, async (error) => {
@@ -22,11 +20,12 @@ $api.interceptors.response.use((config) => {
     if(error.response.status === 401 && error.config && !error.config._isRetry){
         originalRequest._isRetry = true
         try {
-            const response = await axios(`${process.env.REACT_APP_SERVER_URL}/refresh`, {whithCredentials: true});
+            const response = await axios(`${process.env.REACT_APP_SERVER_URL}/auth/refresh`, {withCredentials: true});
+            console.log(response.data)
             localStorage.setItem('token', response.data.accessToken);
             return $api.request(originalRequest)       
         } catch (error) {
-            console.log('Не авторизован')
+            console.log(error)
         }
     }
     throw error

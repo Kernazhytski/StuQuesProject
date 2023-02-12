@@ -11,6 +11,9 @@ class AuthController {
             const userData = await userService.registretion(email, password, nickname);
             //httpOnly не позволяет получать/изменять куки из фронтенда (для http)
             //secure для hhtps
+            if(userData.success === false) {
+                return res.json({success: false, message: userData.message, problem: userData.problem})
+            }
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 60 * 24 * 60 * 60 * 1000, httpOnly: true, secure: true})
             return res.json({success: true, message: 'Регистрация прошла успешно.', userData});
         } catch(e) {
@@ -22,14 +25,15 @@ class AuthController {
             const {email, password} = req.body;
             const userData = await userService.login(email, password);
             if(!userData.success) {
-                return res.json(userData) 
+                return res.json(userData)
             }
+
             //httpOnly не позволяет получать/изменять куки из фронтенда (для http)
             //secure для hhtps
-            console.log(userData.refreshToken)
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 60 * 24 * 60 * 60 * 1000, httpOnly: true, secure: true})
             return res.json({success: true, message: 'Авторизация прошла успешно.', userData});
         } catch(e) {
+            console.log(e)
             res.json({success: false, message: 'Ошибка при авторизации пользователя.', error: e});
         }
     }
@@ -55,10 +59,11 @@ class AuthController {
     async refresh(req, res, next) {
         try {
             const {refreshToken} = req.cookies;
-            const userData = tokenService.refresh(refreshToken);
+            const userData = await userService.refresh(refreshToken);
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 60 * 24 * 60 * 60 * 1000, httpOnly: true, secure: true})
-            return res.json({success: true, message: 'Токен успешно обновлён.', userData});
+            return res.json(userData);
         } catch(e) {
+            console.log(e)
             res.json({success: false, message: 'Ошибка при обновлении токена.', error: e})
         }
     }

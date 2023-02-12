@@ -18,9 +18,20 @@ export default class Store {
     async login(email, password) {
         try {
             const response = await AuthService.login(email, password);
-            localStorage.setItem('token', response.data.accessToken);
-            this.setAuth(true);
-            this.setUser(response.data.user);
+            if(response.data.success) {
+                localStorage.setItem('token', response.data.userData.accessToken);
+                this.setAuth(true);
+                this.setUser(response.data.userData.message);
+                return {
+                    success: true
+                }                
+            }
+            return {
+                success: false,
+                message: response.data.message,
+                problem: response.data.problem
+            }   
+
         } catch (e) {
             console.log(e)
         }
@@ -28,9 +39,19 @@ export default class Store {
     async register(email, password, nickname) {
         try {
             const response = await AuthService.register(email, password, nickname);
-            localStorage.setItem('token', response.data.accessToken);
-            this.setAuth(true);
-            this.setUser(response.data.user);
+            if(response.data.success) {
+                localStorage.setItem('token', response.data.userData.accessToken);
+                this.setAuth(true);
+                this.setUser(response.data.userData.message);
+                return {
+                    success: true
+                }              
+            }
+            return {
+                success: false,
+                message: response.data.message,
+                problem: response.data.problem
+            }    
         } catch (e) {
             console.log(e)
         }
@@ -48,7 +69,7 @@ export default class Store {
 
     async checkAuth() {
         try {
-            const response = await axios(`${process.env.REACT_APP_SERVER_URL}/refresh`, {whithCredentials: true});
+            const response = await axios(`${process.env.REACT_APP_SERVER_URL}/auth/refresh`, {withCredentials: true});
             localStorage.setItem('token', response.data.accessToken);
             this.setAuth(true);
             this.setUser(response.data.user);

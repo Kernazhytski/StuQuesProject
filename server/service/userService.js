@@ -17,7 +17,8 @@ class UserService {
         if(candidate) {
             return {
                 success: false,
-                message: `Пользователь с почтовым адресом ${email} уже зарегистрирован.`
+                message: `Пользователь с почтовым адресом ${email} уже зарегистрирован`,
+                problem: 'email'
             }
         }
         //Если нет, то хешируем пароль, создаём ссылку-активатор, которую отправим на почту для активации аккаунта
@@ -57,7 +58,22 @@ class UserService {
         if(!user) {
             return {
                 success: false,
-                message: `Пользователь с почтовым адресом ${email} не найден.`
+                message: `Пользователь с почтовым адресом ${email} не найден`,
+                problem: 'email'
+            }
+        }
+        if(!user.isActivated) {
+            return {
+                success: false,
+                message: `Пользователь не активирован`,
+            }
+        }
+        const compare = bcrypt.compareSync(password, user.password);
+        if(!compare) {
+            return {
+                success: false,
+                message: `Неверный пароль`,
+                problem: 'password'
             }
         }
         const tokens = TokenService.generateToken({userId :user.id, email, isActivated: user.isActivated});
@@ -70,11 +86,11 @@ class UserService {
         } 
     }
     async logout(refreshToken) {
-        //console.log(refreshToken)
         const token = TokenService.removeToken(refreshToken);
         return token
     }
     async refresh(refreshToken) {
+        
         if(!refreshToken) {
             return {
                 success: false,
@@ -82,16 +98,15 @@ class UserService {
             } 
         }
         const userData = tokenService.validateRefreshToken(refreshToken);
-        const tokenFromDd = tokenService.findToken(refreshToken);
+        const tokenFromDd = await tokenService.findToken(refreshToken);
         if(!userData || !tokenFromDd) {
             return {
                 success: false,
                 message: `Ошибка при проверке токена.`
             }   
         }
-
-        const user = User.findOne({where: {id: userData.id}})
-        const tokens = TokenService.generateToken({userId :user.id, email, isActivated: user.isActivated});
+        const user = await User.findOne({where: {id: userData.userId}})
+        const tokens = TokenService.generateToken({userId :user.id, email: user.email, isActivated: user.isActivated});
         //Отправляем refresh токен в базу данных
         await TokenService.saveToken(user.id, tokens.refreshToken);
         return {

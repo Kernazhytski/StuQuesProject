@@ -1,10 +1,10 @@
 import $api from '../http/index';
 
 export default class UserService {
-    async getAllUsers() {
-        return $api.get('/getAllUsers')
+    static async getAllUsers() {
+        return $api.get('/users/getAllUsers')
     }
-    async getOneUser() {
-        return $api.get('/getOneUser')
+    static async getOneUser() {
+        return $api.get('/users/:id')
     }
 }
