@@ -24,11 +24,10 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(express.static(path.resolve(__dirname, 'static', 'usersAvatars')));
-
+app.use(express.static(path.resolve(__dirname, 'files', 'images')));
 
 
 app.use('/question',questionRouter)
-
 app.use('/auth', authRouter);
 
 

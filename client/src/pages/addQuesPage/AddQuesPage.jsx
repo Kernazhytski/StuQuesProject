@@ -24,7 +24,7 @@ export const AddQuesPage = () => {
 
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
-    const [subject, setSubject] = useState('')
+    const [subject, setSubject] = useState('Математика')
     const [files, setFiles] = useState([])
     const [userId, setUserId] = useState('1')
 
@@ -41,6 +41,13 @@ export const AddQuesPage = () => {
         filedata.append('description',description)
         filedata.append('subject',subject)
         filedata.append('userId',userId)
+        /*axios.post('http://localhost:2000/question/add',{title,description,subject,userId},filedata)
+            .then(response => {
+                console.log(response)
+            })
+            .catch(error => {
+                console.log(error)
+            });*/
 
         axios.post('http://localhost:2000/question/add',filedata)
             .then(response => {

@@ -88,7 +88,8 @@ const FileInput = (props) => {
                 <p className={styles.text2}>Максимум 3</p>
             </label>
             }
-            {URLimages.map((imageSRC, index) => <img key={index} src={imageSRC} className={styles.imgs}/>)
+            {
+                URLimages.map((imageSRC, index) => <img key={index} src={imageSRC} className={styles.imgs}/>)
             }
             {images.length > 0 && <div className={styles.knopkaDel} onClick={clearImages}></div>}
             <label className={styles.label_error} hidden={flag}> Достигнут лимит картинок</label>

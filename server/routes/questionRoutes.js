@@ -1,11 +1,11 @@
 const Router = require('express');
-const QuestionController = require('../controllers/questionsController');
-const authMiddleware = require('../middlewares/authMiddleware');
+const QuestionController = require('../controllers/questionsController')
 
 const router = new Router();
 
 
-router.post('/add', authMiddleware, QuestionController.add);
-router.get('/list', QuestionController.list);
+router.post('/add',QuestionController.add);
+router.get("/list",QuestionController.list);
+router.get("/getQuestion/:id",QuestionController.getQues)
 
 module.exports = router;
