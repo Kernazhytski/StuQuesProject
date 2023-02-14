@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { ADD_QUES, ALL_USERS, MAIN_ROUTE, MY_ANSW, MY_QUES } from '../../utils/routes'
-
+import SelectAddQuestion from "../UI/selects/selectAddQuestion/selectAddQuestion";
 import styles from './SideBar.module.css'
 
-export const SideBar = () => {
+export const SideBar = (props) => {
 
     const location = "/"+useLocation().pathname.split('/').reverse()[0];
     return (

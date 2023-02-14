@@ -41,13 +41,6 @@ export const AddQuesPage = () => {
         filedata.append('description',description)
         filedata.append('subject',subject)
         filedata.append('userId',userId)
-        /*axios.post('http://localhost:2000/question/add',{title,description,subject,userId},filedata)
-            .then(response => {
-                console.log(response)
-            })
-            .catch(error => {
-                console.log(error)
-            });*/
 
         axios.post('http://localhost:2000/question/add',filedata)
             .then(response => {
@@ -82,7 +75,7 @@ export const AddQuesPage = () => {
                         <FileInput update={updateData}/>
                         <p className={styles.title}>Предмет</p>
                         <p className={styles.discribtion}>Выберите учебный предмет, к которому относится этот вопрос</p>
-                        <SelectAddQuestion onChange={e => setSubject(e.target.value)} value={subject.value}/>
+                        <SelectAddQuestion onChange={e => setSubject(e.target.value)} value={subject.value} />
                     </div>
 
                     <ButtonOne onClick={post} width={"125px"}>Отправить</ButtonOne>

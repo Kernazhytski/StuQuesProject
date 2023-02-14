@@ -2,6 +2,7 @@ const {Question} = require('../models');
 const fs = require('fs')
 const path = require('path')
 const imageUploadPath = path.resolve(__dirname, '..', 'files', 'images');
+const {Op} = require('sequelize')
 
 class QuestionsController {
 
@@ -60,7 +61,65 @@ class QuestionsController {
     }
 
     async list(req, res) {
-        res.send(await Question.findAll()).json
+        var titS = req.query.titleSearch;
+        var subS = req.query.sub;
+        console.log(titS)
+        console.log(subS)
+        if (titS === "" || titS ==undefined) {
+            if (subS === "Все" || subS==undefined) {
+                res.send(await Question.findAll()).json
+            } else {
+                res.send(await Question.findAll(
+                    {
+                        where: {
+                            subject: subS
+                        }
+                    }
+                )).json
+            }
+        } else {
+            if (subS === "Все" || subS==undefined) {
+                res.send(await Question.findAll(
+                    {
+                        where: {
+                            [Op.or]: [
+                                {
+                                    title: {
+                                        [Op.substring]: titS
+                                    }
+                                }, {
+                                    description: {
+                                        [Op.substring]: titS
+                                    }
+                                }]
+                        }
+                    }
+                )).json
+            } else {
+                res.send(await Question.findAll(
+                    {
+                        where: {
+                            [Op.and]: [
+                                {
+                                    [Op.or]: [
+                                        {
+                                            title: {
+                                                [Op.substring]: titS
+                                            }
+                                        }, {
+                                            description: {
+                                                [Op.substring]: titS
+                                            }
+                                        }]
+                                }, {
+                                    subject: subS
+                                }
+                            ]
+                        }
+                    }
+                )).json
+            }
+        }
     }
 }
 
