@@ -11,7 +11,7 @@ function App() {
   const {store} = useContext(Context);
   useEffect(() => {
     if(localStorage.getItem('token')){
-      store.checkAuth()
+      //store.checkAuth()
     }
   }, [])
   return (

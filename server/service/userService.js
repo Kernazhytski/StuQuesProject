@@ -82,7 +82,7 @@ class UserService {
         return {
             success: true,
             ...tokens,
-            message: user
+            userData: {avatarImg: user.avatarImg, ban: user.ban, email: user.email, nickname: user.nickname, role: user.role, score: user.score}
         } 
     }
     async logout(refreshToken) {
@@ -99,6 +99,8 @@ class UserService {
         }
         const userData = tokenService.validateRefreshToken(refreshToken);
         const tokenFromDd = await tokenService.findToken(refreshToken);
+        //console.log(refreshToken)
+        //console.log(tokenFromDd)
         if(!userData || !tokenFromDd) {
             return {
                 success: false,
@@ -108,11 +110,11 @@ class UserService {
         const user = await User.findOne({where: {id: userData.userId}})
         const tokens = TokenService.generateToken({userId :user.id, email: user.email, isActivated: user.isActivated});
         //Отправляем refresh токен в базу данных
-        await TokenService.saveToken(user.id, tokens.refreshToken);
+        //await TokenService.saveToken(user.id, tokens.refreshToken);
         return {
             success: true,
             ...tokens,
-            message: user
+            user
         } 
     }
 }

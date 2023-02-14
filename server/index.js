@@ -30,7 +30,7 @@ app.use(express.static(path.resolve(__dirname, 'static', 'usersAvatars')));
 
 
 
-app.use('/question',questionRouter)
+app.use('/questions',questionRouter)
 
 app.use('/auth', authRouter);
 app.use('/users', userRoter);

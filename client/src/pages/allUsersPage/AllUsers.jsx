@@ -8,9 +8,13 @@ import styles from "./AllUsers.module.css";
 import UserService from '../../service/UserService';
 
 const AllUsers = () => {
+  useMemo(async () => {
+      const response = await UserService.getAllUsers();
+      console.log(response)    
+  })
   const getAllUsers = async() => {
     const response = await UserService.getAllUsers();
-    console.log(response)
+    console.log(response) 
   }
   return (
       <div className={styles.wrapper}>

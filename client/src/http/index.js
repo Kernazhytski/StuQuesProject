@@ -21,7 +21,6 @@ $api.interceptors.response.use((config) => {
         originalRequest._isRetry = true
         try {
             const response = await axios(`${process.env.REACT_APP_SERVER_URL}/auth/refresh`, {withCredentials: true});
-            console.log(response.data)
             localStorage.setItem('token', response.data.accessToken);
             return $api.request(originalRequest)       
         } catch (error) {

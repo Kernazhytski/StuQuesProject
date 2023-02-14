@@ -8,7 +8,7 @@ const User = sequalize.define('user', {
     nickname: {type: DataTypes.STRING(20), allowNull: false}, 
     email: {type: DataTypes.STRING(255), allowNull: false, unique: true}, 
     password: {type: DataTypes.STRING(255), allowNull: false}, 
-    avatarImg: {type: DataTypes.STRING(255), defaultValue: 'defaultAvatar.jpg'},
+    avatarImg: {type: DataTypes.STRING(255), defaultValue: 'defaultAvatar.png'},
     ban: {type: DataTypes.BOOLEAN, defaultValue: false},
     score: {type: DataTypes.INTEGER, defaultValue: 0},
     isActivated: {type: DataTypes.BOOLEAN, defaultValue: false},
