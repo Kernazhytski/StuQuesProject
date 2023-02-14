@@ -27,10 +27,12 @@ app.use(express.json());
 
 
 app.use(express.static(path.resolve(__dirname, 'static', 'usersAvatars')));
+app.use(express.static(path.resolve(__dirname, 'files', 'images')));
 
 
 
 app.use('/questions',questionRouter)
+
 
 app.use('/auth', authRouter);
 app.use('/users', userRoter);

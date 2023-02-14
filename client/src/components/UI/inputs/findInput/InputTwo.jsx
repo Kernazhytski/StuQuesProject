@@ -2,9 +2,9 @@ import React from 'react';
 
 import styles from './InputTwo.module.css'
 
-const InputTwo = ({width,placeholder}) => {
+const InputTwo = (props) => {
     return (
-        <input className={styles.inp} style={{width}} placeholder={placeholder}/>
+        <input className={styles.inp} style={{width:props.width}} placeholder={props.placeholder} {...props}/>
     );
 };
 

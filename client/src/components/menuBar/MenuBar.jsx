@@ -1,6 +1,8 @@
+
 import React, { useContext, useMemo, useRef, useState } from 'react'
 import { useNavigate} from 'react-router-dom'
 import {observer} from 'mobx-react-lite'
+
 
 import { Context } from '../../index';
 import ButtonOne from "../UI/buttons/button1/ButtonOne";
@@ -10,6 +12,18 @@ import DropDown from '../dropDown/DropDown';
 import styles from './MenuBar.module.css'
 
 const MenuBar = () => {
+    const [state, setState] = useState("")
+    const keyPress = (e) => {
+        if (e.keyCode == 13) {
+            setState(e.target.value)
+            console.log(e.target.value)
+            props.changeS(e.target.value)
+        }
+    }
+
+    const change = (e) => {
+        setState(e.target.value)
+    }
     const [userData, setUserData] = useState({});
     const [showDropDown, setShowDropdow] = useState(false);
     const triangle = useRef()
@@ -55,13 +69,15 @@ const MenuBar = () => {
     }
 
 
+
     return (
         <header className={styles.containerHeader}>
 
             <div className={styles.container}>
                 <div className={styles.logo} onClick={logoClick}/>
                 <div className={styles.containerInput}>
-                    <InputTwo placeholder={"Поиск"}></InputTwo>
+                    <InputTwo value={state} placeholder={"Поиск"} onKeyDown={e => keyPress(e)}
+                              onChange={e => change(e)} value={state}></InputTwo>
                     <div className={styles.lupa}></div>
                 </div>
 

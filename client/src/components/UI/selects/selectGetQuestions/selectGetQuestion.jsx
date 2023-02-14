@@ -1,9 +1,10 @@
 import React from 'react';
-import styles from './selectAddQuestion.module.css'
+import styles from './selectGetQuestion.module.css'
 
-const SelectAddQuestion = (props) => {
+const SelectGetQuestion = (props) => {
     return (
         <select className={styles.inp} {...props} required={true} >
+            <option>Все</option>
             <option>Математика</option>
             <option>Философия</option>
             <option>Физика</option>
@@ -13,4 +14,4 @@ const SelectAddQuestion = (props) => {
     );
 };
 
-export default SelectAddQuestion;
+export default SelectGetQuestion;

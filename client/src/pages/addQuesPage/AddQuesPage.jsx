@@ -24,7 +24,7 @@ export const AddQuesPage = () => {
 
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
-    const [subject, setSubject] = useState('')
+    const [subject, setSubject] = useState('Математика')
     const [files, setFiles] = useState([])
     const [userId, setUserId] = useState('1')
 
@@ -75,7 +75,7 @@ export const AddQuesPage = () => {
                         <FileInput update={updateData}/>
                         <p className={styles.title}>Предмет</p>
                         <p className={styles.discribtion}>Выберите учебный предмет, к которому относится этот вопрос</p>
-                        <SelectAddQuestion onChange={e => setSubject(e.target.value)} value={subject.value}/>
+                        <SelectAddQuestion onChange={e => setSubject(e.target.value)} value={subject.value} />
                     </div>
 
                     <ButtonOne onClick={post} width={"125px"}>Отправить</ButtonOne>
