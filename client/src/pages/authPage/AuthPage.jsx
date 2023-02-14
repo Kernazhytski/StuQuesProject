@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import classNames from 'classnames';
 
 import { LOG_ROUTE, REG_ROUTE } from '../../utils/routes'
@@ -8,14 +8,20 @@ import InputOne from "../../components/UI/inputs/loginInput/InputOne";
 import {observer} from 'mobx-react-lite'
 import styles from './AuthPage.module.css'
 import { Context } from '../../index';
-import EmailNotify from "../../components/UI/notifications/emailNotify/EmailNotify";
+import PopupEmail from "../../components/UI/notifications/emailNotify/PopupEmail";
 
 const AuthPage = () => {
+  const loc = useNavigate();
+
+  const loginClick=()=> {
+      loc('/')
+  }
   const loginPage = useLocation().pathname.split('/').reverse()[0];
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [nickname, setNickname] = useState('');
+  const [popupText, setPopupText] = useState('');
 
   let success = true
 
@@ -55,17 +61,36 @@ const AuthPage = () => {
     return success
   }
 
+  const checkLogin = (email, password) => {
+    if(!validateEmail(email)) {
+      emailMistake.current.style.display = 'block';
+      success = false;
+    }
+    else {
+      emailMistake.current.style.display = 'none';
+    }
+    if(String(password).length < 5 || String(password).length > 20) {
+      passwordMistake.current.style.display = 'block';               
+      success = false;
+    }
+    else {
+      passwordMistake.current.style.display = 'none';
+    }
+    return success
+  }
+
 
   const {store} = useContext(Context);
 
   return (
     <div className={styles.con}>
-      <EmailNotify active={flag} setActive={setFlag}/>
+      <PopupEmail active={flag} setActive={setFlag} popupText={popupText}/>
         {
         loginPage !== 'register'
         ?
         <form className={styles.loginCard} onSubmit={(e) => {e.preventDefault()}} >
           <p className={styles.txt}>Электронная почта:</p>
+          <p className={styles.mistake} ref={emailMistake}>Указанный адрес электронной почты не валиден.</p>
           <InputOne 
             width={"100%"} 
             placeholder={"Введите почту"} 
@@ -73,6 +98,7 @@ const AuthPage = () => {
             onChange={(e) => {setEmail(e.target.value)}}
             type={'text'}/>
           <p className={styles.txt}>Пароль:</p>
+          <p className={styles.mistake} ref={passwordMistake}>Пароль должен содержать от 5 до 20 символов.</p>
           <InputOne 
             width={"100%"} 
             placeholder={"Введите пароль"} 
@@ -80,12 +106,43 @@ const AuthPage = () => {
             onChange={(e) => {setPassword(e.target.value)}} 
             type={'password'}/>
           <p className={styles.link}>Нет аккаунта? <Link to={REG_ROUTE}> Зарегистрироваться</Link></p>
-          <ButtonOne width={"100%"} onClick={() => store.login(email, password)}>Авторизоваться</ButtonOne>
+          <ButtonOne width={"100%"} onClick={async () => {
+            const response = checkLogin(email, password);
+            if(response) {
+              const response = await store.login(email, password);
+              if(response.success) {
+                setEmail('');
+                setPassword('');
+                loginClick()
+              } 
+              else {
+                if(response.problem === 'email') {
+                  emailMistake.current.innerHTML = response.message
+                  emailMistake.current.style.display = 'block';
+                }
+                if(response.problem === 'password') {
+                  passwordMistake.current.innerHTML = response.message
+                  passwordMistake.current.style.display = 'block';
+                }
+                if(response.problem === undefined) {
+                  setPopupText(response.message)
+                  setFlag(true);
+                }      
+              }
+
+              //console.log(response)
+            }
+            //const response = await store.login(email, password);
+            //console.log(1)
+
+            }}>
+              Авторизоваться
+            </ButtonOne>
         </form>
         :
         <form className={styles.loginCard} onSubmit={(e) => {e.preventDefault()}}>
           <p className={styles.txt}>Никнейм:</p>
-          <p className={styles.mistake} ref={nicknameMistake}>Никнейм должен содержать от 3 до 20 символов.</p>
+          <p className={styles.mistake} ref={nicknameMistake}>Никнейм должен содержать от 5 до 20 символов.</p>
           <InputOne 
             width={"100%"} 
             placeholder={"Введите никнейм"} 
@@ -101,7 +158,7 @@ const AuthPage = () => {
             onChange={(e) => {setEmail(e.target.value)}}
             type={'text'}/>
           <p className={styles.txt}>Пароль:</p>
-          <p className={styles.mistake} ref={passwordMistake}>Пароль должен содержать от 3 до 20 символов.</p>
+          <p className={styles.mistake} ref={passwordMistake}>Пароль должен содержать от 5 до 20 символов.</p>
           <InputOne 
             width={"100%"} 
             placeholder={"Введите пароль"} 
@@ -111,12 +168,34 @@ const AuthPage = () => {
           <p className={styles.link}>Есть аккаунт?<Link to={LOG_ROUTE}> Авторизоваться</Link></p>
           <ButtonOne 
             width={"100%"}
-            onClick={() => {
+            onClick={async () => {
               const response = checkRegister(email, password, nickname)
               if(response) {
-                store.register(email, password, nickname);
+                const response = await store.register(email, password, nickname);
+                if(response.success) {
+                  setPopupText('Ссылка отправлена на почту')
+                  setFlag(true);
+                  setEmail('');
+                  setNickname('');
+                  setPassword('');                  
+                }
+                else {
+                  //console.log(response)
+                  if(response.problem === 'email') {
+                    emailMistake.current.innerHTML = response.message
+                    emailMistake.current.style.display = 'block';
+                  }
+                  if(response.problem === 'password') {
+                    passwordMistake.current.innerHTML = response.message
+                    passwordMistake.current.style.display = 'block';
+                  }
+                  if(response.problem === undefined) {
+                    setPopupText(response.message)
+                    setFlag(true);
+                  }
+                }
+
               }
-              setFlag(true);
             }}>
               Зарегистрироваться
           </ButtonOne>

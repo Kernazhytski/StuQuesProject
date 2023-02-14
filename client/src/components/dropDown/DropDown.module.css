@@ -1,0 +1,29 @@
+.dropDown {
+    position: absolute;
+    padding: 20px;
+    background-color: #222;
+    top: 55px;
+    left: 0;
+    animation: dropDownShow 0.7s  ;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+ul {
+    position: relative;
+}
+
+.listItem {
+    color: white;
+    font-size: 14px;
+    padding: 10px 0 10px 0;
+    cursor: pointer;
+}
+@keyframes dropDownShow {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
