@@ -7,4 +7,7 @@ export default class UserService {
     static async getOneUser() {
         return $api.get('/users/:id')
     }
+    static async editProfile(userId) {
+        return $api.get(`/users/editUser/${userId}`)
+    }
 }

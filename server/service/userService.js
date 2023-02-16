@@ -36,7 +36,15 @@ class UserService {
         return {
             success: true,
             ...tokens,
-            message: newUser
+            userData: {id: newUser.id,
+                        avatarImg: newUser.avatarImg, 
+                        ban: newUser.ban, 
+                        email: newUser.email, 
+                        nickname: newUser.nickname, 
+                        role: newUser.role, 
+                        score: newUser.score, 
+                        aboutMe: newUser.aboutMe
+                    }
         }
     }
     async activate(activationLink) {
@@ -82,7 +90,15 @@ class UserService {
         return {
             success: true,
             ...tokens,
-            userData: {avatarImg: user.avatarImg, ban: user.ban, email: user.email, nickname: user.nickname, role: user.role, score: user.score}
+            userData: {id: user.id,
+                        avatarImg: user.avatarImg, 
+                        ban: user.ban,
+                        email: user.email, 
+                        nickname: user.nickname, 
+                        role: user.role, 
+                        score: user.score,
+                        aboutMe: user.aboutMe
+                    }
         } 
     }
     async logout(refreshToken) {

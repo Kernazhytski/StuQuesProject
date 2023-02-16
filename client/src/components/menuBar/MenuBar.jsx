@@ -11,7 +11,7 @@ import DropDown from '../dropDown/DropDown';
 
 import styles from './MenuBar.module.css'
 
-const MenuBar = () => {
+const MenuBar = (props) => {
     const [state, setState] = useState("")
     const keyPress = (e) => {
         if (e.keyCode == 13) {
@@ -24,21 +24,21 @@ const MenuBar = () => {
     const change = (e) => {
         setState(e.target.value)
     }
-    const [userData, setUserData] = useState({});
     const [showDropDown, setShowDropdow] = useState(false);
     const triangle = useRef()
     const loc = useNavigate();
     const {store} = useContext(Context);        
     const body = document.querySelector('body');
-    body.addEventListener('click', () => {
-        triangle.current.className = styles.trianglePassive
-        setShowDropdow(false)
-    })
+    if(triangle.current != undefined) {
+        body.addEventListener('click', () => {
+            triangle.current.className = styles.trianglePassive
+            setShowDropdow(false)
+        })
+    }
     useMemo(async () => {
-
         store.checkAuth2()
-        console.log(store.user)
-        console.log(store.isAuth)
+        //console.log(store.user)
+        //console.log(store.isAuth)
         /*.log(Boolean(localStorage.getItem('token')))
         if(localStorage.getItem('token') !== 'undefined') {
             setUserData(JSON.parse(localStorage.getItem('userData')).userData);
@@ -77,7 +77,7 @@ const MenuBar = () => {
                 <div className={styles.logo} onClick={logoClick}/>
                 <div className={styles.containerInput}>
                     <InputTwo value={state} placeholder={"Поиск"} onKeyDown={e => keyPress(e)}
-                              onChange={e => change(e)} value={state}></InputTwo>
+                              onChange={e => change(e)}></InputTwo>
                     <div className={styles.lupa}></div>
                 </div>
 

@@ -15,6 +15,9 @@ export default class Store {
     setUser(user) {
         this.user = user;
     }
+    async changeNickname(nickname) {
+        this.user.nickname = nickname
+    }
     async login(email, password) {
         try {
             const response = await AuthService.login(email, password);
@@ -43,6 +46,7 @@ export default class Store {
             const response = await AuthService.register(email, password, nickname);
             if(response.data.success) {
                 localStorage.setItem('token', response.data.userData.accessToken);
+                localStorage.setItem('userData', JSON.stringify(response.data.userData))
                 this.setAuth(true);
                 this.setUser(response.data.userData.message);
                 return {

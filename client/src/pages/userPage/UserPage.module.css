@@ -1,0 +1,96 @@
+.wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.main {
+    padding-top: 50px;
+    position: relative;
+    flex: 1 1 auto;
+    width: 1400px;
+    margin: 0 auto 0 auto;
+    display: flex;
+    flex-direction: row;
+    z-index: 1;
+}
+.userAvatar {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+}
+.userInfo {
+    display: flex;
+    flex-direction: row;
+}
+.container {
+    padding-left: 50px;
+    margin-left: 10px;
+    border-left: 1px solid #000;
+    width: 70%;
+    padding-bottom: 30px;
+}
+.userNickname {
+    font-size: 36px;
+    font-weight: 100;
+}
+.statistics {
+    width: 30%;
+    border: 1px solid #026670;
+    padding: 10px;
+    border-radius: 20px;
+    margin-right: 30px;
+    height: 140px;
+}
+.statisticsText {
+    font-family: Girloy-light;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 17px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+.userBlock {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+.statisticsNumb {
+    font-family: Girloy-bold;
+}
+.inpContainer {
+    width: auto;
+}
+.userDetailedIndo {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.txtArContainer {
+    width: 100%;
+}
+.aboutMe {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+.empty {
+    font-family: Girloy-light;
+    font-size: 20px;
+    color: grey;
+    height: 100%;
+}
+.descrContainer {
+    padding-top: 10px;
+    width: 100%;
+}
+.userAvatarChange {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.fileInp {
+    display: none;
+}

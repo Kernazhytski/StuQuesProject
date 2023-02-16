@@ -1,14 +1,24 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import ButtonOne from '../UI/buttons/button1/ButtonOne';
+import { observer } from 'mobx-react-lite';
 
+import { Context } from '../../index';
 import styles from './DropDown.module.css'
+import { USER_PAGE } from '../../utils/routes';
 
 const DropDown = ({...props}) => {
-  //console.log(props.leaveAccount)
+
+  
+  const {store} = useContext(Context);
+  console.log(`allUsers/${store.user.id}`)
   return (
     <div className={styles.dropDown} onClick={e => e.stopPropagation()}>
         <ul>
+            <li className={styles.listItem}>
+              <Link to={`/allUsers/${store.user.id}`}>Учётная запись</Link>
+            </li>
             <li className={styles.listItem}>Настройки</li>
             <li className={styles.listItem}>Помощь</li>
             <li className={styles.listItem}>
@@ -19,4 +29,4 @@ const DropDown = ({...props}) => {
   )
 }
 
-export default DropDown
+export default observer(DropDown)
