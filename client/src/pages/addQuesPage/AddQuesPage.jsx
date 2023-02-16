@@ -72,7 +72,7 @@ export const AddQuesPage = () => {
                     <div className={styles.enterForm}>
                         <p className={styles.title}>Заголовок</p>
                         <p className={styles.discribtion}>Вкратце опишите суть проблемы</p>
-                        <InputThree onChange={e => setTitle(e.target.value)} value={title}/>
+                        <InputThree changeValue={e => setTitle(e.target.value)} value={title}/>
                         <p className={styles.title}>Вопрос</p>
                         <p className={styles.discribtion}>Подробно опишите проблему и что вы делали, чтобы решить ее</p>
                         <TextAreaOne onChange={e => setDescription(e.target.value)} value={description}/>
