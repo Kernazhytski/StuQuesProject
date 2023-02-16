@@ -16,6 +16,11 @@ const MainPage = () => {
         setSearch(value)
     }
 
+    function changeSub(value) {
+        setSubject(value)
+    }
+
+
     return (
         <div className={styles.wrapper}>
             <MenuBar changeS={changeSearch}/>
@@ -23,9 +28,9 @@ const MainPage = () => {
                 <SideBar/>
                 <div className={styles.questions}>
                     <p className={styles.header} style={{display: "inline-block", marginRight: "10px"}}>Вопросы</p>
-                    <SelectGetQuestion style={{padding: "0"}} onChange={e => setSubject(e.target.value)}
-                                       value={subject.value}/>
-                    <QuestionsList search={search} subject={subject}/>
+                    <SelectGetQuestion style={{padding: "0"}} onChange={e => changeSub(e.target.value)}
+                                       value={subject}/>
+                    <QuestionsList search={search} subjectS={subject}/>
                 </div>
             </main>
             <Footer/>
