@@ -1,12 +1,14 @@
 import React, {useState} from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { ADD_QUES, ALL_USERS, MAIN_ROUTE, MY_ANSW, MY_QUES } from '../../utils/routes'
+import { ADD_QUES, ALL_USERS, MAIN_ROUTE, MY_ANSW, MY_QUES, USER_PAGE } from '../../utils/routes'
 import SelectAddQuestion from "../UI/selects/selectAddQuestion/selectAddQuestion";
 import styles from './SideBar.module.css'
 
 export const SideBar = (props) => {
 
     const location = "/"+useLocation().pathname.split('/').reverse()[0];
+    const preLocation = "/"+useLocation().pathname.split('/').reverse()[1]
+    
     return (
         <aside className={styles.container}>
             <ul className={styles.list}>
@@ -56,7 +58,7 @@ export const SideBar = (props) => {
                         </li>
                 }
                 {
-                    location === ALL_USERS
+                    location === ALL_USERS || preLocation === ALL_USERS
                         ?
                         <li className={styles.listItemActive}>
                             <Link to={ALL_USERS} >Пользователи</Link>

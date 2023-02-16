@@ -12,7 +12,7 @@ const QuestionsList = (search,subject) => {
     useEffect(() => {
         console.log(search.search)
         console.log(subject.subject)
-        axios.get('http://localhost:2000/question/list', {
+        axios.get('http://localhost:2000/questions/list', {
             params: {
                 titleSearch: search.search,
                 sub: subject.subject
