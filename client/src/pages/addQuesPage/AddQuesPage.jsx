@@ -51,6 +51,10 @@ export const AddQuesPage = () => {
             });
     }
 
+    const c = (e) => {
+        setSubject(e.target.value)
+    }
+
     return (
         <div className={styles.wrapper}>
             <MenuBar/>
@@ -75,7 +79,7 @@ export const AddQuesPage = () => {
                         <FileInput update={updateData}/>
                         <p className={styles.title}>Предмет</p>
                         <p className={styles.discribtion}>Выберите учебный предмет, к которому относится этот вопрос</p>
-                        <SelectAddQuestion onChange={e => setSubject(e.target.value)} value={subject.value} />
+                        <SelectAddQuestion onChange={e => c(e)} value={subject.value} />
                     </div>
 
                     <ButtonOne onClick={post} width={"125px"}>Отправить</ButtonOne>
