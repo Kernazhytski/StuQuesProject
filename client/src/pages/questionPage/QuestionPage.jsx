@@ -4,8 +4,7 @@ import Footer from '../../components/footer/Footer';
 import MenuBar from "../../components/menuBar/MenuBar";
 import {SideBar} from '../../components/sideBar/SideBar';
 import {useParams} from 'react-router-dom'
-import axios from 'axios'
-import {logDOM} from "@testing-library/react";
+import QuestionsServise from "../../service/QuestionsService";
 
 const QuestionPage = () => {
 
@@ -15,7 +14,14 @@ const QuestionPage = () => {
     const [question, setQuestion] = useState({title: "", description: ""});
 
     useMemo(async () => {
-        await axios.get('http://localhost:2000/question/getQuestion/' + id)
+        try {
+            const responce = await QuestionsServise.getQuestion(id)
+            data = responce.data
+            setQuestion(data)
+        } catch (e) {
+            console.log(e)
+        }
+        /*await axios.get('http://localhost:2000/question/getQuestion/' + id)
             .then(response => {
                     data = response.data
                     setQuestion(data)
@@ -23,7 +29,7 @@ const QuestionPage = () => {
             )
             .catch(error => {
                 console.log(error)
-            });
+            });*/
     }, [setQuestion])
 
     return (

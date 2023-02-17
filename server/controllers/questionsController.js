@@ -27,7 +27,13 @@ class QuestionsController {
     async add(req, res) {
         try {
             const quest = await Question.create(req.body)
-            let len = req.files.file.length
+            let len
+            {
+                req.files!=null?
+            len = req.files.file.length
+            :
+                    len=0
+            }
             // Заносим картиночки
             await fs.promises.mkdir(imageUploadPath + '\\' + quest.id, {recursive: true})
             const names = []
@@ -39,7 +45,7 @@ class QuestionsController {
                     return res.status(400).json({message: "Already exist"})
                 }
                 await file.mv(filepath)
-            } else {
+            } else if(len>0){
                 for (let i = 0; i < req.files.file.length; i++) {
                     const file = req.files.file[i]
                     names.push(file.name)

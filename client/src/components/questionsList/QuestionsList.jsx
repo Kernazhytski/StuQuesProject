@@ -2,31 +2,26 @@ import React, {useEffect, useState} from 'react';
 import QuestionLink from "../questionLink/QuestionLink";
 import axios from 'axios'
 import styles from "./QuestionsList.module.css"
+import QuestionsServise from "../../service/QuestionsService";
 
-
-const QuestionsList = (search,subject) => {
+const QuestionsList = (props) => {
 
     const [questions, setQuestions] = useState([])
 
 
     useEffect(() => {
-        console.log(search.search)
-        console.log(subject.subject)
-        axios.get('http://localhost:2000/question/list', {
-            params: {
-                titleSearch: search.search,
-                sub: subject.subject
-            }
-        })
-            //axios.get('http://localhost:2000/question/list?titleSearch=A')
-            .then(response => {
+        async function fetchData() {
+            try {
+                const response = await QuestionsServise.getAllQuestions(props.search, props.subjectS)
+                console.log(response)
                 const data = response.data
                 setQuestions(data)
-            })
-            .catch(error => {
-                console.log(error)
-            });
-    }, [setQuestions, search.search,subject.subject])
+            } catch (e) {
+                console.log(e)
+            }
+        }
+        fetchData();
+    }, [setQuestions, props.search, props.subjectS])
 
 
     return (
