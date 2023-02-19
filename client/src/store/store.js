@@ -2,6 +2,7 @@
 import axios from 'axios';
 import {makeAutoObservable} from 'mobx'
 import AuthService from '../service/AuthService';
+import UserService from '../service/UserService';
 
 export default class Store {
     user = {};
@@ -100,6 +101,28 @@ export default class Store {
                 this.setUser(response.data.user);                
             }
   
+        } catch (error) {
+            console.log(error)    
+        }
+    }   
+    async updateUser() {
+        try {
+            const {id} = this.user;
+            const response = await UserService.getOneUser(id);
+            localStorage.removeItem('userData');
+            localStorage.setItem('userData', JSON.stringify({userData: {
+                id: response.data.id,
+                avatarImg: response.data.avatarImg, 
+                ban: response.data.ban, 
+                email: response.data.email, 
+                nickname: response.data.nickname, 
+                role: response.data.role, 
+                score: response.data.score, 
+                aboutMe: response.data.aboutMe
+            }}))
+            this.setUser(JSON.parse(localStorage.getItem('userData')).userData)
+            console.log(this.user)
+            return response.data
         } catch (error) {
             
         }

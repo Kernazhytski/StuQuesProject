@@ -37,7 +37,7 @@ const AuthPage = () => {
   }
 
   const checkRegister = (email, password, nickname) => {
-    if(String(nickname).length < 5 || String(nickname).length > 20) {
+    if(String(nickname).length < 3 || String(nickname).length > 20) {
       nicknameMistake.current.style.display = 'block';
       success = false;
     }
@@ -105,7 +105,17 @@ const AuthPage = () => {
             value={password} 
             onChange={(e) => {setPassword(e.target.value)}} 
             type={'password'}/>
-          <p className={styles.link}>Нет аккаунта? <Link to={REG_ROUTE}> Зарегистрироваться</Link></p>
+                    <p className={styles.link}>
+            Нет аккаунта?
+            <Link 
+              to={REG_ROUTE}
+              onClick={() => {
+                setEmail('');
+                setPassword('')
+              }}> 
+              Зарегистрироваться
+            </Link>
+          </p>
           <ButtonOne width={"100%"} onClick={async () => {
             const response = checkLogin(email, password);
             if(response) {
@@ -142,7 +152,7 @@ const AuthPage = () => {
         :
         <form className={styles.loginCard} onSubmit={(e) => {e.preventDefault()}}>
           <p className={styles.txt}>Никнейм:</p>
-          <p className={styles.mistake} ref={nicknameMistake}>Никнейм должен содержать от 5 до 20 символов.</p>
+          <p className={styles.mistake} ref={nicknameMistake}>Никнейм должен содержать от 3 до 20 символов.</p>
           <InputOne 
             width={"100%"} 
             placeholder={"Введите никнейм"} 
@@ -165,7 +175,17 @@ const AuthPage = () => {
             value={password} 
             onChange={(e) => {setPassword(e.target.value)}}
             type={'password'}/>
-          <p className={styles.link}>Есть аккаунт?<Link to={LOG_ROUTE}> Авторизоваться</Link></p>
+          <p className={styles.link}>
+            Есть аккаунт?
+            <Link 
+              to={LOG_ROUTE}
+              onClick={() => {
+                setEmail('');
+                setPassword('')
+              }}> 
+              Авторизоваться
+            </Link>
+          </p>
           <ButtonOne 
             width={"100%"}
             onClick={async () => {

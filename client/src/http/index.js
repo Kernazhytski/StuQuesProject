@@ -3,7 +3,8 @@ import axios from 'axios';
 const $api = axios.create({
     //автоматическое добавление куки к каждому запросу
     withCredentials: true,
-    baseURL: process.env.REACT_APP_SERVER_URL
+    baseURL: process.env.REACT_APP_SERVER_URL,
+    //headers: {'Content-Type': 'multipart/form-data'}
 });
 
 //Перехватывается каждый запрос к серверу и добавляется поле Authorization в headers со значением токена
