@@ -10,8 +10,8 @@ export default class QuestionsServise {
         })
     }
 
-    static async getMyQuestions(email, password, nickname) {
-        return $api.get('/question/getMyQuestion')
+    static async getMyQuestions(id) {
+        return $api.get('/question/getMyQuestion', {params: {id:id}})
     }
 
     static async addQuestion(files, title, description, subject, userId) {
@@ -24,8 +24,15 @@ export default class QuestionsServise {
         return $api.post('/question/add', filedata)
     }
 
+    static async addAnswer(text,questionId,userId){
+        const filedata = new FormData()
+        filedata.append('text',text)
+        filedata.append('questionId',questionId)
+        filedata.append('userId',userId)
+        return $api.post('/question/addAnswer',filedata)
+    }
 
-    static async getQuestion(id){
-        return $api.get('/question/getQuestion/'+id)
+    static async getQuestion(id) {
+        return $api.get('/question/getQuestion/' + id)
     }
 }   

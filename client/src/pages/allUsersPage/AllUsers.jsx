@@ -16,6 +16,7 @@ const AllUsers = () => {
     const response = await UserService.getAllUsers();
     console.log(response) 
   }
+
   return (
       <div className={styles.wrapper}>
         <MenuBar/>

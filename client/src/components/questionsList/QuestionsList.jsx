@@ -10,18 +10,31 @@ const QuestionsList = (props) => {
 
 
     useEffect(() => {
-        async function fetchData() {
-            try {
-                const response = await QuestionsServise.getAllQuestions(props.search, props.subjectS)
-                console.log(response)
-                const data = response.data
-                setQuestions(data)
-            } catch (e) {
-                console.log(e)
+        console.log(props.user)
+        if (props.user) {
+            async function fetchData() {
+                try {
+                    const response = await QuestionsServise.getMyQuestions(props.user)
+                    const data = response.data
+                    setQuestions(data)
+                } catch (e) {
+                    console.log(e)
+                }
             }
+            fetchData();
+        } else {
+            async function fetchData() {
+                try {
+                    const response = await QuestionsServise.getAllQuestions(props.search, props.subjectS)
+                    const data = response.data
+                    setQuestions(data)
+                } catch (e) {
+                    console.log(e)
+                }
+            }
+            fetchData();
         }
-        fetchData();
-    }, [setQuestions, props.search, props.subjectS])
+    }, [setQuestions, props.search, props.subjectS, props.user])
 
 
     return (

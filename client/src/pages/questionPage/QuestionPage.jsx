@@ -1,36 +1,47 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useContext, useEffect, useMemo, useState} from 'react';
 import styles from './QuestionPage.module.css'
 import Footer from '../../components/footer/Footer';
 import MenuBar from "../../components/menuBar/MenuBar";
 import {SideBar} from '../../components/sideBar/SideBar';
 import {useParams} from 'react-router-dom'
 import QuestionsServise from "../../service/QuestionsService";
+import {Context} from "../../index";
+import ButtonOne from "../../components/UI/buttons/button1/ButtonOne";
+import TextAreaOne from "../../components/UI/textareas/textarea1/TextAreaOne";
 
 const QuestionPage = () => {
 
     let data = []
 
+    const {store} = useContext(Context);
+
     const id = useParams().id;
     const [question, setQuestion] = useState({title: "", description: ""});
+    const [answer, setAnswer] = useState("")
+
 
     useMemo(async () => {
         try {
-            const responce = await QuestionsServise.getQuestion(id)
-            data = responce.data
+            const responce1 = await QuestionsServise.getQuestion(id)
+            data = responce1.data
             setQuestion(data)
         } catch (e) {
             console.log(e)
         }
-        /*await axios.get('http://localhost:2000/question/getQuestion/' + id)
-            .then(response => {
-                    data = response.data
-                    setQuestion(data)
-                }
-            )
-            .catch(error => {
-                console.log(error)
-            });*/
     }, [setQuestion])
+
+    const deleteQuestion = () => {
+
+    }
+
+    const sendAnswer = async () => {
+        try {
+            const responce2 = await QuestionsServise.addAnswer(answer,question.id,store.user.id)
+            console.log(responce2)
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
     return (
         <div className={styles.wrapper}>
@@ -49,6 +60,20 @@ const QuestionPage = () => {
                             )
                         }
                     </div>
+                    {
+                        question.userId === store.user.id
+                            ?
+                            <div>
+                                <p className={styles.header}>Действия с вопросом:</p>
+                                <ButtonOne onClick={deleteQuestion} width={"200px"}>Удалить вопрос</ButtonOne>
+                            </div>
+                            :
+                            <div>
+                                <p className={styles.header}>Напишите ответ:</p>
+                                <TextAreaOne onChange={e => setAnswer(e.target.value)} value={answer}/>
+                                <ButtonOne onClick={sendAnswer} width={"125px"}>Отправить</ButtonOne>
+                            </div>
+                    }
                 </div>
             </main>
             <Footer/>
