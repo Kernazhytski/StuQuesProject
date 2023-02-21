@@ -3,7 +3,7 @@ import styles from './selectAddQuestion.module.css'
 
 const SelectAddQuestion = (props) => {
     return (
-        <select className={styles.inp} {...props} required={true    }>
+        <select className={styles.inp} {...props} required={true} >
             <option>Математика</option>
             <option>Философия</option>
             <option>Физика</option>

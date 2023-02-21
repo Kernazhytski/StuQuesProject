@@ -1,0 +1,38 @@
+.dropDown {
+    position: absolute;
+    padding: 20px;
+    background-color: #222;
+    top: 55px;
+    left: 0;
+    animation: dropDownShow 0.7s forwards;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+ul {
+    position: relative;
+}
+
+.listItem {
+    color: white;
+    font-size: 14px;
+    padding: 10px 0 10px 0;
+    cursor: pointer;
+    user-select: none;
+    transition: 200ms;
+}
+.listItem a {
+    color: white;
+    transition: 200ms;
+}
+.listItem:hover, .listItem a:hover {
+    color: #026670;
+}
+@keyframes dropDownShow {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

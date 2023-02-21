@@ -4,8 +4,10 @@ import {AddQuesPage} from "../pages/addQuesPage/AddQuesPage";
 import AllUsers from "../pages/allUsersPage/AllUsers";
 import MyAnswersPage from "../pages/myAnswersPage/MyAnswersPage";
 import MyQuestions from "../pages/myQuestions/MyQuestions";
+import QuestionPage from "../pages/questionPage/QuestionPage";
 
-import {ADD_QUES, ALL_USERS, LOG_ROUTE, MAIN_ROUTE, MY_ANSW, MY_QUES, REG_ROUTE} from "../utils/routes";
+import {ADD_QUES, ALL_USERS, LOG_ROUTE, MAIN_ROUTE, MY_ANSW, MY_QUES, QUES, REG_ROUTE, USER_PAGE} from "../utils/routes";
+import UserPage from "../pages/userPage/UserPage";
 
 export const userRotues = [
     {
@@ -35,5 +37,13 @@ export const userRotues = [
     {
         path: MY_QUES,
         component: MyQuestions
+    },
+    {
+        path: QUES,
+        component: QuestionPage
+    },
+    {
+        path: USER_PAGE,
+        component: UserPage
     }
 ]

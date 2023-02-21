@@ -1,0 +1,22 @@
+.strip{
+    width: 100%;
+    background: #FEF9C7;
+    padding: 20px 10px 20px 50px;
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
+}
+
+.sub{
+    font-family: Girloy-light;
+    font-size: 15px;
+}
+
+.title{
+    color: black;
+    font-size: 20px;
+}
+
+.title:hover{
+    text-decoration: underline;
+}
+

@@ -2,6 +2,7 @@
 import axios from 'axios';
 import {makeAutoObservable} from 'mobx'
 import AuthService from '../service/AuthService';
+import UserService from '../service/UserService';
 
 export default class Store {
     user = {};
@@ -15,12 +16,28 @@ export default class Store {
     setUser(user) {
         this.user = user;
     }
+    async changeNickname(nickname) {
+        this.user.nickname = nickname
+    }
     async login(email, password) {
         try {
             const response = await AuthService.login(email, password);
-            localStorage.setItem('token', response.data.accessToken);
-            this.setAuth(true);
-            this.setUser(response.data.user);
+
+            if(response.data.success) {
+                localStorage.setItem('token', response.data.userData.accessToken);
+                localStorage.setItem('userData', JSON.stringify(response.data.userData))
+                this.setAuth(true);
+                this.setUser(response.data.userData.message);
+                return {
+                    success: true
+                }                
+            }
+            return {
+                success: false,
+                message: response.data.message,
+                problem: response.data.problem
+            }   
+
         } catch (e) {
             console.log(e)
         }
@@ -28,9 +45,20 @@ export default class Store {
     async register(email, password, nickname) {
         try {
             const response = await AuthService.register(email, password, nickname);
-            localStorage.setItem('token', response.data.accessToken);
-            this.setAuth(true);
-            this.setUser(response.data.user);
+            if(response.data.success) {
+                localStorage.setItem('token', response.data.userData.accessToken);
+                localStorage.setItem('userData', JSON.stringify(response.data.userData))
+                this.setAuth(true);
+                this.setUser(response.data.userData.message);
+                return {
+                    success: true
+                }              
+            }
+            return {
+                success: false,
+                message: response.data.message,
+                problem: response.data.problem
+            }    
         } catch (e) {
             console.log(e)
         }
@@ -38,22 +66,66 @@ export default class Store {
     async logout(email, password, nickname) {
         try {
             const response = await AuthService.logout(email, password, nickname);
-            localStorage.removeItem(response.data.accessToken);
+            localStorage.removeItem('token');
+            localStorage.removeItem('userData');
+            //localStorage.removeItem()
+            //console.log(this.isAuth)
             this.setAuth(false);
+            //console.log(this.isAuth)
             this.setUser({});
         } catch (e) {
             console.log(e)
         }
     }
 
+    async checkAuth2() {
+        if(localStorage.getItem('token') !== 'undefined' && localStorage.getItem('token')) {
+            this.user = JSON.parse(localStorage.getItem('userData')).userData;
+            this.isAuth = true        
+        }
+        else {
+            this.user = {}
+            this.isAuth = false
+        }
+
+    }
+
     async checkAuth() {
         try {
-            const response = await axios(`${process.env.REACT_APP_SERVER_URL}/refresh`, {whithCredentials: true});
-            localStorage.setItem('token', response.data.accessToken);
-            this.setAuth(true);
-            this.setUser(response.data.user);
+            console.log(this.isAuth)
+            const response = await axios(`${process.env.REACT_APP_SERVER_URL}/auth/refresh`, {withCredentials: true});
+            console.log(response)
+            if(response.data.success) {
+                localStorage.setItem('token', response.data.accessToken);
+                this.setAuth(true);
+                this.setUser(response.data.user);                
+            }
+  
+        } catch (error) {
+            console.log(error)    
+        }
+    }   
+    async updateUser() {
+        try {
+            const {id} = this.user;
+            const response = await UserService.getOneUser(id);
+            localStorage.removeItem('userData');
+            localStorage.setItem('userData', JSON.stringify({userData: {
+                id: response.data.id,
+                avatarImg: response.data.avatarImg, 
+                ban: response.data.ban, 
+                email: response.data.email, 
+                nickname: response.data.nickname, 
+                role: response.data.role, 
+                score: response.data.score, 
+                aboutMe: response.data.aboutMe
+            }}))
+            this.setUser(JSON.parse(localStorage.getItem('userData')).userData)
+            console.log(this.user)
+            return response.data
         } catch (error) {
             
         }
     }
+
 }

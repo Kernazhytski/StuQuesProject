@@ -4,7 +4,7 @@ import styles from "./InputThree.module.css";
 
 const InputThree = (props) => {
     return (
-        <input className={styles.inp} type={"text"} {...props}/>
+        <input className={styles.inp} type={"text"} width={props.width} value={props.value} onChange={props.changeValue}/>
     );
 };
 
