@@ -4,7 +4,7 @@ const {DataTypes} = require('sequelize');
 
 const User = sequalize.define('user', {
     id: {type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true},
-    aboutMe: {type: DataTypes.STRING(3800)},
+    aboutMe: {type: DataTypes.STRING(3800), defaultValue: ''},
     role: {type: DataTypes.STRING(20), defaultValue: 'USER'},
     nickname: {type: DataTypes.STRING(20), allowNull: false},
     email: {type: DataTypes.STRING(255), allowNull: false, unique: true},

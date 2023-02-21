@@ -18,7 +18,7 @@ const UserPage = () => {
     const userId = useLocation().pathname.split('/').reverse()[0]
     const[editMode, setEditMode] = useState(false);
     const [nickname, setNickname] = useState('');
-    const [descr, setDescr] = useState('');
+    const [descr, setDescr] = useState('хуй');
     const [file, setFile] = useState(null);
     const [oldDescr, setOldDescr] = useState('');
     const [oldNickname, setOldNickname] = useState('');
@@ -39,7 +39,7 @@ const UserPage = () => {
         else {
             nicknameMistake.current.style.display = 'none';
         }
-        if(descr.length > 3800) {
+        if(descr?.length > 3800) {
             descrMistake.current.style.display = 'block';
             success = false;
         }
