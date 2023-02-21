@@ -1,4 +1,4 @@
-const {Question} = require('../models');
+const {Question, Answer} = require('../models');
 const fs = require('fs')
 const path = require('path')
 const imageUploadPath = path.resolve(__dirname, '..', 'files', 'images');
@@ -27,7 +27,13 @@ class QuestionsController {
     async add(req, res) {
         try {
             const quest = await Question.create(req.body)
-            let len = req.files.file.length
+            let len
+            {
+                req.files != null ?
+                    len = req.files.file.length
+                    :
+                    len = 0
+            }
             // Заносим картиночки
             await fs.promises.mkdir(imageUploadPath + '\\' + quest.id, {recursive: true})
             const names = []
@@ -39,7 +45,7 @@ class QuestionsController {
                     return res.status(400).json({message: "Already exist"})
                 }
                 await file.mv(filepath)
-            } else {
+            } else if (len > 0) {
                 for (let i = 0; i < req.files.file.length; i++) {
                     const file = req.files.file[i]
                     names.push(file.name)
@@ -61,12 +67,12 @@ class QuestionsController {
     }
 
     async list(req, res) {
-        var titS = req.query.titleSearch;
-        var subS = req.query.sub;
+        let titS = req.query.titleSearch;
+        let subS = req.query.sub;
         console.log(titS)
         console.log(subS)
-        if (titS === "" || titS ==undefined) {
-            if (subS === "Все" || subS==undefined) {
+        if (titS === "" || titS == undefined) {
+            if (subS === "Все" || subS == undefined) {
                 res.send(await Question.findAll()).json
             } else {
                 res.send(await Question.findAll(
@@ -78,7 +84,7 @@ class QuestionsController {
                 )).json
             }
         } else {
-            if (subS === "Все" || subS==undefined) {
+            if (subS === "Все" || subS == undefined) {
                 res.send(await Question.findAll(
                     {
                         where: {
@@ -120,6 +126,29 @@ class QuestionsController {
                 )).json
             }
         }
+    }
+
+    async addAnswer(req, res) {
+        try {
+            const answer = await Answer.create(req.body)
+            res.send("uploaded successfully")
+        } catch (e) {
+            console.log(e)
+            return res.status(500).json({message: "Upload error"})
+        }
+
+    }
+
+    async getMy(req, res) {
+        let userId = req.query.id
+        console.log(userId)
+        res.send(await Question.findAll(
+            {
+                where: {
+                    userId: userId
+                }
+            }
+        )).json
     }
 }
 

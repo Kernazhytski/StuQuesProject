@@ -42,6 +42,7 @@ const AllUsers = () => {
 
     return users
   }
+
   const userProfile = (userId) => {
     loc(`${userId}`)
   }
@@ -50,6 +51,9 @@ const AllUsers = () => {
       setUsers(response)
       console.log(response)    
   }, [])
+
+
+
   return (
       <div className={styles.wrapper}>
         <MenuBar/>

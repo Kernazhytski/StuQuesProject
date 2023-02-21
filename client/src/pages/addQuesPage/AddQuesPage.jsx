@@ -1,5 +1,7 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import axios from 'axios'
+
+import QuestionsServise from "../../service/QuestionsService";
 
 import {useNavigate} from 'react-router-dom'
 import MenuBar from "../../components/menuBar/MenuBar";
@@ -13,12 +15,14 @@ import QuesstionHasBeenSent from "../../components/UI/notifications/questionHasB
 
 import styles from "./AddQues.module.css";
 import FileInput from '../../components/UI/inputs/fileInput/FileInput';
+import {Context} from "../../index";
 
 
 export const AddQuesPage = () => {
 
     let loc = useNavigate();
 
+    const {store} = useContext(Context);
 
     const [flag, setFlag] = useState(false)
 
@@ -26,29 +30,21 @@ export const AddQuesPage = () => {
     const [description, setDescription] = useState('')
     const [subject, setSubject] = useState('Математика')
     const [files, setFiles] = useState([])
-    const [userId, setUserId] = useState('1')
+    const [userId, setUserId] = useState(store.user.id)
 
     const updateData = (value) => {
         setFiles(value);
     }
 
-    const post = (e) => {
+    const post = async (e) => {
         e.preventDefault()
-        const filedata = new FormData()
-        files.forEach(file => filedata.append('file',file,file.name))
         setFlag(true);
-        filedata.append('title',title)
-        filedata.append('description',description)
-        filedata.append('subject',subject)
-        filedata.append('userId',userId)
-
-        axios.post('http://localhost:2000/question/add',filedata)
-            .then(response => {
-                console.log(response)
-            })
-            .catch(error => {
-                console.log(error)
-            });
+        try {
+            const response = await QuestionsServise.addQuestion(files,title,description,subject,userId)
+            console.log(response)
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     const c = (e) => {
@@ -79,7 +75,7 @@ export const AddQuesPage = () => {
                         <FileInput update={updateData}/>
                         <p className={styles.title}>Предмет</p>
                         <p className={styles.discribtion}>Выберите учебный предмет, к которому относится этот вопрос</p>
-                        <SelectAddQuestion onChange={e => c(e)} value={subject.value} />
+                        <SelectAddQuestion onChange={e => c(e)} value={subject.value}/>
                     </div>
 
                     <ButtonOne onClick={post} width={"125px"}>Отправить</ButtonOne>
