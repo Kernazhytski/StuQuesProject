@@ -4,12 +4,12 @@ const { User } = require('../models');
 
 class UserController {
     async getAllUsers(req, res) {
-        const allUsers = await User.findAll();
+        const allUsers = await User.findAll({where: {isActivated: true}, attributes: ['id', 'aboutMe', 'role', 'nickname', 'avatarImg', 'score']});
         return res.json(allUsers)
     }
     async getOneuser(req, res) {
         const {id} = req.params;
-        const surchUser = await User.findOne({where: {id}});
+        const surchUser = await User.findOne({where: {id}, attributes: ['id', 'aboutMe', 'role', 'nickname', 'avatarImg', 'score']});
         return res.json(surchUser)
     }
     async editProfile(req, res) {

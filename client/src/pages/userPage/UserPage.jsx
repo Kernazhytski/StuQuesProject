@@ -11,15 +11,18 @@ import ButtonOne from '../../components/UI/buttons/button1/ButtonOne'
 import TextAreaOne from '../../components/UI/textareas/textarea1/TextAreaOne'
 import { useState } from 'react'
 import UserService from '../../service/UserService'
+import { useLocation } from 'react-router-dom'
 
 const UserPage = () => {
     const {store} = useContext(Context);
+    const userId = useLocation().pathname.split('/').reverse()[0]
     const[editMode, setEditMode] = useState(false);
     const [nickname, setNickname] = useState('');
     const [descr, setDescr] = useState('');
     const [file, setFile] = useState(null);
     const [oldDescr, setOldDescr] = useState('');
     const [oldNickname, setOldNickname] = useState('');
+    const [isMyProfile, setIsMyProfile] = useState(false);
     const descrMistake = useRef()
     const nicknameMistake = useRef()
     const userImg = useRef()
@@ -86,12 +89,14 @@ const UserPage = () => {
     }
     useMemo(() => {
         store.checkAuth2()
-        console.log(JSON.parse(localStorage.getItem('userData')))
         if(store.isAuth){
             setNickname(JSON.parse(localStorage.getItem('userData')).userData.nickname)
             setDescr(JSON.parse(localStorage.getItem('userData')).userData.aboutMe)   
             setOldNickname(JSON.parse(localStorage.getItem('userData')).userData.nickname)
-            setOldDescr(JSON.parse(localStorage.getItem('userData')).userData.aboutMe)        
+            setOldDescr(JSON.parse(localStorage.getItem('userData')).userData.aboutMe)  
+            if(+store.user.id === +userId){
+                setIsMyProfile(true)
+            } 
         }
 
     }, [])
@@ -149,7 +154,13 @@ const UserPage = () => {
                             :
                             <div className={styles.userBlock}>
                                 <h2 className={styles.userNickname}>{nickname}</h2>
-                                <ButtonOne width={'200px'} onClick={() => edit(nickname, descr)}>Редактировать</ButtonOne>   
+                                {isMyProfile
+                                ? 
+                                    <ButtonOne width={'200px'} onClick={() => edit(nickname, descr)}>Редактировать</ButtonOne>   
+                                :
+                                    null
+                                }
+                                
 
                             </div>
                                 
