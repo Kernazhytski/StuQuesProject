@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react'
+import React, { useContext, useMemo, useRef } from 'react'
 import {observer} from 'mobx-react-lite'
 
 import { Context } from '../../index'
@@ -11,23 +11,95 @@ import ButtonOne from '../../components/UI/buttons/button1/ButtonOne'
 import TextAreaOne from '../../components/UI/textareas/textarea1/TextAreaOne'
 import { useState } from 'react'
 import UserService from '../../service/UserService'
+import { useLocation } from 'react-router-dom'
 
 const UserPage = () => {
     const {store} = useContext(Context);
+    const userId = useLocation().pathname.split('/').reverse()[0]
     const[editMode, setEditMode] = useState(false);
-    const [nickname, setNickname] = useState(JSON.parse(localStorage.getItem('userData')).userData.nickname)
-    const [descr, setDescr] = useState(JSON.parse(localStorage.getItem('userData')).userData.aboutMe)
-    const [file, setFile] = useState('')
+    const [nickname, setNickname] = useState('');
+    const [descr, setDescr] = useState('');
+    const [file, setFile] = useState(null);
+    const [oldDescr, setOldDescr] = useState('');
+    const [oldNickname, setOldNickname] = useState('');
+    const [isMyProfile, setIsMyProfile] = useState(false);
+    const descrMistake = useRef()
+    const nicknameMistake = useRef()
+    const userImg = useRef()
 
-    const edit = async () => {
+    let cancell = false
+
+
+    const checkInfo = (nickname, descr) => {
+        let success = true
+        if(nickname.length < 3 || nickname.length > 20) {
+            nicknameMistake.current.style.display = 'block';
+            success = false;
+        }
+        else {
+            nicknameMistake.current.style.display = 'none';
+        }
+        if(descr.length > 3800) {
+            descrMistake.current.style.display = 'block';
+            success = false;
+        }
+        else {
+            descrMistake.current.style.display = 'none';
+        }
+        return success
+    }
+
+    const edit = async (nickname, descr) => {
         if(editMode) {
-            const response = await UserService.editProfile(JSON.parse(localStorage.getItem('userData')).userData.id);
-            console.log(response)
+            const check = checkInfo(nickname, descr)
+            if(cancell) {
+                setDescr(oldDescr)
+                setNickname(oldNickname)
+                setFile(null)
+                store.checkAuth()
+                setEditMode(!editMode) 
+            }
+            else if(check) {
+                const response = await UserService.editProfile(store.user.id, file, nickname, descr);
+                if(response.data.success) {
+                    const userData = await store.updateUser()
+                    console.log(userData)
+                    setOldDescr(userData.aboutMe)
+                    setOldNickname(userData.nickname)
+                }
+                store.checkAuth()
+                console.log(response)   
+                setEditMode(!editMode)             
+            }
+        }
+        else {
+            setEditMode(!editMode)
+        }
+    }
+    const changeImg = (e) => {
+        let reader = new FileReader()
+        reader.readAsDataURL(e.target.files[0]);
+        setFile(e.target.files[0])
+        reader.onload = () => {
+            userImg.current.src = reader.result
+            console.log(userImg.current)
+            console.log(reader.result)
         }
         
-        
-        setEditMode(!editMode)
     }
+    useMemo(() => {
+        store.checkAuth2()
+        if(store.isAuth){
+            setNickname(JSON.parse(localStorage.getItem('userData')).userData.nickname)
+            setDescr(JSON.parse(localStorage.getItem('userData')).userData.aboutMe)   
+            setOldNickname(JSON.parse(localStorage.getItem('userData')).userData.nickname)
+            setOldDescr(JSON.parse(localStorage.getItem('userData')).userData.aboutMe)  
+            if(+store.user.id === +userId){
+                setIsMyProfile(true)
+            } 
+        }
+
+    }, [])
     return (
         <div className={styles.wrapper}>
             <MenuBar/>
@@ -38,35 +110,63 @@ const UserPage = () => {
                         {editMode 
                         ?
                             <div>
-                                <input className={styles.fileInp} type="file" value={file} id='avatar' onChange={e => setFile(e.target.value)}/>
+                                <input className={styles.fileInp} type="file" id='avatar' onChange={e => changeImg(e)}/>
                                 <label htmlFor='avatar'>
-                                    <img className={styles.userAvatarChange} src={process.env.REACT_APP_SERVER_URL + '/' + store.user.avatarImg}/>
+                                    <img className={styles.userAvatarChange} src={process.env.REACT_APP_SERVER_URL + '/' + store.user.avatarImg} ref={userImg}/>
                                 </label>                            
                             </div>
                         :
-                            <img className={styles.userAvatar} src={process.env.REACT_APP_SERVER_URL + '/' + store.user.avatarImg}/>
+                            <div>
+                               <img className={styles.userAvatar} src={process.env.REACT_APP_SERVER_URL + '/' + store.user.avatarImg}  ref={userImg}/> 
+                            </div>
+                            
                         }
                         
-                        <div className={styles.userBlock}>
+
                             {editMode 
                             ?
-                                <div className={styles.inpContainer}>
-                                    <InputThree value={nickname} changeValue={e => setNickname(e.target.value)} />
-                                </div>  
-                            :
-                                <h2 className={styles.userNickname}>{nickname}</h2>
-                            }
-                            
-                            <ButtonOne width={'200px'} onClick={edit}>
-                                {editMode 
-                                ?
-                                    'Сохранить'
-                                :
-                                    'Редактировать'
-                                }
-                            </ButtonOne>
+                                <div className={styles.userBlock}>
+                                    <div className={styles.inpContainer}>
+                                        <p className={styles.mistake} ref={nicknameMistake}>Никнейм должен содержать от 3 до 20 символов.</p>
+                                        <InputThree value={nickname} changeValue={e => setNickname(e.target.value)} />
+                                    </div>
+                                    <div className={styles.btnCont}>
+                                        <ButtonOne 
+                                            width={'200px'} 
+                                            onClick={() => {
+                                                cancell = false
+                                                edit(nickname, descr)
+                                        }}>
+                                            Сохранить
+                                        </ButtonOne> 
+                                        <ButtonOne 
+                                            width={'200px'} 
+                                            onClick={() => {
+                                                cancell = true
+                                                edit(nickname, descr)
 
-                        </div>
+                                        }}>
+                                            Отменить
+                                        </ButtonOne>                                     
+                                    </div>                               
+                                </div>
+
+                            :
+                            <div className={styles.userBlock}>
+                                <h2 className={styles.userNickname}>{nickname}</h2>
+                                {isMyProfile
+                                ? 
+                                    <ButtonOne width={'200px'} onClick={() => edit(nickname, descr)}>Редактировать</ButtonOne>   
+                                :
+                                    null
+                                }
+                                
+
+                            </div>
+                                
+                            }
+        
+
                     </div>
                     <div className={styles.userDetailedIndo}>
                         <div className={styles.statistics}>
@@ -79,9 +179,12 @@ const UserPage = () => {
                             <p className={styles.aboutMe}>О себе: </p>
                             {editMode 
                             ?
-                                <TextAreaOne value={descr} onChange={(e) => setDescr(e.target.value)} placeholder='Напишите что-нибудь о себе'/>
+                                <div>
+                                    <p className={styles.mistake} ref={descrMistake}>Описание не должно превышать 3800 символов.</p>
+                                    <TextAreaOne value={descr} onChange={(e) => setDescr(e.target.value)} placeholder='Напишите что-нибудь о себе'/>                                
+                                </div>
                             :
-                                <pre>{descr ? descr : <p className={styles.empty}>Здесь пока пусто...</p>}</pre>   
+                                <p className={styles.description}>{descr ? descr : <span className={styles.empty}>Здесь пока пусто...</span>}</p>   
                             }                                                                     
                         </div>
 

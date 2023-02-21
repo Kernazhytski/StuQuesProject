@@ -14,9 +14,11 @@
     z-index: 1;
 }
 .userAvatar {
+    display: block;
     width: 100px;
     height: 100px;
     margin-right: 10px;
+    border-radius: 50%;
 }
 .userInfo {
     display: flex;
@@ -93,4 +95,26 @@
 }
 .fileInp {
     display: none;
+}
+.userAvatarChange {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+    border-radius: 50%;  
+}
+.mistake {
+    color: red;
+    display: none;
+}
+.description {
+    font-family: Girloy-light;
+    line-height: 20px;
+    max-width: 680px;
+    overflow: hidden;
+}
+.btnCont {
+    display: flex;
+    flex-direction: row;
+    width: 420px;
+    justify-content: space-between;
 }
