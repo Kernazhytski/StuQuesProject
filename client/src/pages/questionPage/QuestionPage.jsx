@@ -3,18 +3,22 @@ import styles from './QuestionPage.module.css'
 import Footer from '../../components/footer/Footer';
 import MenuBar from "../../components/menuBar/MenuBar";
 import {SideBar} from '../../components/sideBar/SideBar';
-import {useParams} from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 import QuestionsServise from "../../service/QuestionsService";
 import {Context} from "../../index";
 import ButtonOne from "../../components/UI/buttons/button1/ButtonOne";
 import TextAreaOne from "../../components/UI/textareas/textarea1/TextAreaOne";
+import PopupEmail from "../../components/UI/notifications/emailNotify/PopupEmail";
 
 const QuestionPage = () => {
 
     let data = []
 
+
+
     const {store} = useContext(Context);
 
+    const [active,setActive] = useState(false)
     const id = useParams().id;
     const [question, setQuestion] = useState({title: "", description: ""});
     const [answer, setAnswer] = useState("")
@@ -30,8 +34,15 @@ const QuestionPage = () => {
         }
     }, [setQuestion])
 
-    const deleteQuestion = () => {
-
+    const deleteQuestion = async () => {
+        try {
+            console.log(id)
+            const responceDel = await QuestionsServise.delQuestion(id)
+            console.log(question.id)
+            setActive(true)
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     const sendAnswer = async () => {
@@ -45,6 +56,7 @@ const QuestionPage = () => {
 
     return (
         <div className={styles.wrapper}>
+            <PopupEmail active={active} setActive={setActive} popupText={"Вопрос успешно удален"} locat={'/'}/>
             <MenuBar/>
             <main className={styles.main}>
                 <SideBar/>

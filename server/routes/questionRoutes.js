@@ -12,5 +12,6 @@ router.get("/list",authMiddleware,QuestionController.list);
 router.get("/getQuestion/:id",authMiddleware,QuestionController.getQues)
 router.get("/getMyQuestion",authMiddleware,QuestionController.getMy)
 router.post('/addAnswer',authMiddleware,QuestionController.addAnswer);
+router.post('/delete',authMiddleware,QuestionController.deleteQues);
 
 module.exports = router;

@@ -150,6 +150,24 @@ class QuestionsController {
             }
         )).json
     }
+
+    async deleteQues(req,res){
+        try {
+            console.log(req.body)
+
+
+            const ques = await Question.findOne({
+                where:{
+                    id:req.body.id
+                }
+            })
+            await ques.destroy()
+            res.send("Вопрос успешно удален")
+        } catch (e) {
+            console.log(e)
+            return res.status(500).json({message: "Upload error"})
+        }
+    }
 }
 
 module.exports = new QuestionsController()

@@ -35,4 +35,8 @@ export default class QuestionsServise {
     static async getQuestion(id) {
         return $api.get('/question/getQuestion/' + id)
     }
+
+    static async delQuestion(id){
+        return $api.post('/question/delete',{id})
+    }
 }   
