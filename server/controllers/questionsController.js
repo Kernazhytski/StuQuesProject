@@ -4,6 +4,7 @@ const path = require('path')
 const imageUploadPath = path.resolve(__dirname, '..', 'files', 'images');
 const {Op} = require('sequelize')
 
+
 class QuestionsController {
 
     async getQues(req, res) {
@@ -131,10 +132,41 @@ class QuestionsController {
     async addAnswer(req, res) {
         try {
             const answer = await Answer.create(req.body)
+            let len
+            {
+                req.files != null ?
+                    len = req.files.file.length
+                    :
+                    len = 0
+            }
+            // Заносим картиночки
+            await fs.promises.mkdir(imageUploadPath + '\\answers\\' + answer.id, {recursive: true})
+            const names = []
+            if (len == undefined) {
+                const file = req.files.file
+                names.push(file.name)
+                let filepath = imageUploadPath + '\\answers\\' + answer.id + '\\' + file.name
+                if (fs.existsSync(filepath)) {
+                    return res.status(400).json({message: "Already exist"})
+                }
+                await file.mv(filepath)
+            } else if (len > 0) {
+                for (let i = 0; i < req.files.file.length; i++) {
+                    const file = req.files.file[i]
+                    names.push(file.name)
+                    let filepath = imageUploadPath + '\\answers\\' + answer.id + '\\' + file.name
+                    if (fs.existsSync(filepath)) {
+                        return res.status(400).json({message: "Already exist"})
+                    }
+                    await file.mv(filepath)
+                }
+            }
+            answer.files = names
+            await answer.save()
             res.send("uploaded successfully")
         } catch (e) {
             console.log(e)
-            return res.status(500).json({message: "Upload error"})
+            return res.status(500).json({message: "Add answer error"})
         }
 
     }
@@ -165,7 +197,36 @@ class QuestionsController {
             res.send("Вопрос успешно удален")
         } catch (e) {
             console.log(e)
-            return res.status(500).json({message: "Upload error"})
+            return res.status(500).json({message: "Delete question error"})
+        }
+    }
+
+    async getAnswers(req,res){
+        try {
+            const answers = await Answer.findAll({
+                where:{
+                    questionId:req.body.id
+                }
+            })
+            res.send(answers)
+        } catch (e) {
+            console.log(e)
+            return res.status(500).json({message: "Send answers error"})
+        }
+    }
+
+    async deleteAnswers(req,res){
+        try {
+            const answer = await Answer.findOne({
+                where:{
+                    id:req.body.id
+                }
+            })
+            await answer.destroy()
+            res.send("Deleted successfully")
+        } catch (e) {
+            console.log(e)
+            return res.status(500).json({message: "Send answers error"})
         }
     }
 }

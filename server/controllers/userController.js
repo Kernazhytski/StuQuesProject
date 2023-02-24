@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const {User} = require('../models');
+const {json} = require("sequelize");
 
 class UserController {
     async getAllUsers(req, res) {
@@ -49,6 +50,14 @@ class UserController {
             success: true,
             message: 'Пользователь успешно изменён'
         })
+    }
+
+    async getNick(req,res){
+        console.log(req.body)
+        const user = await User.findOne({
+            where: {id:req.body.id}
+        })
+        res.json({id:user.id,nickname:user.nickname,avatarImg:user.avatarImg})
     }
 }
 

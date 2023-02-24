@@ -9,19 +9,27 @@ import {Context} from "../../index";
 import ButtonOne from "../../components/UI/buttons/button1/ButtonOne";
 import TextAreaOne from "../../components/UI/textareas/textarea1/TextAreaOne";
 import PopupEmail from "../../components/UI/notifications/emailNotify/PopupEmail";
+import AnswerList from "../../components/answersList/AnswerList";
+import FileInput from "../../components/UI/inputs/fileInput/FileInput";
 
 const QuestionPage = () => {
 
     let data = []
 
 
-
     const {store} = useContext(Context);
 
-    const [active,setActive] = useState(false)
+    const [active, setActive] = useState(false)
+    const [activeAns, setActiveAns] = useState(false)
     const id = useParams().id;
     const [question, setQuestion] = useState({title: "", description: ""});
     const [answer, setAnswer] = useState("")
+    const [answerS, setAnswerS] = useState()
+    const [files, setFiles] = useState([])
+
+    const update = (images) => {
+        setFiles(images)
+    }
 
 
     useMemo(async () => {
@@ -34,11 +42,20 @@ const QuestionPage = () => {
         }
     }, [setQuestion])
 
+    useMemo(async () => {
+        try {
+            const responce3 = await QuestionsServise.getAnswers(id)
+            data = responce3.data
+            setAnswerS(data)
+
+        } catch (e) {
+            console.log(e)
+        }
+    }, [setAnswerS])
+
     const deleteQuestion = async () => {
         try {
-            console.log(id)
             const responceDel = await QuestionsServise.delQuestion(id)
-            console.log(question.id)
             setActive(true)
         } catch (e) {
             console.log(e)
@@ -47,16 +64,22 @@ const QuestionPage = () => {
 
     const sendAnswer = async () => {
         try {
-            const responce2 = await QuestionsServise.addAnswer(answer,question.id,store.user.id)
-            console.log(responce2)
+            const responce2 = await QuestionsServise.addAnswer(answer, question.id, store.user.id, files)
+            setActiveAns(true)
         } catch (e) {
             console.log(e)
         }
     }
 
+    const reloadPage = () => {
+        window.location.reload()
+    }
+
     return (
         <div className={styles.wrapper}>
             <PopupEmail active={active} setActive={setActive} popupText={"Вопрос успешно удален"} locat={'/'}/>
+            <PopupEmail active={activeAns} setActive={setActiveAns} popupText={"Ответ успешно отправлен"}
+                        locat={'/question/' + id} action={reloadPage}/>
             <MenuBar/>
             <main className={styles.main}>
                 <SideBar/>
@@ -73,6 +96,13 @@ const QuestionPage = () => {
                         }
                     </div>
                     {
+                        answerS?.length > 0 &&
+                        <div>
+                            <p className={styles.header}>Ответы</p>
+                            <AnswerList answers={answerS}/>
+                        </div>
+                    }
+                    {
                         question.userId === store.user.id
                             ?
                             <div>
@@ -83,7 +113,8 @@ const QuestionPage = () => {
                             <div>
                                 <p className={styles.header}>Напишите ответ:</p>
                                 <TextAreaOne onChange={e => setAnswer(e.target.value)} value={answer}/>
-                                <ButtonOne onClick={sendAnswer} width={"125px"}>Отправить</ButtonOne>
+                                <FileInput update={update}/>
+                                <ButtonOne marginTop={"10px"} onClick={sendAnswer} width={"125px"}>Отправить</ButtonOne>
                             </div>
                     }
                 </div>

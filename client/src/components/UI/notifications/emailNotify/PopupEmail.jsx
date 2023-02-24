@@ -4,10 +4,11 @@ import ButtonOne from "../../buttons/button1/ButtonOne";
 import styles from './PopupEmail.module.css'
 import {useNavigate} from "react-router-dom";
     
-const PopupEmail = ({active, setActive, popupText,locat}) => {
+const PopupEmail = ({active, setActive, popupText,locat,action}) => {
     const closePopup = () => {
         setActive(false)
         relocate()
+        action()
     }
 
     let loc = useNavigate();

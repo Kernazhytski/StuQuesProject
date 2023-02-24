@@ -16,4 +16,8 @@ export default class UserService {
         console.log(data)
         return $api.post(`/users/editUser/${userId}`, data)
     }
+
+    static async authorOfAnswer(id){
+        return $api.post('/users/getNick',{id})
+    }
 }
