@@ -1,0 +1,60 @@
+.form{
+    position: fixed;
+    width: 220px;
+    height: 150px;
+    align-items: center;
+    z-index: 100;
+    background: #FCE181;
+    border-radius: 20px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding-top: 50px;
+    transition: 0.5s all;
+    transform: scale(0.1);
+}
+
+.formactive{
+    position: fixed;
+    width: 220px;
+    height: 150px;
+    align-items: center;
+    z-index: 100;
+    background: #FCE181;
+    border-radius: 20px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding-top: 50px;
+    transition: 0.5s all;
+    transform: scale(1);
+}
+
+.fon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(0,0,0,0.4);
+    position: fixed;
+    top: 0;
+    left:0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.activefon{
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(0,0,0,0.4);
+    position: fixed;
+    top: 0;
+    left:0;
+    opacity: 1;
+    pointer-events: all;
+}

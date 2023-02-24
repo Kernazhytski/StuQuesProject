@@ -43,6 +43,9 @@
     margin-right: 30px;
     height: 140px;
 }
+.statistics a{
+    color: #000;
+}
 .statisticsText {
     font-family: Girloy-light;
     font-weight: 600;
@@ -117,4 +120,11 @@
     flex-direction: row;
     width: 420px;
     justify-content: space-between;
+}
+.banUserMessage {
+    font-size: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 120px;
 }

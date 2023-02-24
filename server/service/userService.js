@@ -5,6 +5,7 @@ require('dotenv').config();
 
 const {User} = require('../models');
 const MailService = require('./mailService');
+const questionService = require('./questionService');
 const tokenService = require('./tokenService');
 const TokenService = require('./tokenService');
 
@@ -32,6 +33,8 @@ class UserService {
         const tokens = TokenService.generateToken({userId :newUser.id, email, isActivated: newUser.isActivated});
         //Отправляем refresh токен в базу данных
         await TokenService.saveToken(newUser.id, tokens.refreshToken);
+        const userQuestions = await questionService.getUserQuestions(newUser.id);
+        const userAnswers = await questionService.getUserAnswers(newUser.id);
 
         return {
             success: true,
@@ -43,7 +46,9 @@ class UserService {
                         nickname: newUser.nickname, 
                         role: newUser.role, 
                         score: newUser.score, 
-                        aboutMe: newUser.aboutMe
+                        aboutMe: newUser.aboutMe,
+                        userQuestions,
+                        userAnswers
                     }
         }
     }
@@ -87,6 +92,8 @@ class UserService {
         const tokens = TokenService.generateToken({userId :user.id, email, isActivated: user.isActivated});
         //Отправляем refresh токен в базу данных
         await TokenService.saveToken(user.id, tokens.refreshToken);
+        const userQuestions = await questionService.getUserQuestions(user.id);
+        const userAnswers = await questionService.getUserAnswers(user.id);
         return {
             success: true,
             ...tokens,
@@ -97,7 +104,9 @@ class UserService {
                         nickname: user.nickname, 
                         role: user.role, 
                         score: user.score,
-                        aboutMe: user.aboutMe
+                        aboutMe: user.aboutMe,
+                        userAnswers,
+                        userQuestions
                     }
         } 
     }

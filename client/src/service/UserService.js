@@ -9,11 +9,23 @@ export default class UserService {
     }
     static async editProfile(userId, file, nickname, descr) {
         const data = new FormData();
-        console.log(file)
+        //console.log(file)
         data.append('file', file);
         data.append('nickname', nickname);
         data.append('aboutMe', descr);
-        console.log(data)
+        //console.log(data)
         return $api.post(`/users/editUser/${userId}`, data)
+    }
+
+    static async banUser(userId) {
+        return $api.get(`/users/banUser/${userId}`)
+    }
+    static async unbannUser(userId) {
+        return $api.get(`/users/unbannUser/${userId}`)
+
+
+    static async authorOfAnswer(id){
+        return $api.post('/users/getNick',{id})
+
     }
 }

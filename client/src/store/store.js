@@ -92,9 +92,9 @@ export default class Store {
 
     async checkAuth() {
         try {
-            console.log(this.isAuth)
+            //console.log(this.isAuth)
             const response = await axios(`${process.env.REACT_APP_SERVER_URL}/auth/refresh`, {withCredentials: true});
-            console.log(response)
+            //console.log(response)
             if(response.data.success) {
                 localStorage.setItem('token', response.data.accessToken);
                 this.setAuth(true);
@@ -118,10 +118,11 @@ export default class Store {
                 nickname: response.data.nickname, 
                 role: response.data.role, 
                 score: response.data.score, 
-                aboutMe: response.data.aboutMe
+                aboutMe: response.data.aboutMe,
+                userQuestions: response.data.userQuestions,
+                userAnswers: response.data.userAnswers
             }}))
             this.setUser(JSON.parse(localStorage.getItem('userData')).userData)
-            console.log(this.user)
             return response.data
         } catch (error) {
             
