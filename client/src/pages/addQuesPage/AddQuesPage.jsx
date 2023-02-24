@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import QuestionsServise from "../../service/QuestionsService";
 
+
 import {useNavigate} from 'react-router-dom'
 import MenuBar from "../../components/menuBar/MenuBar";
 import {SideBar} from "../../components/sideBar/SideBar";
@@ -16,9 +17,10 @@ import QuesstionHasBeenSent from "../../components/UI/notifications/questionHasB
 import styles from "./AddQues.module.css";
 import FileInput from '../../components/UI/inputs/fileInput/FileInput';
 import {Context} from "../../index";
+import { observer } from 'mobx-react-lite';
 
 
-export const AddQuesPage = () => {
+export const AddQuesPage = observer(() => {
 
     let loc = useNavigate();
 
@@ -41,6 +43,7 @@ export const AddQuesPage = () => {
         setFlag(true);
         try {
             const response = await QuestionsServise.addQuestion(files,title,description,subject,userId)
+            store.updateUser()
             console.log(response)
         } catch (e) {
             console.log(e)
@@ -85,4 +88,4 @@ export const AddQuesPage = () => {
             <Footer/>
         </div>
     )
-}
+})

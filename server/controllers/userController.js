@@ -1,7 +1,9 @@
 const path = require('path');
 const fs = require('fs');
 const {User} = require('../models');
+const questionService = require('../service/questionService');
 const {json} = require("sequelize");
+
 
 class UserController {
     async getAllUsers(req, res) {
@@ -12,13 +14,19 @@ class UserController {
         return res.json(allUsers)
     }
 
-    async getOneuser(req, res) {
+    async getOneUser(req, res) {
         const {id} = req.params;
-        const surchUser = await User.findOne({
+        const userQuestions = await questionService.getUserQuestions(id);
+        const userAnswers = await questionService.getUserAnswers(id);
+
+        //console.log(userQuestions, userAnswers)
+        const searchUser = await User.findOne({
             where: {id},
-            attributes: ['id', 'aboutMe', 'role', 'nickname', 'avatarImg', 'score']
+            attributes: ['id', 'aboutMe', 'role', 'nickname', 'avatarImg', 'score', 'ban']
         });
-        return res.json(surchUser)
+        searchUser.dataValues.userQuestions = userQuestions;
+        searchUser.dataValues.userAnswers = userAnswers;
+        return res.json(searchUser)
     }
 
     async editProfile(req, res) {
@@ -52,12 +60,46 @@ class UserController {
         })
     }
 
+    async banUser(req, res) {
+        const {id} = req.params;
+        const user = await User.findOne({where: {id}});
+        if(!user) {
+            return res.json({
+                success: false,
+                message: 'Пользователь не найден'
+            })
+        }
+        await user.update({ban: true});
+
+        return res.json({
+            success: true,
+            message: 'Пользователь забанен'
+        })
+    }
+    async unbannUser(req, res) {
+        const {id} = req.params;
+        const user = await User.findOne({where: {id}});
+        if(!user) {
+            return res.json({
+                success: false,
+                message: 'Пользователь не найден'
+            })
+        }
+        await user.update({ban: false});
+
+        return res.json({
+            success: true,
+            message: 'Пользователь разбанен'
+        })
+
+
     async getNick(req,res){
         console.log(req.body)
         const user = await User.findOne({
             where: {id:req.body.id}
         })
         res.json({id:user.id,nickname:user.nickname,avatarImg:user.avatarImg})
+
     }
 }
 
