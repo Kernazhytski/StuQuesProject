@@ -60,7 +60,7 @@
 
 .knopkaDel{
     display: inline-block;
-    float: left;
+    float: right;
     content:url("../../../../assets/pictures/sprites/delete.png");
     width: 50px;
     cursor: pointer;

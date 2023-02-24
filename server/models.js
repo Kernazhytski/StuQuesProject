@@ -36,9 +36,10 @@ const Token = sequalize.define('token', {
 const Answer = sequalize.define('answer', {
         id: {type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true},
         text: {type: DataTypes.STRING(3800), allowNull: false},
+        files: {type: DataTypes.JSON, defaultValue: []},
     },
     {
-        timestamps: false
+        timestamps: true
     });
 
 User.hasMany(Question);
