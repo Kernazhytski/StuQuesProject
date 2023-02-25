@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import Footer from '../../components/footer/Footer';
 import MenuBar from "../../components/menuBar/MenuBar";
-import {SideBar} from '../../components/sideBar/SideBar';
+import SideBar from '../../components/sideBar/SideBar'
 import QuestionsList from "../../components/questionsList/QuestionsList";
 
 import styles from './MainPage.module.css';

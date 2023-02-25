@@ -14,6 +14,9 @@ class UserController {
 
     async getOneUser(req, res) {
         const {id} = req.params;
+        console.log(222)
+        console.log(id)
+        console.log(222)
         const userQuestions = await questionService.getUserQuestions(id);
         const userAnswers = await questionService.getUserAnswers(id);
 
