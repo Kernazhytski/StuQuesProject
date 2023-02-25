@@ -16,28 +16,6 @@ const AllUsers = () => {
     const response = await UserService.getAllUsers();
     const users = response.data
 
-
-    users.push(users[0])
-    users.push(users[0])
-    users.push(users[0])
-    users.push(users[0])
-    users.push(users[0])
-    users.push(users[0])
-    users.push(users[0])
-    users.push(users[0])
-    users.push(users[0])
-    users.push(users[0])
-    users.push(users[0])
-    users.push(users[0])
-    users.push(users[0])
-    users.push(users[0])
-    users.push(users[0])
-    users.push(users[0])
-    users.push(users[0])
-    users.push(users[0])
-    users.push(users[0])
-
-
     return users
   }
 

@@ -16,10 +16,16 @@ export default class UserService {
         //console.log(data)
         return $api.post(`/users/editUser/${userId}`, data)
     }
+
     static async banUser(userId) {
         return $api.get(`/users/banUser/${userId}`)
     }
     static async unbannUser(userId) {
         return $api.get(`/users/unbannUser/${userId}`)
+
+
+    static async authorOfAnswer(id){
+        return $api.post('/users/getNick',{id})
+
     }
 }

@@ -41,4 +41,4 @@ const UserPage = () => {
     )
 }
 
-export default UserPage
+export default observer(UserPage)
