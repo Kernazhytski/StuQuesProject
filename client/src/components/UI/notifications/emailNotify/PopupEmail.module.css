@@ -58,3 +58,9 @@
     opacity: 1;
     pointer-events: all;
 }
+.txt {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
