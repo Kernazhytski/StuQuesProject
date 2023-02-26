@@ -1,4 +1,8 @@
 import axios from 'axios';
+import { useContext } from 'react';
+import {observer} from 'mobx-react-lite'
+
+import { Context } from '../index'
 
 const $api = axios.create({
     //автоматическое добавление куки к каждому запросу
@@ -28,6 +32,10 @@ $api.interceptors.response.use((config) => {
             console.log(error)
         }
     }
+    if(error.response.status === 666) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('userData');
+    }
     throw error
 })
-export default $api
+export default observer($api)

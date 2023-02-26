@@ -6,7 +6,7 @@ import QuestionsServise from "../../service/QuestionsService";
 
 import {useNavigate} from 'react-router-dom'
 import MenuBar from "../../components/menuBar/MenuBar";
-import {SideBar} from "../../components/sideBar/SideBar";
+import SideBar from '../../components/sideBar/SideBar'
 import Footer from "../../components/footer/Footer";
 import InputThree from "../../components/UI/inputs/input3/InputThree";
 import TextAreaOne from "../../components/UI/textareas/textarea1/TextAreaOne";

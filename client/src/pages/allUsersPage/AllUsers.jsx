@@ -1,19 +1,17 @@
 import React, { useMemo, useState } from 'react'
-import { v4 as uuidv4 } from 'uuid';
 
 import MenuBar from "../../components/menuBar/MenuBar";
-import {SideBar} from "../../components/sideBar/SideBar";
+import SideBar from '../../components/sideBar/SideBar'
 import Footer from "../../components/footer/Footer";
 
 import styles from "./AllUsers.module.css";
 import UserService from '../../service/UserService';
 import SearchInput from '../../components/UI/inputs/searchInput/SearchInput.jsx';
 import SelectOne from '../../components/UI/selects/selectOne/SelectOne';
-import { useNavigate } from 'react-router-dom';
+import UsersList from '../../components/usersList/UsersList';
 
 const AllUsers = () => {
   const [users, setUsers] = useState([]);
-  const loc = useNavigate();
   const getAllUsers = async() => {
     const response = await UserService.getAllUsers();
     const users = response.data
@@ -21,13 +19,9 @@ const AllUsers = () => {
     return users
   }
 
-  const userProfile = (userId) => {
-    loc(`${userId}`)
-  }
   useMemo(async () => {
       const response = await getAllUsers();
-      setUsers(response)
-      console.log(response)    
+      setUsers(response) 
   }, [])
 
 
@@ -42,19 +36,7 @@ const AllUsers = () => {
               <SearchInput placeholder={'Найти пользователя'}/>
               <SelectOne options={['Все', 'Новыe', 'Репутация']} />
             </div>
-            <div className={styles.allUsers}>
-            {
-              users.map(user => <div className={styles.user} key={uuidv4()} onClick={() => userProfile(user.id)}>
-                <img className={styles.userImg} src={process.env.REACT_APP_SERVER_URL + '/' + user.avatarImg}/>
-                <div>
-                  <p className={styles.userNickname}>{user.nickname}</p>
-                  <p className={styles.score}>Очки: {user.score}</p>                  
-                </div>
-
-
-              </div>)
-            }
-            </div>
+            <UsersList users={users}/>
           </div>
         </main>
         <Footer />

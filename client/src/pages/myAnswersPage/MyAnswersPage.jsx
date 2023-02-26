@@ -1,7 +1,7 @@
 import React from 'react';
 
 import MenuBar from "../../components/menuBar/MenuBar";
-import {SideBar} from "../../components/sideBar/SideBar";
+import SideBar from '../../components/sideBar/SideBar'
 import Footer from "../../components/footer/Footer";
 
 import styles from "./MyAnswersPage.module.css";

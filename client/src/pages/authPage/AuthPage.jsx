@@ -110,8 +110,9 @@ const AuthPage = () => {
             <Link 
               to={REG_ROUTE}
               onClick={() => {
+                setNickname('');
                 setEmail('');
-                setPassword('')
+                setPassword('');
               }}> 
               Зарегистрироваться
             </Link>
@@ -139,12 +140,7 @@ const AuthPage = () => {
                   setFlag(true);
                 }      
               }
-
-              //console.log(response)
             }
-            //const response = await store.login(email, password);
-            //console.log(1)
-
             }}>
               Авторизоваться
             </ButtonOne>
@@ -180,8 +176,9 @@ const AuthPage = () => {
             <Link 
               to={LOG_ROUTE}
               onClick={() => {
+                setNickname('');
                 setEmail('');
-                setPassword('')
+                setPassword('');
               }}> 
               Авторизоваться
             </Link>

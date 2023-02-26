@@ -15,12 +15,15 @@ class UserService {
         //Ищем в бд пользователя с таким же email
         const candidate = await User.findOne({where: {email}});
         //Если нашли, то кидаем ошибку
-        if(candidate) {
+        if(candidate && candidate.isActivated) {
             return {
                 success: false,
                 message: `Пользователь с почтовым адресом ${email} уже зарегистрирован`,
                 problem: 'email'
             }
+        }
+        if(candidate && !candidate.isActivated) {
+            candidate.destroy()
         }
         //Если нет, то хешируем пароль, создаём ссылку-активатор, которую отправим на почту для активации аккаунта
         const hashPassword = bcrypt.hashSync(password, Math.ceil(password.length / 2));
@@ -87,6 +90,12 @@ class UserService {
                 success: false,
                 message: `Неверный пароль`,
                 problem: 'password'
+            }
+        }
+        if(user.ban) {
+            return {
+                success: false,
+                message: `Пользователь забанен`
             }
         }
         const tokens = TokenService.generateToken({userId :user.id, email, isActivated: user.isActivated});

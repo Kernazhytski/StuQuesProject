@@ -17,7 +17,8 @@ class AuthController {
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 60 * 24 * 60 * 60 * 1000, httpOnly: true, secure: true})
             return res.json({success: true, message: 'Регистрация прошла успешно.', userData});
         } catch(e) {
-            res.json({success: false, message: 'Ошибка при регистрации пользователя.', error: e});
+            console.log(e)
+            res.json({success: false, message: 'Ошибка при регистрации.', error: e});
         }
     }
     async login(req, res, next) {
@@ -34,7 +35,7 @@ class AuthController {
             return res.json({success: true, message: 'Авторизация прошла успешно.', userData});
         } catch(e) {
             console.log(e)
-            res.json({success: false, message: 'Ошибка при авторизации пользователя.', error: e});
+            res.json({success: false, message: 'Ошибка при авторизации.', error: e});
         }
     }
     async logout(req, res, next) {

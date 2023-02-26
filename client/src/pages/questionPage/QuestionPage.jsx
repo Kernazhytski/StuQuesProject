@@ -2,8 +2,11 @@ import React, {useContext, useEffect, useMemo, useState} from 'react';
 import styles from './QuestionPage.module.css'
 import Footer from '../../components/footer/Footer';
 import MenuBar from "../../components/menuBar/MenuBar";
-import {SideBar} from '../../components/sideBar/SideBar';
+
+
+import SideBar from '../../components/sideBar/SideBar';
 import {useNavigate, useParams} from 'react-router-dom'
+
 import QuestionsServise from "../../service/QuestionsService";
 import {Context} from "../../index";
 import ButtonOne from "../../components/UI/buttons/button1/ButtonOne";

@@ -6,7 +6,6 @@ import { observer } from 'mobx-react-lite';
 
 import { Context } from '../../index';
 import styles from './DropDown.module.css'
-import { USER_PAGE } from '../../utils/routes';
 
 const DropDown = ({...props}) => {
 

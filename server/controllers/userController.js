@@ -26,6 +26,7 @@ class UserController {
         });
         searchUser.dataValues.userQuestions = userQuestions;
         searchUser.dataValues.userAnswers = userAnswers;
+        console.log(333)
         return res.json(searchUser)
     }
 
@@ -70,7 +71,8 @@ class UserController {
             })
         }
         await user.update({ban: true});
-
+        const userQues = await questionService.deleteUserQuestions(id);
+        const userAnsw = await questionService.deleteUserAnswers(id);
         return res.json({
             success: true,
             message: 'Пользователь забанен'
@@ -92,7 +94,7 @@ class UserController {
             message: 'Пользователь разбанен'
         })
 
-
+    }
     async getNick(req,res){
         console.log(req.body)
         const user = await User.findOne({
