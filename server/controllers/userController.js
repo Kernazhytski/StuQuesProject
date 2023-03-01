@@ -80,7 +80,7 @@ class UserController {
     async unbannUser(req, res) {
         const {id} = req.params;
         const user = await User.findOne({where: {id}});
-        if(!user) {
+        if (!user) {
             return res.json({
                 success: false,
                 message: 'Пользователь не найден'
@@ -92,8 +92,8 @@ class UserController {
             success: true,
             message: 'Пользователь разбанен'
         })
-
     }
+
     async getNick(req,res){
         console.log(req.body)
         const user = await User.findOne({

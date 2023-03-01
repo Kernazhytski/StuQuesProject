@@ -9,6 +9,8 @@
 .sub{
     font-family: Girloy-light;
     font-size: 15px;
+    display: inline-block;
+
 }
 
 .title{
@@ -18,5 +20,11 @@
 
 .title:hover{
     text-decoration: underline;
+}
+
+.resh{
+    float: right;
+    display: inline-block;
+    font-size: 20px;
 }
 

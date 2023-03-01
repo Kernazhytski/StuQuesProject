@@ -7,6 +7,8 @@ const QuestionLink = ({question}) => {
     return (
         <div className={styles.strip}>
             <Link  className={styles.title} to={'/question/'+question.id}>{question.title}</Link>
+            {question.isAnswered&&<p className={styles.resh}>Решено</p>}
+            <br/>
             <p className={styles.sub}>{question.subject}</p>
         </div>
     );

@@ -78,6 +78,7 @@ const QuestionsList = (props) => {
     );
 };
 
+
 export default QuestionsList;
 
 /*import React, {useEffect, useMemo, useState} from 'react';
@@ -107,7 +108,12 @@ const QuestionsList = (props) => {
 
     useMemo(async () => {
         setIsLoading(true)
+
+    useEffect(() => {
+        console.log(props.user!==undefined)
+
         if (props.user) {
+            console.log("dd")
             async function fetchData() {
                 try {
                     const response = await QuestionsServise.getMyQuestions(props.user)
@@ -118,7 +124,22 @@ const QuestionsList = (props) => {
                 }
             }
             fetchData();
-        } else {
+        }
+        else if(props.answers!==undefined){
+            console.log("wwwwwwwwww")
+            async function fetchData() {
+                try {
+                    const response = await QuestionsServise.getMyAnswers(props.answers)
+                    const data = response.data
+                    setQuestions(data)
+                    console.log(data)
+                } catch (e) {
+                    console.log(e)
+                }
+            }
+            fetchData();
+        }
+        else {
             async function fetchData() {
                 try {
                     const response = await QuestionsServise.getAllQuestions(props.search, props.subjectS, limit, page)

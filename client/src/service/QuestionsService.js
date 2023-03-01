@@ -50,4 +50,12 @@ export default class QuestionsServise {
     static async deleteAnswer(id){
         return $api.post('/question/deleteAnswers',{id})
     }
+
+    static async setBest(id){
+        return $api.post('/question/setBestAnswer',{id})
+    }
+
+    static async getMyAnswers(id){
+        return $api.post('/question/getMyAnswers',{id})
+    }
 }   
