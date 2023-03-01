@@ -1,0 +1,18 @@
+.btn {
+    height: 40px;
+    border-radius: 15px;
+    font-size: 18px;
+    font-weight: 500;
+    background-color: #9FEDD7;
+    transition: 200ms;
+    width: 50px;
+    margin-right: 5px;
+}
+.btn:last-of-type {
+    margin-right: 0;
+}
+.active {
+    background-color: #026670;
+    color: white;
+    font-weight: 600;
+}

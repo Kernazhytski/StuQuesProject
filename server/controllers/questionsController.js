@@ -68,63 +68,74 @@ class QuestionsController {
     }
 
     async list(req, res) {
+        console.log(req.query)
         let titS = req.query.titleSearch;
         let subS = req.query.sub;
-        console.log(titS)
-        console.log(subS)
+        const limit = +req.query.limit;
+        const page = +req.query.page;
         if (titS === "" || titS == undefined) {
             if (subS === "Все" || subS == undefined) {
-                res.send(await Question.findAll()).json
+                const questions = await Question.findAll();
+                const resposeQuestions = questions.slice((+page - 1) * +limit, ((+page - 1) * +limit) + +limit);
+                res.setHeader('Access-Control-Expose-Headers', 'x-total-count')
+                res.setHeader('x-total-count', questions.length);
+                res.send(resposeQuestions).json
             } else {
-                res.send(await Question.findAll(
-                    {
-                        where: {
-                            subject: subS
-                        }
+                const questions = await Question.findAll({
+                    where: {
+                        subject: subS
                     }
-                )).json
+                })
+                const resposeQuestions = questions.slice((+page - 1) * +limit, ((+page - 1) * +limit) + +limit);
+                res.setHeader('Access-Control-Expose-Headers', 'x-total-count')
+                res.setHeader('x-total-count', questions.length);
+                res.send(resposeQuestions).json
             }
         } else {
             if (subS === "Все" || subS == undefined) {
-                res.send(await Question.findAll(
-                    {
-                        where: {
-                            [Op.or]: [
-                                {
-                                    title: {
-                                        [Op.substring]: titS
-                                    }
-                                }, {
-                                    description: {
-                                        [Op.substring]: titS
-                                    }
-                                }]
-                        }
-                    }
-                )).json
-            } else {
-                res.send(await Question.findAll(
-                    {
-                        where: {
-                            [Op.and]: [
-                                {
-                                    [Op.or]: [
-                                        {
-                                            title: {
-                                                [Op.substring]: titS
-                                            }
-                                        }, {
-                                            description: {
-                                                [Op.substring]: titS
-                                            }
-                                        }]
-                                }, {
-                                    subject: subS
+                const questions = await Question.findAll({
+                    where: {
+                        [Op.or]: [
+                            {
+                                title: {
+                                    [Op.substring]: titS
                                 }
-                            ]
+                            }, {
+                                description: {
+                                    [Op.substring]: titS
+                                }
+                            }]
                         }
+                    })
+                    const resposeQuestions = questions.slice((+page - 1) * +limit, ((+page - 1) * +limit) + +limit);
+                    res.setHeader('Access-Control-Expose-Headers', 'x-total-count')
+                    res.setHeader('x-total-count', questions.length);
+                    res.send(resposeQuestions).json
+            } else {
+                const questions = await Question.findAll({
+                    where: {
+                        [Op.and]: [
+                            {
+                                [Op.or]: [
+                                    {
+                                        title: {
+                                            [Op.substring]: titS
+                                        }
+                                    }, {
+                                        description: {
+                                            [Op.substring]: titS
+                                        }
+                                    }]
+                            }, {
+                                subject: subS
+                            }
+                        ]
                     }
-                )).json
+                })
+                const resposeQuestions = questions.slice((+page - 1) * +limit, ((+page - 1) * +limit) + +limit);
+                res.setHeader('Access-Control-Expose-Headers', 'x-total-count')
+                res.setHeader('x-total-count', questions.length);
+                res.send(resposeQuestions).json
             }
         }
     }
