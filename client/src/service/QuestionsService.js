@@ -1,11 +1,13 @@
 import $api from '../http/index';
 
 export default class QuestionsServise {
-    static async getAllQuestions(search, subject) {
+    static async getAllQuestions(search, subject, limit, page) {
         return $api.get('/question/list', {
             params: {
                 titleSearch: search,
-                sub: subject
+                sub: subject,
+                limit,
+                page
             }
         })
     }

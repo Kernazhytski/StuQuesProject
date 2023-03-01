@@ -26,7 +26,6 @@ class UserController {
         });
         searchUser.dataValues.userQuestions = userQuestions;
         searchUser.dataValues.userAnswers = userAnswers;
-        console.log(333)
         return res.json(searchUser)
     }
 
