@@ -22,8 +22,8 @@ export default class UserService {
     }
     static async unbannUser(userId) {
         return $api.get(`/users/unbannUser/${userId}`)
-
     }
+
     static async authorOfAnswer(id){
         return $api.post('/users/getNick',{id})
 

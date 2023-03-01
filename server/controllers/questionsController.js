@@ -183,14 +183,14 @@ class QuestionsController {
         )).json
     }
 
-    async deleteQues(req,res){
+    async deleteQues(req, res) {
         try {
             console.log(req.body)
 
 
             const ques = await Question.findOne({
-                where:{
-                    id:req.body.id
+                where: {
+                    id: req.body.id
                 }
             })
             await ques.destroy()
@@ -201,11 +201,11 @@ class QuestionsController {
         }
     }
 
-    async getAnswers(req,res){
+    async getAnswers(req, res) {
         try {
             const answers = await Answer.findAll({
-                where:{
-                    questionId:req.body.id
+                where: {
+                    questionId: req.body.id
                 }
             })
             res.send(answers)
@@ -215,11 +215,11 @@ class QuestionsController {
         }
     }
 
-    async deleteAnswers(req,res){
+    async deleteAnswers(req, res) {
         try {
             const answer = await Answer.findOne({
-                where:{
-                    id:req.body.id
+                where: {
+                    id: req.body.id
                 }
             })
             await answer.destroy()
@@ -227,6 +227,57 @@ class QuestionsController {
         } catch (e) {
             console.log(e)
             return res.status(500).json({message: "Send answers error"})
+        }
+    }
+
+    async setBestAnswer(req, res) {
+        try {
+            const answer = await Answer.findOne({
+                where:{
+                    id: req.body.id
+                }
+            })
+            answer.isBest = true;
+            const question = await Question.findOne({
+                where:{
+                    id: answer.questionId
+                }
+            })
+            question.isAnswered = true;
+            await answer.save();
+            await question.save();
+            res.send("Made best answer saccessfully")
+        } catch (e) {
+            console.log(e)
+            return res.status(500).json({message: "Set best answer error"})
+        }
+    }
+
+    async getMyAnswers(req,res){
+        try{
+            const answers = await Answer.findAll({
+                where:{
+                    userId:req.body.id
+                }
+            })
+            var setQuestions = new Set();
+            console.log(setQuestions)
+            answers.forEach(answer => setQuestions.add(answer.questionId))
+            var questions = [];
+            console.log("_______")
+            console.log(setQuestions)
+            for (const id of setQuestions) {
+
+                questions.push(await Question.findOne({
+                    where: {
+                        id: id
+                    }
+                }));
+            }
+            res.send(questions).json
+        }catch (e) {
+            console.log(e);
+            return res.status(500).json({message:"Get my answers error"})
         }
     }
 }

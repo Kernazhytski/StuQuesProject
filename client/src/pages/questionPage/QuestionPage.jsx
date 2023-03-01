@@ -102,24 +102,30 @@ const QuestionPage = () => {
                         answerS?.length > 0 &&
                         <div>
                             <p className={styles.header}>Ответы</p>
-                            <AnswerList answers={answerS}/>
+                            <AnswerList answers={answerS} question={question}/>
                         </div>
                     }
                     {
-                        question.userId === store.user.id
-                            ?
-                            <div>
-                                <p className={styles.header}>Действия с вопросом:</p>
-                                <ButtonOne onClick={deleteQuestion} width={"200px"}>Удалить вопрос</ButtonOne>
-                            </div>
-                            :
-                            <div>
-                                <p className={styles.header}>Напишите ответ:</p>
-                                <TextAreaOne onChange={e => setAnswer(e.target.value)} value={answer}/>
-                                <FileInput update={update}/>
-                                <ButtonOne marginTop={"10px"} onClick={sendAnswer} width={"125px"}>Отправить</ButtonOne>
-                            </div>
-                    }
+                        question.isAnswered !==true &&
+                        <div>
+                        {
+                            question.userId === store.user.id
+                                ?
+                                <div>
+                                    <p className={styles.header}>Действия с вопросом:</p>
+                                    <ButtonOne onClick={deleteQuestion} width={"200px"}>Удалить вопрос</ButtonOne>
+                                </div>
+                                :
+                                <div>
+                                    <p className={styles.header}>Напишите ответ:</p>
+                                    <TextAreaOne onChange={e => setAnswer(e.target.value)} value={answer}/>
+                                    <FileInput update={update}/>
+                                    <ButtonOne marginTop={"10px"} onClick={sendAnswer}
+                                               width={"125px"}>Отправить</ButtonOne>
+                                </div>
+                        }
+                        </div>
+                        }
                 </div>
             </main>
             <Footer/>
