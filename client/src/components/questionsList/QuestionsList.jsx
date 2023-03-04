@@ -36,7 +36,6 @@ const QuestionsList = (props) => {
             const data = response.data
             setIsLoading(false)
             setQuestions(data)
-            
         } catch (e) {
             console.log(e)
         }
@@ -47,6 +46,7 @@ const QuestionsList = (props) => {
 
     useMemo(async () => {
         //setIsLoading(true)
+
         if (props.user) {
             await getMyQuestions()
         } else {
