@@ -15,5 +15,7 @@ router.post('/addAnswer',authMiddleware,QuestionController.addAnswer);
 router.post('/delete',authMiddleware,QuestionController.deleteQues);
 router.post('/getAnswers',authMiddleware,QuestionController.getAnswers);
 router.post('/deleteAnswers',authMiddleware,QuestionController.deleteAnswers);
+router.post('/setBestAnswer',authMiddleware,QuestionController.setBestAnswer);
+router.post('/getMyAnswers',authMiddleware,QuestionController.getMyAnswers)
 
 module.exports = router;
