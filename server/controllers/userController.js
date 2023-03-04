@@ -19,7 +19,6 @@ class UserController {
         }
         if(criterion == 'Новыe') {
             sortUsers = allUsers.reverse()
-            console.log(sortUsers)
         }
         else if(criterion == 'Репутация') {
             sortUsers.sort((a, b) => a.score > b.score ? -1 : 1);
