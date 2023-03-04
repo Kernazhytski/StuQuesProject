@@ -7,8 +7,9 @@ import {useNavigate} from "react-router-dom";
 const PopupEmail = ({active, setActive, popupText,locat,action}) => {
     const closePopup = () => {
         setActive(false)
+        if(action!=undefined){
+        action()}
         relocate()
-        action()
     }
 
     let loc = useNavigate();
@@ -20,7 +21,7 @@ const PopupEmail = ({active, setActive, popupText,locat,action}) => {
     return (
         <div className={active ? styles.activefon : styles.fon} onClick={closePopup}>
             <div className={active?  styles.formactive : styles.form} onClick={event => event.stopPropagation()}>
-                <p>{popupText}</p><br/>
+                <div className={styles.txt}>{popupText}</div><br/>
                 <ButtonOne width={"100px"} onClick={closePopup}>Хорошо</ButtonOne>
             </div>
         </div>

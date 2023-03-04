@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import Footer from '../../components/footer/Footer';
 import MenuBar from "../../components/menuBar/MenuBar";
-import {SideBar} from '../../components/sideBar/SideBar';
+import SideBar from '../../components/sideBar/SideBar'
 import QuestionsList from "../../components/questionsList/QuestionsList";
 
 import styles from './MainPage.module.css';
@@ -30,7 +30,7 @@ const MainPage = () => {
                     <p className={styles.header} style={{display: "inline-block", marginRight: "10px"}}>Вопросы</p>
                     <SelectGetQuestion style={{padding: "0"}} onChange={e => changeSub(e.target.value)}
                                        value={subject}/>
-                    <QuestionsList search={search} subjectS={subject}/>
+                    <QuestionsList search={search} subjectS={subject} user={undefined} answers={undefined}/>
                 </div>
             </main>
             <Footer/>

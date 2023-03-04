@@ -1,6 +1,7 @@
+const { User } = require('../models');
 const tokenService = require('../service/tokenService')
 
-module.exports = function(req, res, next) {
+module.exports = async function(req, res, next) {
     try {
         const authHeader = req.headers.authorization;
         if(!authHeader) {
@@ -14,6 +15,10 @@ module.exports = function(req, res, next) {
         const userData = tokenService.validateAccessToken(token);
         if(!userData) {
             return res.status(401).json('Нужно авторизоваться 3')
+        }
+        const user = await User.findOne({where: {id: userData.userId}});
+        if(user.ban) {
+            return res.status(666).json('Пользователь забанен')
         }
         req.user = userData;
         next();

@@ -19,15 +19,18 @@ const User = sequalize.define('user', {
 });
 
 const Question = sequalize.define('question', {
-        id: {type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true},
-        title: {type: DataTypes.STRING(120), allowNull: false},
-        description: {type: DataTypes.STRING(3800), allowNull: false},
-        files: {type: DataTypes.JSON, defaultValue: []},
-        subject: {type: DataTypes.STRING(40), allowNull: false},
-    },
-    {
-        timestamps: false
-    });
+            id: {type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true},
+            title: {type: DataTypes.STRING(120), allowNull: false},
+            description: {type: DataTypes.STRING(3800), allowNull: false},
+            files: {type: DataTypes.JSON, defaultValue: []},
+            subject: {type: DataTypes.STRING(40), allowNull: false},
+            isAnswered: {type: DataTypes.BOOLEAN, defaultValue: false}
+        },
+        {
+            timestamps: false
+        }
+    )
+;
 
 const Token = sequalize.define('token', {
     refreshToken: {type: DataTypes.STRING, allowNull: false}
@@ -37,6 +40,7 @@ const Answer = sequalize.define('answer', {
         id: {type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true},
         text: {type: DataTypes.STRING(3800), allowNull: false},
         files: {type: DataTypes.JSON, defaultValue: []},
+        isBest: {type: DataTypes.BOOLEAN, defaultValue: false}
     },
     {
         timestamps: true

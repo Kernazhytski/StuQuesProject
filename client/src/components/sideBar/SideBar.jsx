@@ -4,7 +4,7 @@ import { ADD_QUES, ALL_USERS, MAIN_ROUTE, MY_ANSW, MY_QUES, USER_PAGE } from '..
 import SelectAddQuestion from "../UI/selects/selectAddQuestion/selectAddQuestion";
 import styles from './SideBar.module.css'
 
-export const SideBar = (props) => {
+const SideBar = (props) => {
 
     const location = "/"+useLocation().pathname.split('/').reverse()[0];
     const preLocation = "/"+useLocation().pathname.split('/').reverse()[1]
@@ -72,3 +72,5 @@ export const SideBar = (props) => {
         </aside>
     )
 }
+
+export default SideBar

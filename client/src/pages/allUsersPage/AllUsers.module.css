@@ -24,34 +24,4 @@
     margin-left: 10px;
     border-left: 1px solid #000;
 }
-.userImg {
-    display: block;
-    height: 60px;
-    width: 60px;
-    margin-right: 5px;
 
-}
-.user {
-    display: flex;
-    flex-direction: row;
-    cursor: pointer;
-    transition: 200ms;
-    padding: 10px;
-    border-radius: 10px;
-}
-.user:hover {
-    background-color: rgb(208, 208, 208);
-}
-.userNickname {
-    
-    margin-bottom: 5px;
-}
-.score {
-    font-family: Girloy-light;
-}
-.allUsers {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 50px 110px;
-    margin-bottom: 100px;
-}

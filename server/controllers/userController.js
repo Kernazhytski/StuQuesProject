@@ -2,24 +2,37 @@ const path = require('path');
 const fs = require('fs');
 const {User} = require('../models');
 const questionService = require('../service/questionService');
-const {json} = require("sequelize");
-
 
 class UserController {
     async getAllUsers(req, res) {
+        const limit = +req.query.limit;
+        const page = +req.query.page;
+        const search = req.query.search;
+        const criterion = req.query.criterion
         const allUsers = await User.findAll({
             where: {isActivated: true},
             attributes: ['id', 'aboutMe', 'role', 'nickname', 'avatarImg', 'score']
         });
-        return res.json(allUsers)
+        let sortUsers = allUsers
+        if(search) {
+            sortUsers = allUsers.filter(user => user.nickname.includes(search));
+        }
+        if(criterion == 'Новыe') {
+            sortUsers = allUsers.reverse()
+        }
+        else if(criterion == 'Репутация') {
+            sortUsers.sort((a, b) => a.score > b.score ? -1 : 1);
+        }
+        const resposeUsers = sortUsers.slice((+page - 1) * +limit, ((+page - 1) * +limit) + +limit);
+        res.setHeader('Access-Control-Expose-Headers', 'x-total-count')
+        res.setHeader('x-total-count', sortUsers.length);
+        
+        return res.json(resposeUsers)
     }
-
     async getOneUser(req, res) {
         const {id} = req.params;
         const userQuestions = await questionService.getUserQuestions(id);
         const userAnswers = await questionService.getUserAnswers(id);
-
-        //console.log(userQuestions, userAnswers)
         const searchUser = await User.findOne({
             where: {id},
             attributes: ['id', 'aboutMe', 'role', 'nickname', 'avatarImg', 'score', 'ban']
@@ -70,7 +83,8 @@ class UserController {
             })
         }
         await user.update({ban: true});
-
+        const userQues = await questionService.deleteUserQuestions(id);
+        const userAnsw = await questionService.deleteUserAnswers(id);
         return res.json({
             success: true,
             message: 'Пользователь забанен'
@@ -79,7 +93,7 @@ class UserController {
     async unbannUser(req, res) {
         const {id} = req.params;
         const user = await User.findOne({where: {id}});
-        if(!user) {
+        if (!user) {
             return res.json({
                 success: false,
                 message: 'Пользователь не найден'
@@ -91,7 +105,7 @@ class UserController {
             success: true,
             message: 'Пользователь разбанен'
         })
-
+    }
 
     async getNick(req,res){
         console.log(req.body)
