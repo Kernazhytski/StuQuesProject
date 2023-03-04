@@ -22,7 +22,6 @@ const PaginationList = ({pagesArray, changePage, page}) => {
     }
     useMemo(() => {
         setRetArray(pagesArray.slice(startIndex, endIndex + 1))
-        console.log(pagesArray)
     }, [pagesArray, startIndex])
     return(
         <div className={styles.pagesCont}>
