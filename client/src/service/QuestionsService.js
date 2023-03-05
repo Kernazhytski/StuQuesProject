@@ -12,8 +12,14 @@ export default class QuestionsServise {
         })
     }
 
-    static async getMyQuestions(id) {
-        return $api.get('/question/getMyQuestion', {params: {id:id}})
+    static async getMyQuestions(id, limit , page) {
+        return $api.get('/question/getMyQuestion', {
+            params: {
+                id, 
+                limit,
+                page
+            }
+        })
     }
 
     static async addQuestion(files, title, description, subject, userId) {
@@ -55,7 +61,13 @@ export default class QuestionsServise {
         return $api.post('/question/setBestAnswer',{id})
     }
 
-    static async getMyAnswers(id){
-        return $api.post('/question/getMyAnswers',{id})
+    static async getMyAnswers(id, limit , page){
+        return $api.get('/question/getMyAnswers',{
+            params: {
+                id, 
+                limit,
+                page
+            }
+        })
     }
 }   

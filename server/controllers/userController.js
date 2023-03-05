@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const {User} = require('../models');
 const questionService = require('../service/questionService');
+const cut = require("../service/cutService");
 
 class UserController {
     async getAllUsers(req, res) {
@@ -23,11 +24,7 @@ class UserController {
         else if(criterion == 'Репутация') {
             sortUsers.sort((a, b) => a.score > b.score ? -1 : 1);
         }
-        const resposeUsers = sortUsers.slice((+page - 1) * +limit, ((+page - 1) * +limit) + +limit);
-        res.setHeader('Access-Control-Expose-Headers', 'x-total-count')
-        res.setHeader('x-total-count', sortUsers.length);
-        
-        return res.json(resposeUsers)
+        cut(sortUsers,res,page,limit)
     }
     async getOneUser(req, res) {
         const {id} = req.params;

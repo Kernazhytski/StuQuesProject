@@ -1,13 +1,14 @@
-import React, { useMemo, useState} from 'react';
+import React, { useContext, useMemo, useState} from 'react';
 import QuestionLink from "../questionLink/QuestionLink";
 import styles from "./QuestionsList.module.css"
 import QuestionsServise from "../../service/QuestionsService";
 import { getPagesArray, getPagesCount } from '../../utils/pages';
 import PaginationList from '../paginationList/PaginationList';
 import Loader from '../../components/UI/loader/Loader';
+import { useLocation } from 'react-router-dom';
 
 const QuestionsList = (props) => {
-
+    const location = useLocation().pathname.split('/').reverse()[0];
     const [questions, setQuestions] = useState([]);
     const [limit, setLimit] = useState(10);
     const [page, setPage] = useState(1);
@@ -18,7 +19,6 @@ const QuestionsList = (props) => {
     const getAllQuestions = async () => {
         try {
             const response = await QuestionsServise.getAllQuestions(props.search, props.subjectS, limit, page)
-            console.log(response)
             const totalCount = response.headers['x-total-count']
             setTotalPages(getPagesCount(totalCount, limit));
             const data = response.data
@@ -29,7 +29,21 @@ const QuestionsList = (props) => {
     }
     const getMyQuestions = async () => {
         try {
-            const response = await QuestionsServise.getMyQuestions(props.user)
+            const response = await QuestionsServise.getMyQuestions(props.user, limit, page)
+            const totalCount = response.headers['x-total-count']
+            setTotalPages(getPagesCount(totalCount, limit));
+            const data = response.data
+            setQuestions(data)
+            
+        } catch (e) {
+            console.log(e)
+        }
+    }
+    const getMyAnswers = async () => {
+        try {
+            const response = await QuestionsServise.getMyAnswers(props.user, limit, page)
+            const totalCount = response.headers['x-total-count']
+            setTotalPages(getPagesCount(totalCount, limit));
             const data = response.data
             setQuestions(data)
             
@@ -42,14 +56,38 @@ const QuestionsList = (props) => {
     }
 
     useMemo(async () => {
+        console.log(location)
         setIsLoading(true)
-        if (props.user) {
+        console.log(props)
+        if (location == 'myQuestions') {
+            console.log(1)
             await getMyQuestions()
             setIsLoading(false)
-        } else {
+        }
+        else if(location == 'myAnswers'){
+            console.log(2)
+            await getMyAnswers(props.answer)
+            setIsLoading(false)
+        } 
+        else if(location == ''){
+            console.log(3)
             await getAllQuestions() 
             setIsLoading(false)
-        }    
+        }
+        /*if (props.user != undefined) {
+            console.log(1)
+            await getMyQuestions()
+            setIsLoading(false)
+        }
+        else if(props.answer != undefined){
+            console.log(2)
+            await getMyAnswers(props.answer)
+            setIsLoading(false)
+        } else {
+            console.log(3)
+            await getAllQuestions() 
+            setIsLoading(false)
+        }  */  
         setPagesArray(getPagesArray(totalPages))
         
     }, [setQuestions, props.search, props.subjectS, props.user, totalPages, page])

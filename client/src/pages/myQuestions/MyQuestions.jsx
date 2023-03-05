@@ -20,7 +20,7 @@ const MyQuestions = () => {
                 <SideBar />
                 <div className={styles.questions}>
                     <p className={styles.header} style={{display: "inline-block", marginRight: "10px"}}>Мои вопросы</p>
-                    <QuestionsList user={store.user.id} answers={undefined}/>
+                    <QuestionsList user={store.user.id}/>
                 </div>
             </main>
             <Footer/>
