@@ -30,7 +30,7 @@ const MainPage = () => {
                     <p className={styles.header} style={{display: "inline-block", marginRight: "10px"}}>Вопросы</p>
                     <SelectGetQuestion style={{padding: "0"}} onChange={e => changeSub(e.target.value)}
                                        value={subject}/>
-                    <QuestionsList search={search} subjectS={subject} user={undefined} answers={undefined}/>
+                    <QuestionsList search={search} subjectS={subject}/>
                 </div>
             </main>
             <Footer/>

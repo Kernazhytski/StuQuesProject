@@ -68,10 +68,7 @@ export default class Store {
             const response = await AuthService.logout(email, password, nickname);
             localStorage.removeItem('token');
             localStorage.removeItem('userData');
-            //localStorage.removeItem()
-            //console.log(this.isAuth)
             this.setAuth(false);
-            //console.log(this.isAuth)
             this.setUser({});
         } catch (e) {
             console.log(e)

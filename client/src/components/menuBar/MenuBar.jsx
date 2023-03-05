@@ -9,6 +9,7 @@ import InputTwo from "../UI/inputs/findInput/InputTwo";
 import DropDown from '../dropDown/DropDown';
 
 import styles from './MenuBar.module.css'
+import Burger from '../UI/burger/Burger';
 
 const MenuBar = (props) => {
     const [state, setState] = useState("")
@@ -40,15 +41,6 @@ const MenuBar = (props) => {
     }
     useMemo(async () => {
         store.checkAuth2()
-        //console.log(store.user)
-        //console.log(store.isAuth)
-        /*.log(Boolean(localStorage.getItem('token')))
-        if(localStorage.getItem('token') !== 'undefined') {
-            setUserData(JSON.parse(localStorage.getItem('userData')).userData);
-            console.log(store.isAuth)
-            //await store.checkAuth()
-        }*/
-
     }, [])
     const dropDownChange = (e) => {
         e.stopPropagation()
@@ -75,6 +67,10 @@ const MenuBar = (props) => {
         <header className={styles.containerHeader}>
 
             <div className={styles.container}>
+                <div className={styles.burgerContainer}>
+                    <Burger />
+                </div>
+                
                 <div className={styles.logo} onClick={logoClick}/>
                 <div className={styles.containerInput}>
                     <InputTwo value={state} placeholder={"Поиск"} onKeyDown={e => keyPress(e)}

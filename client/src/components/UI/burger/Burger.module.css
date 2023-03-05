@@ -1,0 +1,77 @@
+.burgerContainer{
+    width: 30px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.burgerClose,
+.burgerClose::before, 
+.burgerClose::after{
+   display: block;
+   background-color: rgb(255, 255, 255);
+   position: absolute;
+   height: 4px;
+   width: 30px;
+   transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1);
+   border-radius: 2px;
+}
+.burgerClose::before {
+    content: '';
+    margin-top: -8px;
+}
+
+.burgerClose::after {
+    content: '';
+    margin-top: 8px;
+}
+.burgerOpen, 
+.burgerOpen::after {
+    display: block;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    height: 4px;
+    width: 30px;
+    transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1);
+    border-radius: 2px;
+    margin-top: 0px;
+    transform: rotate(405deg);
+}
+.burgerOpen::after {
+    content: '';
+    transform: rotate(450deg);
+}
+.burgerContent {
+    display: none;
+    position: absolute;
+    top: 60px;
+    background-color: #222;
+    width: 200px;
+    padding-left: 20px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    user-select: none;
+    animation: burgerShow 0.7s;
+    z-index: 3;
+}
+.burgerContent__item {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    color: rgb(255, 255, 255);
+    margin-bottom: 20px;
+    transition: 200ms;
+    cursor: pointer;
+}
+.burgerContent__item:hover {
+    color: #026670;
+}
+
+@keyframes burgerShow {
+    from {
+        opacity: 0%;
+    }
+    to {
+        opacity: 100%;
+    }
+}
