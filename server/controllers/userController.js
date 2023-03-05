@@ -12,7 +12,7 @@ class UserController {
         const criterion = req.query.criterion
         const allUsers = await User.findAll({
             where: {isActivated: true},
-            attributes: ['id', 'aboutMe', 'role', 'nickname', 'avatarImg', 'score']
+            attributes: ['id', 'aboutMe', 'role', 'nickname', 'avatarImg', 'score','rang']
         });
         let sortUsers = allUsers
         if(search) {

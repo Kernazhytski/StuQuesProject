@@ -18,7 +18,6 @@ const DropDown = ({...props}) => {
             <li className={styles.listItem}>
               <Link to={`/allUsers/${store.user.id}`}>Учётная запись</Link>
             </li>
-            <li className={styles.listItem}>Настройки</li>
             <li className={styles.listItem}>Помощь</li>
             <li className={styles.listItem}>
               <ButtonOne width={"125px"} onClick={props.leaveAccount}>Выход</ButtonOne>

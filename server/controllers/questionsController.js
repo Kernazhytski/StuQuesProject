@@ -4,7 +4,7 @@ const path = require('path')
 const imageUploadPath = path.resolve(__dirname, '..', 'files', 'images');
 const {Op} = require('sequelize')
 const cut = require("../service/cutService");
-
+const rang = require("../service/roleService")
 
 
 class QuestionsController {
@@ -12,13 +12,11 @@ class QuestionsController {
     async getQues(req, res) {
         try {
             const idQ = req.params.id
-            const quset = await Question.findOne(
-                {
-                    where: {
-                        id: idQ
-                    },
-                }
-            )
+            const quset = await Question.findOne({
+                where: {
+                    id: idQ
+                },
+            })
 
             res.send(quset)
         } catch (e) {
@@ -32,10 +30,7 @@ class QuestionsController {
             const quest = await Question.create(req.body)
             let len
             {
-                req.files != null ?
-                    len = req.files.file.length
-                    :
-                    len = 0
+                req.files != null ? len = req.files.file.length : len = 0
             }
             // Заносим картиночки
             await fs.promises.mkdir(imageUploadPath + '\\' + quest.id, {recursive: true})
@@ -78,21 +73,36 @@ class QuestionsController {
         if (titS === "" || titS == undefined) {
             if (subS === "Все" || subS == undefined) {
                 const questions = await Question.findAll();
-                cut(questions,res,page,limit)
+                cut(questions, res, page, limit)
             } else {
                 const questions = await Question.findAll({
                     where: {
                         subject: subS
                     }
                 })
-                cut(questions,res,page,limit)
+                cut(questions, res, page, limit)
             }
         } else {
             if (subS === "Все" || subS == undefined) {
                 const questions = await Question.findAll({
                     where: {
-                        [Op.or]: [
-                            {
+                        [Op.or]: [{
+                            title: {
+                                [Op.substring]: titS
+                            }
+                        }, {
+                            description: {
+                                [Op.substring]: titS
+                            }
+                        }]
+                    }
+                })
+                cut(questions, res, page, limit)
+            } else {
+                const questions = await Question.findAll({
+                    where: {
+                        [Op.and]: [{
+                            [Op.or]: [{
                                 title: {
                                     [Op.substring]: titS
                                 }
@@ -101,31 +111,12 @@ class QuestionsController {
                                     [Op.substring]: titS
                                 }
                             }]
-                        }
-                    })
-                cut(questions,res,page,limit)
-            } else {
-                const questions = await Question.findAll({
-                    where: {
-                        [Op.and]: [
-                            {
-                                [Op.or]: [
-                                    {
-                                        title: {
-                                            [Op.substring]: titS
-                                        }
-                                    }, {
-                                        description: {
-                                            [Op.substring]: titS
-                                        }
-                                    }]
-                            }, {
-                                subject: subS
-                            }
-                        ]
+                        }, {
+                            subject: subS
+                        }]
                     }
                 })
-                cut(questions,res,page,limit)
+                cut(questions, res, page, limit)
             }
         }
     }
@@ -135,17 +126,15 @@ class QuestionsController {
             const answer = await Answer.create(req.body)
             let len
             {
-                req.files != null ?
-                    len = req.files.file.length
-                    :
-                    len = 0
+                req.files != null ? len = req.files.file.length : len = 0
             }
             const user = await User.findOne({
-                where:{
+                where: {
                     id: answer.userId
                 }
             })
-            user.score+=1;
+            user.score += 1;
+            rang(user.id)
             user.save()
             // Заносим картиночки
             await fs.promises.mkdir(imageUploadPath + '\\answers\\' + answer.id, {recursive: true})
@@ -180,11 +169,13 @@ class QuestionsController {
     }
 
     async getMy(req, res) {
+
         const limit = +req.query.limit;
         const page = +req.query.page;
         const userId = req.query.id
         const myQuestions = await Question.findAll({where: {userId}})
         cut(myQuestions,res,page,limit)
+
     }
 
     async deleteQues(req, res) {
@@ -224,12 +215,13 @@ class QuestionsController {
                     id: req.body.id
                 }
             })
-            const user = await User.findOne({
-                where:{
+            var user = await User.findOne({
+                where: {
                     id: answer.userId
                 }
             })
-            user.score-=1;
+            user.score -= 1;
+            rang(user.id)
             user.save()
             await answer.destroy()
             res.send("Deleted successfully")
@@ -242,31 +234,33 @@ class QuestionsController {
     async setBestAnswer(req, res) {
         try {
             const answer = await Answer.findOne({
-                where:{
+                where: {
                     id: req.body.id
                 }
             })
             answer.isBest = true;
             const user = await User.findOne({
-                where:{
+                where: {
                     id: answer.userId
                 }
             })
-            user.score+=5;
+            user.score += 5;
+            rang(user.id)
             user.save()
 
             const question = await Question.findOne({
-                where:{
+                where: {
                     id: answer.questionId
                 }
             })
             question.isAnswered = true;
             const user2 = await User.findOne({
-                where:{
+                where: {
                     id: question.userId
                 }
             })
-            user2.score+=3;
+            user2.score += 3;
+            rang(user2.id)
             user2.save()
             await answer.save();
             await question.save();
@@ -276,6 +270,7 @@ class QuestionsController {
             return res.status(500).json({message: "Set best answer error"})
         }
     }
+
 
     async getMyAnswers(req,res){
         const limit = +req.query.limit;
@@ -297,10 +292,13 @@ class QuestionsController {
                     }
                 }));
             }
+
             cut(questions, res, page, limit)
         }catch (e) {
+
+
             console.log(e);
-            return res.status(500).json({message:"Get my answers error"})
+            return res.status(500).json({message: "Get my answers error"})
         }
     }
 }
