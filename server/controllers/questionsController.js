@@ -1,8 +1,10 @@
-const {Question, Answer} = require('../models');
+const {Question, Answer, User} = require('../models');
 const fs = require('fs')
 const path = require('path')
 const imageUploadPath = path.resolve(__dirname, '..', 'files', 'images');
 const {Op} = require('sequelize')
+const cut = require("../service/cutService");
+
 
 
 class QuestionsController {
@@ -76,20 +78,14 @@ class QuestionsController {
         if (titS === "" || titS == undefined) {
             if (subS === "Все" || subS == undefined) {
                 const questions = await Question.findAll();
-                const resposeQuestions = questions.slice((+page - 1) * +limit, ((+page - 1) * +limit) + +limit);
-                res.setHeader('Access-Control-Expose-Headers', 'x-total-count')
-                res.setHeader('x-total-count', questions.length);
-                res.send(resposeQuestions).json
+                cut(questions,res,page,limit)
             } else {
                 const questions = await Question.findAll({
                     where: {
                         subject: subS
                     }
                 })
-                const resposeQuestions = questions.slice((+page - 1) * +limit, ((+page - 1) * +limit) + +limit);
-                res.setHeader('Access-Control-Expose-Headers', 'x-total-count')
-                res.setHeader('x-total-count', questions.length);
-                res.send(resposeQuestions).json
+                cut(questions,res,page,limit)
             }
         } else {
             if (subS === "Все" || subS == undefined) {
@@ -107,10 +103,7 @@ class QuestionsController {
                             }]
                         }
                     })
-                    const resposeQuestions = questions.slice((+page - 1) * +limit, ((+page - 1) * +limit) + +limit);
-                    res.setHeader('Access-Control-Expose-Headers', 'x-total-count')
-                    res.setHeader('x-total-count', questions.length);
-                    res.send(resposeQuestions).json
+                cut(questions,res,page,limit)
             } else {
                 const questions = await Question.findAll({
                     where: {
@@ -132,10 +125,7 @@ class QuestionsController {
                         ]
                     }
                 })
-                const resposeQuestions = questions.slice((+page - 1) * +limit, ((+page - 1) * +limit) + +limit);
-                res.setHeader('Access-Control-Expose-Headers', 'x-total-count')
-                res.setHeader('x-total-count', questions.length);
-                res.send(resposeQuestions).json
+                cut(questions,res,page,limit)
             }
         }
     }
@@ -150,6 +140,13 @@ class QuestionsController {
                     :
                     len = 0
             }
+            const user = await User.findOne({
+                where:{
+                    id: answer.userId
+                }
+            })
+            user.score+=1;
+            user.save()
             // Заносим картиночки
             await fs.promises.mkdir(imageUploadPath + '\\answers\\' + answer.id, {recursive: true})
             const names = []
@@ -233,6 +230,13 @@ class QuestionsController {
                     id: req.body.id
                 }
             })
+            const user = await User.findOne({
+                where:{
+                    id: answer.userId
+                }
+            })
+            user.score-=1;
+            user.save()
             await answer.destroy()
             res.send("Deleted successfully")
         } catch (e) {
@@ -249,12 +253,27 @@ class QuestionsController {
                 }
             })
             answer.isBest = true;
+            const user = await User.findOne({
+                where:{
+                    id: answer.userId
+                }
+            })
+            user.score+=5;
+            user.save()
+
             const question = await Question.findOne({
                 where:{
                     id: answer.questionId
                 }
             })
             question.isAnswered = true;
+            const user2 = await User.findOne({
+                where:{
+                    id: question.userId
+                }
+            })
+            user2.score+=3;
+            user2.save()
             await answer.save();
             await question.save();
             res.send("Made best answer saccessfully")
