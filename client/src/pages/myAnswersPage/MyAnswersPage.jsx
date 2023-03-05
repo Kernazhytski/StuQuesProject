@@ -7,9 +7,9 @@ import Footer from "../../components/footer/Footer";
 import styles from "./MyAnswersPage.module.css";
 import QuestionsList from "../../components/questionsList/QuestionsList";
 import {Context} from "../../index";
+import { observer } from 'mobx-react-lite';
 
 const MyAnswersPage = () => {
-
     const {store} = useContext(Context);
 
     return (
@@ -19,7 +19,7 @@ const MyAnswersPage = () => {
                 <SideBar />
                 <div className={styles.answers}>
                     <p className={styles.header} style={{display: "inline-block", marginRight: "10px"}}>Мои ответы</p>
-                    <QuestionsList answers={store.user.id} user={undefined}/>
+                    <QuestionsList user={store.user.id} />
                 </div>
             </main>
             <Footer/>
@@ -27,4 +27,4 @@ const MyAnswersPage = () => {
     );
 };
 
-export default MyAnswersPage;
+export default observer(MyAnswersPage);

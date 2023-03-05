@@ -20,7 +20,9 @@
     content: url("../../assets/pictures/logos/logo-dark.png");
 
 }
-
+.burgerContainer {
+    display: none;
+}
 .lupa{
     position: absolute;
     content: url("../../assets/pictures/sprites/lupa.png");
@@ -87,10 +89,16 @@
     }
 }
 @media screen and (max-width: 700px) {
+    .burgerContainer {
+        display: block;
+    }
     .container {
-        width: 400px;
+        width: 500px;
     }
     .logo {
+        display: none;
+    }
+    .userInfo {
         display: none;
     }
     .containerInput {
@@ -98,15 +106,36 @@
     }
 
 }
-@media screen and (max-width: 470px) {
+@media screen and (max-width: 550px) {
+    .container {
+        width: 500px;
+        justify-content: space-between;
+    }
     .container button {
         display: none;
     }
+    .containerInput {
+        width: 400px;
+        margin-right: 0;
+    }
+}
+@media screen and (max-width: 515px) {
     .container {
-        justify-content: center;
+        width: 400px;
+        justify-content: space-between;
     }
     .containerInput {
         width: 300px;
+        margin-right: 0;
+    }
+}
+@media screen and (max-width: 450px) {
+    .container {
+        width: 300px;
+        justify-content: space-between;
+    }
+    .containerInput {
+        width: 250px;
         margin-right: 0;
     }
 }
