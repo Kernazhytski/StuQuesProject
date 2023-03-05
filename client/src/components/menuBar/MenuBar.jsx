@@ -16,7 +16,9 @@ const MenuBar = (props) => {
     const keyPress = (e) => {
         if (e.keyCode == 13) {
             setState(e.target.value)
-            props.changeS(e.target.value)
+            if (props.changeS) {
+                props.changeS(e.target.value)
+            }
         }
     }
 

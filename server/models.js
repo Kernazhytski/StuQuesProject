@@ -12,6 +12,7 @@ const User = sequalize.define('user', {
     avatarImg: {type: DataTypes.STRING(255), defaultValue: 'defaultAvatar.png'},
     ban: {type: DataTypes.BOOLEAN, defaultValue: false},
     score: {type: DataTypes.INTEGER, defaultValue: 0},
+    rang: {type: DataTypes.STRING(20), allowNull: false,defaultValue: "Новичек"},
     isActivated: {type: DataTypes.BOOLEAN, defaultValue: false},
     activationLink: {type: DataTypes.STRING}
 }, {
@@ -46,6 +47,14 @@ const Answer = sequalize.define('answer', {
         timestamps: true
     });
 
+const Role = sequalize.define('role',{
+    id: {type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true},
+    role: {type: DataTypes.STRING(20), allowNull: false},
+    score: {type: DataTypes.INTEGER}
+},{
+    timestamps: false
+})
+
 User.hasMany(Question);
 Question.belongsTo(User);
 User.hasOne(Token);
@@ -59,5 +68,6 @@ module.exports = {
     User,
     Question,
     Token,
-    Answer
+    Answer,
+    Role
 }
