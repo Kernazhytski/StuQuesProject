@@ -29,12 +29,21 @@ const AllUsers = () => {
         }
     }
     const getAllUsers = async () => {
-        const response = await UserService.getAllUsers(limit, page, search, criterion);
-        const totalCount = response.headers['x-total-count']
-        setTotalPages(getPagesCount(totalCount, limit));
-        const users = response.data
+        try {
+            console.log(3)
+            const response = await UserService.getAllUsers(limit, page, search, criterion);
+            console.log(4)
+            const totalCount = response.headers['x-total-count']
+            setTotalPages(getPagesCount(totalCount, limit));
+            const users = response.data;    
+            setUsers(users)
+            setPagesArray(getPagesArray(totalPages))     
+        }
+        catch(e) {
+            console.log(e)
+        }
 
-        return users
+        
     }
     const changePage = (page) => {
         setPage(page)
@@ -44,10 +53,9 @@ const AllUsers = () => {
     useMemo(async () => {
         console.log(1)
         setIsLoading(true)
-        const response = await getAllUsers();
+        await getAllUsers();
         setIsLoading(false)
-        setUsers(response)
-        setPagesArray(getPagesArray(totalPages))
+
     }, [totalPages, page, criterion])
 
     function changeSearch(value) {
@@ -62,6 +70,7 @@ const AllUsers = () => {
                 <SideBar/>
                 <div className={styles.users}>
                     <div className={styles.navigate}>
+                        <p className={styles.header}>Пользователи</p>
                         <SelectOne options={['Все', 'Новыe', 'Репутация']} value={criterion}
                                    onChange={e => setCriterion(e.target.value)} onKeyDown={e => changeUsers(e)}/>
                     </div>
@@ -74,7 +83,7 @@ const AllUsers = () => {
                                 ?
                                 <UsersList users={users}/>
                                 :
-                                <p>Пользователей не найдено</p>
+                                <p className={styles.noUsers}>Пользователей не найдено</p>
                             }
                         </div>
                     }

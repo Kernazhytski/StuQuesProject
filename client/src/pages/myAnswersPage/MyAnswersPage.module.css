@@ -24,4 +24,17 @@
 .header{
     font-size: 30px;
     margin-bottom: 30px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+@media screen and (max-width: 700px) {
+    .answers {
+        border-left: none;
+        padding-left: 10px;
+    }
+    .header{
+        display: block;
+        margin-bottom: 10px;
+    }
 }

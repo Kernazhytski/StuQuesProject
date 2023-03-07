@@ -27,7 +27,7 @@ const MainPage = () => {
             <main className={styles.main}>
                 <SideBar/>
                 <div className={styles.questions}>
-                    <p className={styles.header} style={{display: "inline-block", marginRight: "10px"}}>Вопросы</p>
+                    <p className={styles.header}>Вопросы</p>
                     <SelectGetQuestion style={{padding: "0"}} onChange={e => changeSub(e.target.value)}
                                        value={subject}/>
                     <QuestionsList search={search} subjectS={subject}/>

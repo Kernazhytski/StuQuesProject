@@ -15,6 +15,8 @@
 .header{
     font-size: 30px;
     margin-bottom: 30px;
+    display: inline-block; 
+    margin-right: 10px
 }
 .questions {
     padding-left: 50px;
@@ -22,4 +24,15 @@
     border-left: 1px solid #000;
     width: 70%;
     padding-bottom: 30px;
+}
+
+@media screen and (max-width: 700px) {
+    .questions {
+        border-left: none;
+        padding-left: 10px;
+    }
+    .header{
+        display: block;
+        margin-bottom: 10px;
+    }
 }

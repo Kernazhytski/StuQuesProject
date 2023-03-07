@@ -26,3 +26,14 @@
     text-decoration: underline;
 }
 
+
+@media screen and (max-width: 1413px) {
+    .container {
+        margin-left: 20px;
+    }
+}
+@media screen and (max-width: 700px) {
+    .container {
+        display: none;
+    }
+}

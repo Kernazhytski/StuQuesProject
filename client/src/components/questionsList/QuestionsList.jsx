@@ -56,39 +56,19 @@ const QuestionsList = (props) => {
     }
 
     useMemo(async () => {
-        console.log(location)
         setIsLoading(true)
-        console.log(props)
         if (location == 'myQuestions') {
-            console.log(1)
             await getMyQuestions()
             setIsLoading(false)
         }
         else if(location == 'myAnswers'){
-            console.log(2)
             await getMyAnswers(props.answer)
             setIsLoading(false)
         } 
         else if(location == ''){
-            console.log(3)
             await getAllQuestions() 
             setIsLoading(false)
-        }
-        /*if (props.user != undefined) {
-            console.log(1)
-            await getMyQuestions()
-            setIsLoading(false)
-        }
-        else if(props.answer != undefined){
-            console.log(2)
-            await getMyAnswers(props.answer)
-            setIsLoading(false)
-        } else {
-            console.log(3)
-            await getAllQuestions() 
-            setIsLoading(false)
-        }  */  
-        setPagesArray(getPagesArray(totalPages))
+        }(getPagesArray(totalPages))
         
     }, [setQuestions, props.search, props.subjectS, props.user, totalPages, page])
 
@@ -104,7 +84,16 @@ const QuestionsList = (props) => {
                         ?
                         questions.map((question) => <QuestionLink key={question.id} question={question}/>)
                         :
-                        <p>У матросов нет вопросов</p>
+                        <div>
+                            {location == 'myAnswers'
+                            ?
+                                <p className={styles.noQuestions}>Ответов не найдено</p>
+                            :
+                                <p className={styles.noQuestions}>У матросов нет вопросов</p>
+                            }                            
+                        </div>
+
+                        
                 }       
                   
               </div>   

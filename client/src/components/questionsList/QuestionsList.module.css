@@ -1,0 +1,50 @@
+.noQuestions {
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+}
+
+@media screen and (max-width: 1100px) {
+    .noQuestions {
+        width: 800px;
+    }
+}
+@media screen and (max-width: 1000px) {
+    .noQuestions {
+        width: 700px;
+    }
+}
+@media screen and (max-width: 900px) {
+    .noQuestions {
+        width: 600px;
+    }
+}
+@media screen and (max-width: 800px) {
+    .noQuestions {
+        width: 500px;
+    }
+}
+@media screen and (max-width: 700px) {
+    .noQuestions {
+        width: 580px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .noQuestions {
+        width: 500px;
+    }
+}
+@media screen and (max-width: 500px) {
+    .noQuestions {
+        font-size: 25px;
+        width: 400px;
+    }
+}
+@media screen and (max-width: 400px) {
+    .noQuestions {
+        font-size: 20px;
+        width: 300px;
+    }
+}
