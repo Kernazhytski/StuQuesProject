@@ -8,9 +8,11 @@ import styles from "./MyAnswersPage.module.css";
 import QuestionsList from "../../components/questionsList/QuestionsList";
 import {Context} from "../../index";
 import { observer } from 'mobx-react-lite';
+import {useParams} from "react-router-dom";
 
 const MyAnswersPage = () => {
     const {store} = useContext(Context);
+    const id = useParams().id;
 
     return (
         <div className={styles.wrapper}>
@@ -19,7 +21,7 @@ const MyAnswersPage = () => {
                 <SideBar />
                 <div className={styles.answers}>
                     <p className={styles.header} style={{display: "inline-block", marginRight: "10px"}}>Мои ответы</p>
-                    <QuestionsList user={store.user.id} />
+                    <QuestionsList user={id} />
                 </div>
             </main>
             <Footer/>

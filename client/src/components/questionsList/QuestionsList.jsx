@@ -9,6 +9,7 @@ import { useLocation } from 'react-router-dom';
 
 const QuestionsList = (props) => {
     const location = useLocation().pathname.split('/').reverse()[0];
+    const location2 = useLocation().pathname.split('/').reverse()[1];
     const [questions, setQuestions] = useState([]);
     const [limit, setLimit] = useState(10);
     const [page, setPage] = useState(1);
@@ -59,12 +60,12 @@ const QuestionsList = (props) => {
         console.log(location)
         setIsLoading(true)
         console.log(props)
-        if (location == 'myQuestions') {
+        if (location2 == 'myQuestions') {
             console.log(1)
             await getMyQuestions()
             setIsLoading(false)
         }
-        else if(location == 'myAnswers'){
+        else if(location2 == 'myAnswers'){
             console.log(2)
             await getMyAnswers(props.answer)
             setIsLoading(false)
