@@ -43,29 +43,48 @@
 }
 .burgerContent {
     display: none;
-    position: absolute;
+    position: fixed;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     top: 60px;
     background-color: #222;
-    width: 200px;
+    padding-top: 80px;
     padding-left: 20px;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
     user-select: none;
     animation: burgerShow 0.7s;
     z-index: 3;
+    justify-content: center;
 }
 .burgerContent__item {
     display: flex;
     align-items: center;
-    font-size: 18px;
+    font-size: 25px;
     color: rgb(255, 255, 255);
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     transition: 200ms;
     cursor: pointer;
+    min-height: 18px;
 }
-.burgerContent__item:hover {
+.burgerContent__itemActive {
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    color: rgb(255, 255, 255);
+    margin-bottom: 30px;
+    transition: 200ms;
+    cursor: pointer;
+    min-height: 18px;
+}
+.burgerContent__item a {
+    color: rgb(255, 255, 255);
+}
+.burgerContent__itemActive a{
     color: #026670;
-}
+} 
+
 
 @keyframes burgerShow {
     from {

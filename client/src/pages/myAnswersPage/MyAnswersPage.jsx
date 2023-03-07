@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 
 import MenuBar from "../../components/menuBar/MenuBar";
 import SideBar from '../../components/sideBar/SideBar'
@@ -8,11 +8,22 @@ import styles from "./MyAnswersPage.module.css";
 import QuestionsList from "../../components/questionsList/QuestionsList";
 import {Context} from "../../index";
 import { observer } from 'mobx-react-lite';
-import {useParams} from "react-router-dom";
+
+import SelectGetQuestion from '../../components/UI/selects/selectGetQuestions/selectGetQuestion';
 
 const MyAnswersPage = () => {
     const {store} = useContext(Context);
-    const id = useParams().id;
+    const [subject, setSubject] = useState("Все")
+    const [search, setSearch] = useState("")
+const id = useParams().id;
+    function changeSearch(value) {
+        setSearch(value)
+    }
+
+    function changeSub(value) {
+        setSubject(value)
+    }
+
 
     return (
         <div className={styles.wrapper}>
@@ -20,8 +31,12 @@ const MyAnswersPage = () => {
             <main className={styles.main}>
                 <SideBar />
                 <div className={styles.answers}>
-                    <p className={styles.header} style={{display: "inline-block", marginRight: "10px"}}>Мои ответы</p>
-                    <QuestionsList user={id} />
+
+                    <p className={styles.header}>Мои ответы</p>
+                    <SelectGetQuestion style={{padding: "0"}} onChange={e => changeSub(e.target.value)}
+                                       value={subject}/>
+                    <QuestionsList  user={id} search={search} subjectS={subject}/>
+
                 </div>
             </main>
             <Footer/>
