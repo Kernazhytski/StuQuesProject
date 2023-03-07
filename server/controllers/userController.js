@@ -32,7 +32,7 @@ class UserController {
         const userAnswers = await questionService.getUserAnswers(id);
         const searchUser = await User.findOne({
             where: {id},
-            attributes: ['id', 'aboutMe', 'role', 'nickname', 'avatarImg', 'score', 'ban']
+            attributes: ['id', 'aboutMe', 'role', 'nickname', 'avatarImg', 'score', 'ban','rang']
         });
         searchUser.dataValues.userQuestions = userQuestions;
         searchUser.dataValues.userAnswers = userAnswers;

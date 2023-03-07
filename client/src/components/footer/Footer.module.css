@@ -26,8 +26,13 @@
     font-family: Girloy-light;
     font-size: 16px;
     color: white;
+    user-select: none;
     margin-right: 20px;
     cursor: pointer;
+}
+.listItem a {
+    color: white;
+    transition: 200ms;
 }
 .listItem:hover {
     text-decoration: underline;

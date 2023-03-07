@@ -8,14 +8,14 @@ const router = new Router();
 
 
 router.post('/add',authMiddleware,QuestionController.add);
-router.get("/list",authMiddleware,QuestionController.list);
-router.get("/getQuestion/:id",authMiddleware,QuestionController.getQues)
-router.get("/getMyQuestion",authMiddleware,QuestionController.getMy)
+router.get("/list",QuestionController.list);
+router.get("/getQuestion/:id",QuestionController.getQues)
+router.get("/getMyQuestion",QuestionController.getMy)
 router.post('/addAnswer',authMiddleware,QuestionController.addAnswer);
 router.post('/delete',authMiddleware,QuestionController.deleteQues);
-router.post('/getAnswers',authMiddleware,QuestionController.getAnswers);
+router.post('/getAnswers',QuestionController.getAnswers);
 router.post('/deleteAnswers',authMiddleware,QuestionController.deleteAnswers);
 router.post('/setBestAnswer',authMiddleware,QuestionController.setBestAnswer);
-router.get('/getMyAnswers',authMiddleware,QuestionController.getMyAnswers)
+router.get('/getMyAnswers',QuestionController.getMyAnswers)
 
 module.exports = router;
