@@ -28,6 +28,7 @@ const UserInfo = ({setFlag1, setFlag2, ban, setBan, userId}) => {
     const userImg = useRef()
     const descrMistake = useRef()
     const nicknameMistake = useRef()
+    const [rang,setRang] = useState("")
     let cancell = false
     useMemo( async () => {
         store.checkAuth2()
@@ -42,6 +43,8 @@ const UserInfo = ({setFlag1, setFlag2, ban, setBan, userId}) => {
             setAvatarImg(store.user.avatarImg)
             setBan(store.user.ban)
             setIsMyProfile(true)
+            setRang(store.user.rang)
+            setscore(store.user.score);
         } 
         else {
             const response = await UserService.getOneUser(+userId);
@@ -54,7 +57,9 @@ const UserInfo = ({setFlag1, setFlag2, ban, setBan, userId}) => {
             setAvatarImg(response.data.avatarImg)
             setBan(response.data.ban)
             setRole(response.data.role)
+            setRang(response.data.rang)
             setIsMyProfile(false)
+            setscore(response.data.score)
         }
     }, [useLocation().pathname.split('/').reverse()[0]])
     const edit = async (nickname, descr) => {
@@ -200,9 +205,9 @@ const UserInfo = ({setFlag1, setFlag2, ban, setBan, userId}) => {
             :
                 <div className={styles.userDetailedIndo}>
                 <div className={styles.statistics}>
-                    <Link to={'/myQuestions'}><p className={styles.statisticsText}>Вопросы: <span className={styles.statisticsNumb}>{questions}</span></p></Link>
-                    <Link to={'/myAnswers'}><p className={styles.statisticsText}>Ответы: <span className={styles.statisticsNumb}>{answers}</span></p></Link>
-                    <p className={styles.statisticsText}>Лучшие ответы: <span className={styles.statisticsNumb}>123</span></p>
+                    <Link to={'/myQuestions/'+userId}><p className={styles.statisticsText}>Вопросы: <span className={styles.statisticsNumb}>{questions}</span></p></Link>
+                    <Link to={'/myAnswers/'+userId}><p className={styles.statisticsText}>Ответы: <span className={styles.statisticsNumb}>{answers}</span></p></Link>
+                    <p className={styles.statisticsText}>Звание: <span className={styles.statisticsNumb}>{rang}</span></p>
                     <p className={styles.statisticsText}>Баллы: <span className={styles.statisticsNumb}>{score}</span></p>
                 </div>
                 <div className={styles.descrContainer}>

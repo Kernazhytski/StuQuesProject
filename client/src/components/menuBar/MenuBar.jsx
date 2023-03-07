@@ -68,7 +68,7 @@ const MenuBar = (props) => {
 
             <div className={styles.container}>
                 <div className={styles.burgerContainer}>
-                    <Burger />
+                    <Burger isAuth={store.isAuth} userId={store.user.id}/>
                 </div>
                 
                 <div className={styles.logo} onClick={logoClick}/>
@@ -97,7 +97,10 @@ const MenuBar = (props) => {
                         </div>
 
                         :
-                        <ButtonOne width={"125px"} onClick={loginClick}>Вход</ButtonOne>
+                        <div className={styles.btnCont}>
+                           <ButtonOne width={"125px"} onClick={loginClick}>Вход</ButtonOne> 
+                        </div>
+                        
                 }
             </div>
 

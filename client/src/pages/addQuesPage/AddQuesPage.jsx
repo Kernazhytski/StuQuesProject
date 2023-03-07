@@ -75,7 +75,10 @@ export const AddQuesPage = observer(() => {
                         <p className={styles.title}>Вопрос</p>
                         <p className={styles.discribtion}>Подробно опишите проблему и что вы делали, чтобы решить ее</p>
                         <TextAreaOne onChange={e => setDescription(e.target.value)} value={description}/>
-                        <FileInput update={updateData}/>
+                        <div className={styles.fileCont}>
+                           <FileInput update={updateData}/> 
+                        </div>
+                        
                         <p className={styles.title}>Предмет</p>
                         <p className={styles.discribtion}>Выберите учебный предмет, к которому относится этот вопрос</p>
                         <SelectAddQuestion onChange={e => c(e)} value={subject.value}/>
