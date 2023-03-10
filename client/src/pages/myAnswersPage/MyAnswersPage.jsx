@@ -10,12 +10,13 @@ import {Context} from "../../index";
 import { observer } from 'mobx-react-lite';
 
 import SelectGetQuestion from '../../components/UI/selects/selectGetQuestions/selectGetQuestion';
+import {useParams} from "react-router-dom";
 
 const MyAnswersPage = () => {
     const {store} = useContext(Context);
     const [subject, setSubject] = useState("Все")
     const [search, setSearch] = useState("")
-const id = useParams().id;
+    const id = useParams().id;
     function changeSearch(value) {
         setSearch(value)
     }
