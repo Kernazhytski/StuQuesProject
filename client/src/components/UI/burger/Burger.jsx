@@ -4,7 +4,7 @@ import { ADD_QUES, ALL_USERS, MAIN_ROUTE, MY_ANSW, MY_QUES } from '../../../util
 import ButtonOne from '../buttons/button1/ButtonOne';
 import styles from './Burger.module.css'
 
-const Burger = ({isAuth, userId}) => {
+const Burger = ({isAuth, userId, leaveAccount}) => {
   const location = "/"+useLocation().pathname.split('/').reverse()[0];
   const preLocation = "/"+useLocation().pathname.split('/').reverse()[1]
   const loc = useNavigate();
@@ -14,7 +14,7 @@ const Burger = ({isAuth, userId}) => {
   body.addEventListener('click', () => {
     burger.current.className = styles.burgerClose;
     burgerContent.current.style.display = 'none';
-  })
+  })      
   const burgerClick = (e) => {
     e.stopPropagation()
     if(burger.current.className === styles.burgerOpen) {
@@ -24,12 +24,8 @@ const Burger = ({isAuth, userId}) => {
     else if(burger.current.className === styles.burgerClose) {
       burger.current.className = styles.burgerOpen;
       burgerContent.current.style.display = 'flex';
-      
     }
   }
-  useMemo(() => {
-    console.log(location, preLocation)
-  }, [])
   const loginClick = () => {
     console.log(loc)
     loc('/login')
@@ -110,7 +106,10 @@ const Burger = ({isAuth, userId}) => {
                   <li className={styles.burgerContent__item}>
                       <Link to={`/allUsers/${userId}`} >Учётная запись</Link>
                   </li>
-            }              
+            }      
+            <li className={styles.burgerContent__item}>
+              <ButtonOne width={"175px"} onClick={leaveAccount}>Выход</ButtonOne>
+            </li>
             </div>     
 
             :

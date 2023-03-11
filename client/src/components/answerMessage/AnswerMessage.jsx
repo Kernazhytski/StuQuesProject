@@ -62,7 +62,7 @@ const AnswerMessage = ({answer, question}) => {
     }
 
     return (
-        <div>
+        <div className={styles.container}>
             {answer.isBest === true && <p className={styles.header}>Лучший ответ</p>}
             <PopupEmail active={activeDel} setActive={setActiveDel} popupText={"Ответ успешно удален"}
                         locat={'/question/' + answer.questionId} action={reloadPage}/>

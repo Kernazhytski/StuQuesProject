@@ -93,9 +93,6 @@
     }
 }
 @media screen and (max-width: 700px) {
-    .main {
-        width: 700px;
-    }
     .addPanel {
         border-left: none;
         padding-left: 0px;
@@ -105,6 +102,14 @@
         width: 600px;
         display: flex;
         justify-content: center;
+    }
+    .addPanel {
+        width: 100%;
+    }
+}
+@media screen and (max-width: 650px) {
+    .main {
+        width: 600px;
     }
 }
 @media screen and (max-width: 600px) {
@@ -121,6 +126,11 @@
     }
     .fileCont {
         width: 250px;
+    }
+    .enterForm {
+        background-color: #EDEAE5;
+        border: none;
+        box-shadow: none;
     }
 }
 @media screen and (max-width: 400px) {

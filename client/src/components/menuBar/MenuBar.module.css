@@ -1,5 +1,6 @@
 .containerHeader{
     position: sticky;
+    top: 0px;
     display: flex;
     align-items: center;
     width: 100%;

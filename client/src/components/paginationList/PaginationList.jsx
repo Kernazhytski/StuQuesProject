@@ -9,7 +9,7 @@ import styles from './PaginationList.module.css'
 const PaginationList = ({pagesArray, changePage, page}) => {
     const [startIndex, setStartIndex] = useState(0);
     const [endIndex, setEndIndex] = useState(9);
-    const [retArray, setRetArray] = useState([])
+    const [retArray, setRetArray] = useState([]);
     const changePagesButtons = (side) => {
         if (side == 'left' && startIndex - 9 >= 0) {
             setStartIndex(startIndex - 10);

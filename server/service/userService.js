@@ -15,6 +15,7 @@ class UserService {
         //Ищем в бд пользователя с таким же email
         const candidate = await User.findOne({where: {email}});
         //Если нашли, то кидаем ошибку
+
         if(candidate && candidate.isActivated) {
             return {
                 success: false,
@@ -133,8 +134,6 @@ class UserService {
         }
         const userData = tokenService.validateRefreshToken(refreshToken);
         const tokenFromDd = await tokenService.findToken(refreshToken);
-        //console.log(refreshToken)
-        //console.log(tokenFromDd)
         if(!userData || !tokenFromDd) {
             return {
                 success: false,

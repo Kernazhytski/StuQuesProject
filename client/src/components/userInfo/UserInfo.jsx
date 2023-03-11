@@ -203,7 +203,7 @@ const UserInfo = ({setFlag1, setFlag2, ban, setBan, userId}) => {
             {ban
             ? <p className={styles.banUserMessage}>Данный пользователь заблокирован</p>
             :
-                <div className={styles.userDetailedIndo}>
+                <div className={styles.userDetailedInfo}>
                 <div className={styles.statistics}>
                     <Link to={'/myQuestions/'+userId}><p className={styles.statisticsText}>Вопросы: <span className={styles.statisticsNumb}>{questions}</span></p></Link>
                     <Link to={'/myAnswers/'+userId}><p className={styles.statisticsText}>Ответы: <span className={styles.statisticsNumb}>{answers}</span></p></Link>

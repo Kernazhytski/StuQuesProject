@@ -113,6 +113,8 @@ const AuthPage = () => {
                 setNickname('');
                 setEmail('');
                 setPassword('');
+                passwordMistake.current.style.display = 'none';
+                emailMistake.current.style.display = 'none';
               }}> 
                Зарегистрироваться
             </Link>
@@ -179,6 +181,8 @@ const AuthPage = () => {
                 setNickname('');
                 setEmail('');
                 setPassword('');
+                passwordMistake.current.style.display = 'none';
+                emailMistake.current.style.display = 'none';
               }}> 
               Авторизоваться
             </Link>
