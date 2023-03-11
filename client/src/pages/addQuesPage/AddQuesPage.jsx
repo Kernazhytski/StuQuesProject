@@ -17,7 +17,7 @@ import QuesstionHasBeenSent from "../../components/UI/notifications/questionHasB
 import styles from "./AddQues.module.css";
 import FileInput from '../../components/UI/inputs/fileInput/FileInput';
 import {Context} from "../../index";
-import { observer } from 'mobx-react-lite';
+import {observer} from 'mobx-react-lite';
 
 
 export const AddQuesPage = observer(() => {
@@ -27,6 +27,8 @@ export const AddQuesPage = observer(() => {
     const {store} = useContext(Context);
 
     const [flag, setFlag] = useState(false)
+    const [succes1, setSuccess1] = useState("none")
+    const [succes2, setSuccess2] = useState("none")
 
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
@@ -40,11 +42,20 @@ export const AddQuesPage = observer(() => {
 
     const post = async (e) => {
         e.preventDefault()
-        setFlag(true);
         try {
-            const response = await QuestionsServise.addQuestion(files,title,description,subject,userId)
+            if (title.length < 10 || title.length > 120) {
+                setSuccess1("block")
+                return
+            }
+            if (description.length < 30 || description.length > 3800) {
+                setSuccess2("block")
+                return
+            }
+            await QuestionsServise.addQuestion(files, title, description, subject, userId)
             store.updateUser()
-            console.log(response)
+            setFlag(true);
+            setSuccess1("none")
+            setSuccess2("none")
         } catch (e) {
             console.log(e)
         }
@@ -72,13 +83,19 @@ export const AddQuesPage = observer(() => {
                         <p className={styles.title}>Заголовок</p>
                         <p className={styles.discribtion}>Вкратце опишите суть проблемы</p>
                         <InputThree changeValue={e => setTitle(e.target.value)} value={title}/>
+
+                        <p className={styles.mistake} style={{display: succes1}}>Заголовок должен содержать от 10 до 120
+                            символов.</p>
+
                         <p className={styles.title}>Вопрос</p>
                         <p className={styles.discribtion}>Подробно опишите проблему и что вы делали, чтобы решить ее</p>
                         <TextAreaOne onChange={e => setDescription(e.target.value)} value={description}/>
+                        <p className={styles.mistake} style={{display: succes2}}>Описание должно содержать от 30 до 3800
+                            символов.</p>
                         <div className={styles.fileCont}>
-                           <FileInput update={updateData}/> 
+                            <FileInput update={updateData}/>
                         </div>
-                        
+
                         <p className={styles.title}>Предмет</p>
                         <p className={styles.discribtion}>Выберите учебный предмет, к которому относится этот вопрос</p>
                         <SelectAddQuestion onChange={e => c(e)} value={subject.value}/>

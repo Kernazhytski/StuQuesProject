@@ -65,43 +65,27 @@ class QuestionsController {
     }
 
     async list(req, res) {
-        console.log(req.query)
-        let titS = req.query.titleSearch;
-        let subS = req.query.sub;
-        const limit = +req.query.limit;
-        const page = +req.query.page;
-        if (titS === "" || titS == undefined) {
-            if (subS === "Все" || subS == undefined) {
-                const questions = await Question.findAll();
-                cut(questions, res, page, limit)
+        try {
+            let titS = req.query.titleSearch;
+            let subS = req.query.sub;
+            const limit = +req.query.limit;
+            const page = +req.query.page;
+            if (titS === "" || titS == undefined) {
+                if (subS === "Все" || subS == undefined) {
+                    const questions = await Question.findAll();
+                    cut(questions, res, page, limit)
+                } else {
+                    const questions = await Question.findAll({
+                        where: {
+                            subject: subS
+                        }
+                    })
+                    cut(questions, res, page, limit)
+                }
             } else {
-                const questions = await Question.findAll({
-                    where: {
-                        subject: subS
-                    }
-                })
-                cut(questions, res, page, limit)
-            }
-        } else {
-            if (subS === "Все" || subS == undefined) {
-                const questions = await Question.findAll({
-                    where: {
-                        [Op.or]: [{
-                            title: {
-                                [Op.substring]: titS
-                            }
-                        }, {
-                            description: {
-                                [Op.substring]: titS
-                            }
-                        }]
-                    }
-                })
-                cut(questions, res, page, limit)
-            } else {
-                const questions = await Question.findAll({
-                    where: {
-                        [Op.and]: [{
+                if (subS === "Все" || subS == undefined) {
+                    const questions = await Question.findAll({
+                        where: {
                             [Op.or]: [{
                                 title: {
                                     [Op.substring]: titS
@@ -111,13 +95,33 @@ class QuestionsController {
                                     [Op.substring]: titS
                                 }
                             }]
-                        }, {
-                            subject: subS
-                        }]
-                    }
-                })
-                cut(questions, res, page, limit)
+                        }
+                    })
+                    cut(questions, res, page, limit)
+                } else {
+                    const questions = await Question.findAll({
+                        where: {
+                            [Op.and]: [{
+                                [Op.or]: [{
+                                    title: {
+                                        [Op.substring]: titS
+                                    }
+                                }, {
+                                    description: {
+                                        [Op.substring]: titS
+                                    }
+                                }]
+                            }, {
+                                subject: subS
+                            }]
+                        }
+                    })
+                    cut(questions, res, page, limit)
+                }
             }
+        } catch (e) {
+            console.log(e)
+            return res.status(500).json({message: "List of questions error"})
         }
     }
 
@@ -169,13 +173,69 @@ class QuestionsController {
     }
 
     async getMy(req, res) {
+        try {
+            const limit = +req.query.limit;
+            const page = +req.query.page;
+            const userId = req.query.id;
+            let titS = req.query.search;
+            let subS = req.query.subject;
 
-        const limit = +req.query.limit;
-        const page = +req.query.page;
-        const userId = req.query.id
-        const myQuestions = await Question.findAll({where: {userId}})
-        cut(myQuestions,res,page,limit)
-
+            if (titS === "" || titS == undefined) {
+                if (subS === "Все" || subS == undefined) {
+                    const questions = await Question.findAll({where: {userId: userId}});
+                    cut(questions, res, page, limit)
+                } else {
+                    const questions = await Question.findAll({
+                        where: {
+                            subject: subS,
+                            userId: userId
+                        }
+                    })
+                    cut(questions, res, page, limit)
+                }
+            } else {
+                if (subS === "Все" || subS == undefined) {
+                    const questions = await Question.findAll({
+                        where: {
+                            [Op.or]: [{
+                                title: {
+                                    [Op.substring]: titS
+                                }
+                            }, {
+                                description: {
+                                    [Op.substring]: titS
+                                }
+                            }],
+                            userId: userId
+                        }
+                    })
+                    cut(questions, res, page, limit)
+                } else {
+                    const questions = await Question.findAll({
+                        where: {
+                            [Op.and]: [{
+                                [Op.or]: [{
+                                    title: {
+                                        [Op.substring]: titS
+                                    }
+                                }, {
+                                    description: {
+                                        [Op.substring]: titS
+                                    }
+                                }], userId: userId
+                            }, {
+                                subject: subS,
+                                userId: userId
+                            }]
+                        }
+                    })
+                    cut(questions, res, page, limit)
+                }
+            }
+        } catch (e) {
+            console.log(e)
+            return res.status(500).json({message: "Get my questions error"})
+        }
     }
 
     async deleteQues(req, res) {
@@ -271,14 +331,15 @@ class QuestionsController {
         }
     }
 
-
-    async getMyAnswers(req,res){
-        const limit = +req.query.limit;
-        const page = +req.query.page;
-        const userId = req.query.id
-        try{
+    async getMyAnswers(req, res) {
+        try {
+            const limit = +req.query.limit;
+            const page = +req.query.page;
+            const userId = req.query.id
+            let titS = req.query.search;
+            let subS = req.query.subject;
             const answers = await Answer.findAll({
-                where:{
+                where: {
                     userId
                 }
             })
@@ -286,17 +347,71 @@ class QuestionsController {
             answers.forEach(answer => setQuestions.add(answer.questionId))
             var questions = [];
             for (const id of setQuestions) {
-                questions.push(await Question.findOne({
-                    where: {
-                        id: id
+                console.log(id)
+                if (titS === "" || titS == undefined) {
+                    if (subS === "Все" || subS == undefined) {
+                        var q = await Question.findOne({
+                            where: {
+                                id: id
+                            }
+                        })
+                        if (q != null)
+                            questions.push(q);
+                    } else {
+                        var q = await Question.findOne({
+                            where: {
+                                id: id,
+                                subject: subS
+                            }
+                        })
+                        if (q != null)
+                            questions.push(q);
                     }
-                }));
+                } else {
+                    if (subS === "Все" || subS == undefined) {
+                        var q = await Question.findOne({
+                            where: {
+                                id: id,
+                                [Op.or]: [{
+                                    title: {
+                                        [Op.substring]: titS
+                                    }
+                                }, {
+                                    description: {
+                                        [Op.substring]: titS
+                                    }
+                                }]
+                            }
+                        })
+                        if (q != null)
+                            questions.push(q);
+                    } else {
+                        var q = await Question.findOne({
+                            where: {
+                                [Op.and]: [{
+                                    [Op.or]: [{
+                                        title: {
+                                            [Op.substring]: titS
+                                        }
+                                    }, {
+                                        description: {
+                                            [Op.substring]: titS
+                                        }
+                                    }]
+                                }, {
+                                    subject: subS
+                                },
+                                    {id: id}]
+                            }
+                        })
+                        if (q != null)
+                            questions.push(q);
+                    }
+                }
+                console.log(questions)
             }
-
             cut(questions, res, page, limit)
-        }catch (e) {
-
-
+        } catch (e) {
             console.log(e);
             return res.status(500).json({message: "Get my answers error"})
         }

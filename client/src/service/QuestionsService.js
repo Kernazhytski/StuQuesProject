@@ -12,12 +12,14 @@ export default class QuestionsServise {
         })
     }
 
-    static async getMyQuestions(id, limit , page) {
+    static async getMyQuestions(id, limit , page,search, subject) {
         return $api.get('/question/getMyQuestion', {
             params: {
                 id, 
                 limit,
-                page
+                page,
+                search,
+                subject
             }
         })
     }
@@ -61,12 +63,14 @@ export default class QuestionsServise {
         return $api.post('/question/setBestAnswer',{id})
     }
 
-    static async getMyAnswers(id, limit , page){
+    static async getMyAnswers(id, limit , page,search, subject){
         return $api.get('/question/getMyAnswers',{
             params: {
                 id, 
                 limit,
-                page
+                page,
+                search,
+                subject
             }
         })
     }

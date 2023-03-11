@@ -92,7 +92,7 @@
     font-family: Girloy-light;
     line-height: 20px;
     max-width: 680px;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 .btnCont {
     display: flex;
