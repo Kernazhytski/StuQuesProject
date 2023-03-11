@@ -12,6 +12,7 @@
 .userNickname {
     font-size: 36px;
     font-weight: 100;
+    margin-right: 10px;
 }
 .statistics {
     width: 30%;
@@ -45,7 +46,7 @@
 .inpContainer {
     width: auto;
 }
-.userDetailedIndo {
+.userDetailedInfo {
     margin-top: 30px;
     display: flex;
     flex-direction: row;
@@ -105,4 +106,158 @@
     justify-content: center;
     align-items: center;
     margin-top: 120px;
+}
+
+@media screen and (max-width: 1150px) {
+    .userBlock {
+        width: 700px;
+    }
+    .descrContainer {
+        width: 500px;
+    }
+}
+@media screen and (max-width: 1100px) {
+    .banUserMessage {
+        width: 800px;
+    }
+}
+@media screen and (max-width: 1050px) {
+    .userBlock {
+        width: 600px;
+    }
+    .descrContainer {
+        width: 400px;
+    }
+    .inpContainer {
+        margin-right: 10px;
+    }
+}
+@media screen and (max-width: 1000px) {
+    .banUserMessage {
+        width: 700px;
+    }
+}
+@media screen and (max-width: 950px) {
+    .userBlock {
+        width: 500px;
+    }
+
+    .userDetailedInfo {
+        flex-direction: column;
+    }
+    .statistics {
+        margin-bottom: 50px;
+    }
+    .btnCont {
+        flex-direction: column;
+        height: 90px;
+    }
+    .inpContainer {
+        width: 550px;
+    }
+}
+@media screen and (max-width: 900px) {
+    .banUserMessage {
+        width: 600px;
+    }
+}
+@media screen and (max-width: 850px) {
+    .userBlock {
+        width: 375px;
+    }
+}
+@media screen and (max-width: 800px) {
+    .banUserMessage {
+        width: 500px;
+    }
+}
+@media screen and (max-width: 700px) {
+    .banUserMessage {
+        width: 580px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .banUserMessage {
+        width: 500px;
+    }
+}
+@media screen and (max-width: 550px) {
+    .userNickname {
+        font-size: 30px;
+        font-weight: 100;
+        margin-bottom: 30px;
+    }
+    .userAvatar, .userAvatarChange {
+        width: 75px;
+        height: 75px;
+    }
+    .userBlock {
+        width: 325px;
+    }
+    .descrContainer {
+        width: 400px;
+    }
+    .userBlock {
+        flex-direction: column;
+        padding-top: 20px;
+        width: 300px;
+    }
+    .inpContainer {
+        width: 250px;
+        margin-bottom: 30px;
+    }
+    .btnCont {
+        flex-direction: row;
+        height: 40px;
+    }
+}
+@media screen and (max-width: 500px) {
+    .btnCont {
+        justify-content: space-around;
+        width: 410px;
+    }
+    .banUserMessage {
+        font-size: 25px;
+        width: 400px;
+        text-align: center;
+    }
+}
+@media screen and (max-width: 465px) {
+    .btnCont {
+        flex-direction: column;
+        height: 90px;
+    }
+}
+@media screen and (max-width: 450px) {
+    .descrContainer {
+        width: 350px;
+    }
+}
+@media screen and (max-width: 400px) {
+    .banUserMessage {
+        font-size: 20px;
+        width: 300px;
+    }
+}
+@media screen and (max-width: 375px) {
+    .userBlock {
+        width: 250px;
+    }
+    .descrContainer {
+        width: 300px;
+    }
+    .inpContainer {
+        width: 200px;
+    }
+}
+@media screen and (max-width: 350px) {
+    .userBlock {
+        width: 200px;
+    }
+    .descrContainer {
+        width: 275px;
+    }
+    .btnCont {
+        margin-left: 40px;
+    }
 }

@@ -118,8 +118,10 @@ const QuestionPage = () => {
                                 :
                                 <div>
                                     <p className={styles.header}>Напишите ответ:</p>
-                                    <TextAreaOne onChange={e => setAnswer(e.target.value)} value={answer}/>
-                                    <FileInput update={update}/>
+                                    <div className={styles.txtAreaCont}>
+                                        <TextAreaOne onChange={e => setAnswer(e.target.value)} value={answer}/>    
+                                    </div>
+                                    <div className={styles.fileInpCont}><FileInput update={update}/></div>
                                     <ButtonOne marginTop={"10px"} onClick={sendAnswer}
                                                width={"125px"}>Отправить</ButtonOne>
                                 </div>

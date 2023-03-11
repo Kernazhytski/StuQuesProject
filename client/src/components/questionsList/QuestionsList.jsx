@@ -68,8 +68,8 @@ const QuestionsList = (props) => {
         else if(location == ''){
             await getAllQuestions() 
             setIsLoading(false)
-        }(getPagesArray(totalPages))
-        
+        }
+        setPagesArray(getPagesArray(totalPages))
     }, [setQuestions, props.search, props.subjectS, props.user, totalPages, page])
 
     return (
