@@ -50,7 +50,149 @@
     width: 100px;
     cursor: pointer;
 }
+.fileInpCont {
+    margin-bottom: 30px;
+}
+@media screen and (max-width: 1200px) {
+    .questionForm {
+        width: 800px;
+    }
+    .txtAreaCont {
+        width: 800px;
+    }
+    .fileInpCont {
+        width: 800px;
+    }
+}
 
-.imgPop{
+@media screen and (max-width: 1100px) {
+    .questionForm {
+        width: 700px;
+    }
+    .txtAreaCont {
+        width: 700px;
+    }
+    .fileInpCont {
+        width: 700px;
+    }
+}
 
+@media screen and (max-width: 1000px) {
+    .questionForm {
+        width: 600px;
+    }
+    .txtAreaCont {
+        width: 600px;
+    }
+    .fileInpCont {
+        width: 600px;
+    }
+}
+@media screen and (max-width: 900px) {
+    .questionForm {
+        width: 500px;
+    }
+    .txtAreaCont {
+        width: 500px;
+    }
+    .fileInpCont {
+        width: 500px;
+    }
+}
+@media screen and (max-width: 800px) {
+    .questionForm {
+        width: 400px;
+    }
+    .txtAreaCont {
+        width: 400px;
+    }
+    .fileInpCont {
+        width: 400px;
+    }
+}
+@media screen and (max-width: 700px) {
+    .questionPad{
+        border-left: none;
+        padding-left: 10px;
+    }
+    .questionForm {
+        width: 550px;
+    }
+    .txtAreaCont {
+        width: 550px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .questionForm {
+        width: 450px;
+    }
+    .txtAreaCont {
+        width: 450px;
+    }
+    .fileInpCont {
+        width: 450px;
+    }
+}
+@media screen and (max-width: 500px) {
+    .desc {
+        margin-bottom: 15px;
+        padding-bottom: 5px;
+    }
+    .questionForm {
+        width: 400px;
+    }
+    .txtAreaCont {
+        width: 400px;
+    }
+    .fileInpCont {
+        width: 400px;
+    }
+}
+@media screen and (max-width: 450px) {
+    .questionForm {
+        width: 350px;
+    }
+    .txtAreaCont {
+        width: 350px;
+    }
+    .fileInpCont {
+        width: 350px;
+    }
+}
+@media screen and (max-width: 400px) {
+    .questionForm {
+        width: 300px;
+    }
+    .txtAreaCont {
+        width: 300px;
+    }
+    .fileInpCont {
+        width: 300px;
+    }
+}
+@media screen and (max-width: 350px) {
+    .questionForm {
+        width: 300px;
+    }
+    .txtAreaCont {
+        width: 300px;
+    }
+    .fileInpCont {
+        width: 300px;
+    }
+    .header{
+        font-size: 25px;
+        margin-bottom: 10px;
+    }
+}
+@media screen and (max-width: 330px) {
+    .questionForm {
+        width: 270px;
+    }
+    .txtAreaCont {
+        width: 270px;
+    }
+    .fileInpCont {
+        width: 270px;
+    }
 }

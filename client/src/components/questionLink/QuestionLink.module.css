@@ -28,3 +28,53 @@
     font-size: 20px;
 }
 
+@media screen and (max-width: 1150px) {
+    .strip {
+        width: 800px;
+    }
+}
+@media screen and (max-width: 1050px) {
+    .strip {
+        width: 700px;
+    }
+}
+@media screen and (max-width: 950px) {
+    .strip {
+        width: 600px;
+    }
+}
+@media screen and (max-width: 850px) {
+    .strip {
+        width: 500px;
+    }
+}
+@media screen and (max-width: 700px) {
+    .strip {
+        width: 600px;
+    }
+}
+@media screen and (max-width: 650px) {
+    .strip {
+        width: 500px;
+    }
+}
+@media screen and (max-width: 550px) {
+    .strip {
+        width: 400px;
+    }
+}
+@media screen and (max-width: 450px) {
+    .strip {
+        width: 350px;
+    }
+}
+@media screen and (max-width: 400px) {
+    .strip {
+        width: 300px;
+    }
+}
+@media screen and (max-width: 350px) {
+    .strip {
+        width: 260px;
+    }
+}

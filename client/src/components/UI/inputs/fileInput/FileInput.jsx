@@ -65,7 +65,7 @@ const FileInput = (props) => {
     }, [images])
 
     return (
-        <div style={{alignItems: "center"}}>
+        <div className={styles.cont}>
             <input id={styles.fileInput} type='file' multiple onChange={e => ImageGet(e)}/>
             {drag ? <label className={styles.labelInpAct}
                            htmlFor={styles.fileInput}

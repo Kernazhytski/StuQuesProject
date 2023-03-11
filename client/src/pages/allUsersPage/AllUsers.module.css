@@ -37,18 +37,6 @@
     align-items: center;
     height: 40vh;
 }
-@media screen and (max-width: 700px) {
-    .users {
-        border-left: none;
-        padding-left: 10px;
-    }
-    .navigate {
-        flex-direction: column;
-    }
-    .header{
-        margin-bottom: 10px;
-    }
-}
 @media screen and (max-width: 1100px) {
     .noUsers {
         width: 800px;
@@ -70,6 +58,16 @@
     }
 }
 @media screen and (max-width: 700px) {
+    .users {
+        border-left: none;
+        padding-left: 10px;
+    }
+    .navigate {
+        flex-direction: column;
+    }
+    .header{
+        margin-bottom: 10px;
+    }
     .noUsers {
         width: 580px;
     }
