@@ -1,6 +1,7 @@
 import React from 'react'
 
 import styles from './Footer.module.css'
+import {Link} from "react-router-dom";
 
 const Footer = () => {
 
@@ -11,6 +12,7 @@ const Footer = () => {
     const twt = () => {
         window.location.href='https://twitter.com/CrossoWar';
     }
+
 
   return (
     <footer className={styles.footer}>
@@ -24,9 +26,9 @@ const Footer = () => {
                 </div>
                 <div className={styles.info}>
                     <ul className={styles.list}>
-                        <li className={styles.listItem}>Контакты</li>
-                        <li className={styles.listItem}>О нас</li>
-                        <li className={styles.listItem}>FAQs</li>
+                        <li className={styles.listItem} ><Link to={`/contacts`}>Контакты</Link></li>
+                        <li className={styles.listItem}><Link to={`/rules`}>Правила</Link></li>
+                        <li className={styles.listItem} ><Link to={`/help`}>FAQs</Link></li>
                     </ul>
                 </div>        
             </div>

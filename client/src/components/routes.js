@@ -6,8 +6,23 @@ import MyAnswersPage from "../pages/myAnswersPage/MyAnswersPage";
 import MyQuestions from "../pages/myQuestions/MyQuestions";
 import QuestionPage from "../pages/questionPage/QuestionPage";
 
-import {ADD_QUES, ALL_USERS, LOG_ROUTE, MAIN_ROUTE, MY_ANSW, MY_QUES, QUES, REG_ROUTE, USER_PAGE} from "../utils/routes";
+import {
+    ADD_QUES,
+    ALL_USERS,
+    LOG_ROUTE,
+    MAIN_ROUTE,
+    MY_ANSW,
+    MY_QUES,
+    QUES,
+    REG_ROUTE,
+    USER_PAGE,
+    HELP_ROUTE,
+    CONTACT_ROUTE, RULES_PAGE
+} from "../utils/routes";
 import UserPage from "../pages/userPage/UserPage";
+import ReadMePage from "../pages/ReadmePage/ReadMePage";
+import Contacts from "../pages/contactsPage/Contacts";
+import Rules from "../pages/rulesPage/Rules";
 
 export const userRotues = [
     {
@@ -45,5 +60,17 @@ export const userRotues = [
     {
         path: USER_PAGE,
         component: UserPage
+    },
+    {
+        path: HELP_ROUTE,
+        component: ReadMePage
+    },
+    {
+        path: CONTACT_ROUTE,
+        component: Contacts
+    },
+    {
+        path: RULES_PAGE,
+        component: Rules
     }
 ]

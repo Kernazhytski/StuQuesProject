@@ -106,7 +106,7 @@ const AuthPage = () => {
             onChange={(e) => {setPassword(e.target.value)}} 
             type={'password'}/>
                     <p className={styles.link}>
-            Нет аккаунта?
+            Нет аккаунта?&nbsp;
             <Link 
               to={REG_ROUTE}
               onClick={() => {
@@ -116,7 +116,7 @@ const AuthPage = () => {
                 passwordMistake.current.style.display = 'none';
                 emailMistake.current.style.display = 'none';
               }}> 
-              Зарегистрироваться
+               Зарегистрироваться
             </Link>
           </p>
           <ButtonOne width={"100%"} onClick={async () => {
@@ -174,7 +174,7 @@ const AuthPage = () => {
             onChange={(e) => {setPassword(e.target.value)}}
             type={'password'}/>
           <p className={styles.link}>
-            Есть аккаунт?
+            Есть аккаунт?&nbsp;
             <Link 
               to={LOG_ROUTE}
               onClick={() => {

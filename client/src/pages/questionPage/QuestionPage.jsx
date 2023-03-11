@@ -106,7 +106,7 @@ const QuestionPage = () => {
                         </div>
                     }
                     {
-                        question.isAnswered !==true &&
+                        (question.isAnswered !==true && store.user.id!==undefined) &&
                         <div>
                         {
                             question.userId === store.user.id

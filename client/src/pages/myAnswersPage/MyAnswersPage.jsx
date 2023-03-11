@@ -8,13 +8,14 @@ import styles from "./MyAnswersPage.module.css";
 import QuestionsList from "../../components/questionsList/QuestionsList";
 import {Context} from "../../index";
 import { observer } from 'mobx-react-lite';
+
 import SelectGetQuestion from '../../components/UI/selects/selectGetQuestions/selectGetQuestion';
 
 const MyAnswersPage = () => {
     const {store} = useContext(Context);
     const [subject, setSubject] = useState("Все")
     const [search, setSearch] = useState("")
-
+const id = useParams().id;
     function changeSearch(value) {
         setSearch(value)
     }
@@ -23,16 +24,19 @@ const MyAnswersPage = () => {
         setSubject(value)
     }
 
+
     return (
         <div className={styles.wrapper}>
             <MenuBar/>
             <main className={styles.main}>
                 <SideBar />
                 <div className={styles.answers}>
+
                     <p className={styles.header}>Мои ответы</p>
                     <SelectGetQuestion style={{padding: "0"}} onChange={e => changeSub(e.target.value)}
                                        value={subject}/>
-                    <QuestionsList user={store.user.id}  search={search} subjectS={subject}/>
+                    <QuestionsList  user={id} search={search} subjectS={subject}/>
+
                 </div>
             </main>
             <Footer/>
