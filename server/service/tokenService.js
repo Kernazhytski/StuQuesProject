@@ -46,11 +46,7 @@ class TokenService {
         return removedToken
     }
     async findToken(refreshToken) {
-        console.log(refreshToken)
         const token = await Token.findOne({where: {refreshToken}});
-        console.log(1)
-        console.log(token)
-        console.log(1)
         return token
     }
 }

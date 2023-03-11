@@ -28,3 +28,62 @@
     content: url('../../assets/pictures/sprites/rightArrowActive.png');
 }
 
+@media screen and (max-width: 1150px) {
+    .pagesCont {
+        width: 800px;
+    }
+}
+@media screen and (max-width: 1050px) {
+    .pagesCont {
+        width: 700px;
+    }
+}
+@media screen and (max-width: 950px) {
+    .pagesCont {
+        width: 600px;
+    }
+}
+@media screen and (max-width: 850px) {
+    .pagesCont {
+        width: 500px;
+    }
+}
+@media screen and (max-width: 700px) {
+    .pagesCont {
+        width: 600px;
+    }
+}
+@media screen and (max-width: 650px) {
+    .pagesCont {
+        width: 500px;
+    }
+}
+@media screen and (max-width: 550px) {
+    .pagesCont {
+        width: 400px;
+    }
+    .leftArrow, .rightArrow {
+        width: 35px;
+        height: 35px;
+    }
+}
+@media screen and (max-width: 450px) {
+    .pagesCont {
+        width: 280px;
+    }
+    .pagesCont {
+        margin: 50px 0 50px 50px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 10px 0;
+    }
+}
+@media screen and (max-width: 400px) {
+    .pagesCont {
+        width: 250px;
+    }
+    .pagesCont {
+        margin-left: 25px;
+    }
+}

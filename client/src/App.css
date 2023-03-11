@@ -38,6 +38,7 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 	min-height: 100%;
 	position: relative;
 	font-family: "Girloy-bold";
+	overflow: hidden;
 }
 
 .container {
@@ -48,6 +49,7 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 	left: 0;
 	background-color: #EDEAE5;
 	overflow: auto;
+	overflow-x: hidden;
 }
 
 @font-face {

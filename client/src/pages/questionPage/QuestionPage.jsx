@@ -3,7 +3,7 @@ import styles from './QuestionPage.module.css'
 import Footer from '../../components/footer/Footer';
 import MenuBar from "../../components/menuBar/MenuBar";
 
-
+import PhotoPopap from "../../components/UI/notifications/photoPop/PhotoPopap";
 import SideBar from '../../components/sideBar/SideBar';
 import {useNavigate, useParams} from 'react-router-dom'
 
@@ -29,6 +29,8 @@ const QuestionPage = () => {
     const [answer, setAnswer] = useState("")
     const [answerS, setAnswerS] = useState()
     const [files, setFiles] = useState([])
+    const [activePhoto, setActivePhoto] = useState(false)
+    const [imgURL, setImgURL] = useState("")
 
     const update = (images) => {
         setFiles(images)
@@ -50,7 +52,6 @@ const QuestionPage = () => {
             const responce3 = await QuestionsServise.getAnswers(id)
             data = responce3.data
             setAnswerS(data)
-
         } catch (e) {
             console.log(e)
         }
@@ -63,6 +64,11 @@ const QuestionPage = () => {
         } catch (e) {
             console.log(e)
         }
+    }
+
+    const clickPhoto = (url) => {
+        setActivePhoto(true);
+        setImgURL(url);
     }
 
     const sendAnswer = async () => {
@@ -83,6 +89,7 @@ const QuestionPage = () => {
             <PopupEmail active={active} setActive={setActive} popupText={"Вопрос успешно удален"} locat={'/'}/>
             <PopupEmail active={activeAns} setActive={setActiveAns} popupText={"Ответ успешно отправлен"}
                         locat={'/question/' + id} action={reloadPage}/>
+            <PhotoPopap active={activePhoto} setActive={setActivePhoto} imageURL={imgURL}/>
             <MenuBar/>
             <main className={styles.main}>
                 <SideBar/>
@@ -94,6 +101,9 @@ const QuestionPage = () => {
                             question.files != undefined &&
                             question.files.map((image, index) =>
                                 <img key={index} className={styles.imgSmall}
+                                     onClick={event => {
+                                         clickPhoto(process.env.REACT_APP_SERVER_URL + '/' + id + '/' + image);
+                                     }}
                                      src={process.env.REACT_APP_SERVER_URL + '/' + id + '/' + image}/>
                             )
                         }
@@ -106,8 +116,9 @@ const QuestionPage = () => {
                         </div>
                     }
                     {
-                        (question.isAnswered !==true && store.user.id!==undefined) &&
+                        (question.isAnswered !== true && store.user.id !== undefined) &&
                         <div>
+
                         {
                             question.userId === store.user.id
                                 ?
@@ -118,14 +129,17 @@ const QuestionPage = () => {
                                 :
                                 <div>
                                     <p className={styles.header}>Напишите ответ:</p>
-                                    <TextAreaOne onChange={e => setAnswer(e.target.value)} value={answer}/>
-                                    <FileInput update={update}/>
+                                    <div className={styles.txtAreaCont}>
+                                        <TextAreaOne onChange={e => setAnswer(e.target.value)} value={answer}/>    
+                                    </div>
+                                    <div className={styles.fileInpCont}><FileInput update={update}/></div>
                                     <ButtonOne marginTop={"10px"} onClick={sendAnswer}
                                                width={"125px"}>Отправить</ButtonOne>
                                 </div>
                         }
+
                         </div>
-                        }
+                    }
                 </div>
             </main>
             <Footer/>

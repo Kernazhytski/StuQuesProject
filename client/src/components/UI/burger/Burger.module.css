@@ -44,8 +44,8 @@
 .burgerContent {
     display: none;
     position: fixed;
+    width:100%; /*что бы верстка не складывалась по ширине*/
     left: 0;
-    width: 100vw;
     height: 100vh;
     top: 60px;
     background-color: #222;
