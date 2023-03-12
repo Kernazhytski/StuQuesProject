@@ -10,7 +10,7 @@
     font-family: Girloy-light;
     font-size: 15px;
     display: inline-block;
-
+    overflow-x: hidden;
 }
 
 .title{
