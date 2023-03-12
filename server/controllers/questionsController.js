@@ -33,12 +33,12 @@ class QuestionsController {
                 req.files != null ? len = req.files.file.length : len = 0
             }
             // Заносим картиночки
-            await fs.promises.mkdir(imageUploadPath + '\\' + quest.id, {recursive: false})
+            await fs.promises.mkdir(imageUploadPath + '/' + quest.id, {recursive: false})
             const names = []
             if (len == undefined) {
                 const file = req.files.file
                 names.push(file.name)
-                let filepath = imageUploadPath + '\\' + quest.id + '\\' + file.name
+                let filepath = imageUploadPath + '/' + quest.id + '/' + file.name
                 if (fs.existsSync(filepath)) {
                     return res.status(400).json({message: "Already exist"})
                 }
@@ -47,7 +47,7 @@ class QuestionsController {
                 for (let i = 0; i < req.files.file.length; i++) {
                     const file = req.files.file[i]
                     names.push(file.name)
-                    let filepath = imageUploadPath + '\\' + quest.id + '\\' + file.name
+                    let filepath = imageUploadPath + '/' + quest.id + '/' + file.name
                     if (fs.existsSync(filepath)) {
                         return res.status(400).json({message: "Already exist"})
                     }
