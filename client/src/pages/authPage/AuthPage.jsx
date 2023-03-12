@@ -96,7 +96,9 @@ const AuthPage = () => {
             placeholder={"Введите почту"} 
             value={email} 
             onChange={(e) => {setEmail(e.target.value)}}
-            type={'text'}/>
+            type={'email'}
+            name={'email'}
+          />
           <p className={styles.txt}>Пароль:</p>
           <p className={styles.mistake} ref={passwordMistake}>Пароль должен содержать от 5 до 20 символов.</p>
           <InputOne 
