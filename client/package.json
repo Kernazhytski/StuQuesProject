@@ -1,5 +1,7 @@
 {
   "type": "module",
+  "target": "esnext",
+    "module": "commonjs",
   "name": "client",
   "version": "0.1.0",
   "private": true,
