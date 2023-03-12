@@ -240,7 +240,6 @@ class QuestionsController {
 
     async deleteQues(req, res) {
         try {
-            console.log(req.body)
             const ques = await Question.findOne({
                 where: {
                     id: req.body.id
@@ -407,8 +406,7 @@ class QuestionsController {
                         if (q != null)
                             questions.push(q);
                     }
-                }
-                console.log(questions)
+                }     
             }
             cut(questions, res, page, limit)
         } catch (e) {
