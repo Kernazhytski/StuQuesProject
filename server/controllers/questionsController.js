@@ -33,12 +33,12 @@ class QuestionsController {
                 req.files != null ? len = req.files.file.length : len = 0
             }
             // Заносим картиночки
-            await fs.promises.mkdir(imageUploadPath + '\\' + quest.id, {recursive: true})
+            await fs.promises.mkdir(imageUploadPath + '/' + quest.id, {recursive: true})
             const names = []
             if (len == undefined) {
                 const file = req.files.file
                 names.push(file.name)
-                let filepath = imageUploadPath + '\\' + quest.id + '\\' + file.name
+                let filepath = imageUploadPath + '/' + quest.id + '/' + file.name
                 if (fs.existsSync(filepath)) {
                     return res.status(400).json({message: "Already exist"})
                 }
@@ -47,7 +47,7 @@ class QuestionsController {
                 for (let i = 0; i < req.files.file.length; i++) {
                     const file = req.files.file[i]
                     names.push(file.name)
-                    let filepath = imageUploadPath + '\\' + quest.id + '\\' + file.name
+                    let filepath = imageUploadPath + '/' + quest.id + '/' + file.name
                     if (fs.existsSync(filepath)) {
                         return res.status(400).json({message: "Already exist"})
                     }
@@ -141,12 +141,12 @@ class QuestionsController {
             rang(user.id)
             user.save()
             // Заносим картиночки
-            await fs.promises.mkdir(imageUploadPath + '\\answers\\' + answer.id, {recursive: true})
+            await fs.promises.mkdir(imageUploadPath + '/answers/' + answer.id, {recursive: false})
             const names = []
             if (len == undefined) {
                 const file = req.files.file
                 names.push(file.name)
-                let filepath = imageUploadPath + '\\answers\\' + answer.id + '\\' + file.name
+                let filepath = imageUploadPath + '/answers/' + answer.id + '/' + file.name
                 if (fs.existsSync(filepath)) {
                     return res.status(400).json({message: "Already exist"})
                 }
@@ -155,7 +155,7 @@ class QuestionsController {
                 for (let i = 0; i < req.files.file.length; i++) {
                     const file = req.files.file[i]
                     names.push(file.name)
-                    let filepath = imageUploadPath + '\\answers\\' + answer.id + '\\' + file.name
+                    let filepath = imageUploadPath + '/answers/' + answer.id + '/' + file.name
                     if (fs.existsSync(filepath)) {
                         return res.status(400).json({message: "Already exist"})
                     }
@@ -240,7 +240,6 @@ class QuestionsController {
 
     async deleteQues(req, res) {
         try {
-            console.log(req.body)
             const ques = await Question.findOne({
                 where: {
                     id: req.body.id
@@ -407,8 +406,7 @@ class QuestionsController {
                         if (q != null)
                             questions.push(q);
                     }
-                }
-                console.log(questions)
+                }     
             }
             cut(questions, res, page, limit)
         } catch (e) {
