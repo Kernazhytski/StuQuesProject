@@ -33,7 +33,7 @@ class QuestionsController {
                 req.files != null ? len = req.files.file.length : len = 0
             }
             // Заносим картиночки
-            await fs.promises.mkdir(imageUploadPath + '\\' + quest.id, {recursive: false})
+            await fs.promises.mkdir(imageUploadPath + '/' + quest.id, {recursive: false})
             const names = []
             if (len == undefined) {
                 const file = req.files.file
