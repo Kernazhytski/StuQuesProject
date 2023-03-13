@@ -84,8 +84,8 @@ const QuestionPage = () => {
 
     const sendAnswer = async () => {
         try {
-            const responce2 = await QuestionsServise.addAnswer(answer, question.id, store.user.id, files)
             setActiveAns(true)
+            const responce2 = await QuestionsServise.addAnswer(answer, question.id, store.user.id, files)
         } catch (e) {
             console.log(e)
         }
@@ -97,9 +97,11 @@ const QuestionPage = () => {
 
     return (
         <div className={styles.wrapper}>
-            <PopupEmail active={active} setActive={setActive} popupText={"Вопрос успешно удален"} locat={'/'}/>
             <PopupEmail active={activeAns} setActive={setActiveAns} popupText={"Ответ успешно отправлен"}
                         locat={'/question/' + id} action={reloadPage}/>
+
+            <PopupEmail active={active} setActive={setActive} popupText={"Вопрос успешно удален"} locat={'/'}/>
+
             <PhotoPopap active={activePhoto} setActive={setActivePhoto} imageURL={imgURL}/>
             <MenuBar/>
             <main className={styles.main}>
@@ -130,6 +132,7 @@ const QuestionPage = () => {
                         (question.isAnswered !== true && store.user.id !== undefined) &&
                         <div>
 
+
                         {
                             question.userId === store.user.id
                                 ?
@@ -157,6 +160,7 @@ const QuestionPage = () => {
                                                width={"125px"}>Отправить</ButtonOne>
                                 </div>
                         }
+
 
                         </div>
                     }
