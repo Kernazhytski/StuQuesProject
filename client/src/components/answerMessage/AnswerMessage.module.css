@@ -16,12 +16,14 @@
     margin-bottom: 30px;
     display: inline-block;
     width: 100%;
+    word-break:break-all;
 }
 
 .date{
     margin-bottom: 30px;
     font-family: Girloy-light;
     display: inline-block;
+    word-break:break-all;
 }
 
 .nickname{
@@ -32,6 +34,7 @@
     float: right;
     font-size: 20px;
     cursor: pointer;
+    word-break:break-all;
 }
 
 .knopkaDel{
@@ -56,6 +59,7 @@
 
 .imgSmall{
     width: 100px;
+    cursor: pointer;
 }
 
 .header{
