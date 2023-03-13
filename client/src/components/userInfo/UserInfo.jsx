@@ -36,6 +36,7 @@ const UserInfo = ({setFlag1, setFlag2, ban, setBan, userId}) => {
     useMemo( async () => {
         store.checkAuth2()
         if(+store.user.id === +userId && store.isAuth){
+            console.log(store.user.rang)
             console.log(JSON.parse(localStorage.getItem('userData')).userData)
             setNickname(JSON.parse(localStorage.getItem('userData')).userData.nickname)
             setDescr(JSON.parse(localStorage.getItem('userData')).userData.aboutMe) 
@@ -220,7 +221,7 @@ const UserInfo = ({setFlag1, setFlag2, ban, setBan, userId}) => {
                 <div className={styles.statistics}>
                     <Link to={'/myQuestions/'+userId}><p className={styles.statisticsText}>Вопросы: <span className={styles.statisticsNumb}>{questions}</span></p></Link>
                     <Link to={'/myAnswers/'+userId}><p className={styles.statisticsText}>Ответы: <span className={styles.statisticsNumb}>{answers}</span></p></Link>
-                    <p className={styles.statisticsText}>Звание: <span className={styles.statisticsNumb}>{rang}</span></p>
+                    <p className={styles.statisticsText}>Ранг: <span className={styles.statisticsNumb}>{rang}</span></p>
                     <p className={styles.statisticsText}>Баллы: <span className={styles.statisticsNumb}>{score}</span></p>
                 </div>
                 <div className={styles.descrContainer}>

@@ -14,22 +14,24 @@ class MailService {
         })
     }
     async sendActivationMail(email, link) {
-        console.log(1)
-        await this.transporter.sendMail({
-            from: process.env.SMTP_USER,
-            to: email,
-            subject: `Активация аккаута StuQues`,
-            text: '',
-            html: `
-                <div>
-                    <h1>Перейдите по ссылке для активации </h1>
+        try {
+            await this.transporter.sendMail({
+                from: process.env.SMTP_USER,
+                to: email,
+                subject: `Активация аккаута StuQues`,
+                text: '',
+                html: `
                     <div>
-                        <a href="${link}">${link}</a>
+                        <h1>Перейдите по ссылке для активации </h1>
+                        <div>
+                            <a href="${link}">${link}</a>
+                        </div>
                     </div>
-                </div>
-            `
-        })
-        console.log(2)
+                `
+            })            
+        } catch (error) {
+            console.log(error)
+        }
     }
 }
 
