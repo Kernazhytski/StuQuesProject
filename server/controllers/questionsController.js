@@ -33,7 +33,9 @@ class QuestionsController {
                 req.files != null ? len = req.files.file.length : len = 0
             }
             // Заносим картиночки
+
             await fs.promises.mkdir(imageUploadPath + '/' + quest.id, {recursive: true})
+
             const names = []
             if (len == undefined) {
                 const file = req.files.file
@@ -141,7 +143,7 @@ class QuestionsController {
             rang(user.id)
             user.save()
             // Заносим картиночки
-            await fs.promises.mkdir(imageUploadPath + '/answers/' + answer.id, {recursive: false})
+            await fs.promises.mkdir(imageUploadPath + '/answers/' + answer.id, {recursive: true})
             const names = []
             if (len == undefined) {
                 const file = req.files.file
@@ -167,7 +169,7 @@ class QuestionsController {
             res.send("uploaded successfully")
         } catch (e) {
             console.log(e)
-            return res.status(500).json({message: "Add answer error"})
+            return res.status(507).json({message: "Add answer error"})
         }
 
     }
