@@ -29,7 +29,12 @@
     font-family: Girloy-light;
     line-height: 20px;
 }
-
+.contacts {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
 .questions {
     padding-left: 50px;
     margin-left: 10px;
@@ -38,17 +43,67 @@
     padding-bottom: 30px;
 }
 
-.tablePhoto{
-    width: 100%;
-}
-.photo1{
-    content: url("../../assets/pictures/developers/Mine.jpg");
+.photo{
     width: 200px;
     display: inline-block;
 }
 
-.photo2{
-    content: url("../../assets/pictures/developers/Ilya.jfif");
-    width: 200px;
-    display: inline-block;
+@media screen and (max-width: 1150px) {
+    .contacts{
+        flex-direction: column;
+        height: 700px;
+        width: 850px;
+    }
+}
+@media screen and (max-width: 1050px) {
+    .contacts{
+        width: 800px;
+    }
+}
+@media screen and (max-width: 950px) {
+    .contacts{
+        width: 700px;
+    }
+}
+@media screen and (max-width: 850px) {
+    .contacts{
+        width: 600px;
+    }
+}
+@media screen and (max-width: 750px) {
+    .contacts{
+        width: 500px;
+    }
+}
+@media screen and (max-width: 700px) {
+    .questions {
+        border-left: none;
+        padding-left: 10px;
+    }
+    .text2, .text1 {
+        width: 500px;
+    }
+    .contacts{
+        width: 700px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .contacts{
+        width: 550px;
+    }
+}
+@media screen and (max-width: 500px) {
+    .contacts{
+        width: 450px;
+    }
+}
+@media screen and (max-width: 450px) {
+    .contacts{
+        width: 350px;
+    }
+}
+@media screen and (max-width: 400px) {
+    .contacts{
+        width: 300px;
+    }
 }

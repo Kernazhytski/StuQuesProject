@@ -4,13 +4,13 @@
     padding: 20px 10px 20px 50px;
     border-bottom: 1px solid #000;
     border-top: 1px solid #000;
+    overflow: hidden;
 }
 
 .sub{
     font-family: Girloy-light;
     font-size: 15px;
     display: inline-block;
-
 }
 
 .title{
