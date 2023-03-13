@@ -6,6 +6,11 @@
     border-top: 1px solid #000;
     overflow: hidden;
 }
+.stripRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 
 .sub{
     font-family: Girloy-light;
@@ -13,9 +18,10 @@
     display: inline-block;
 }
 
-.title{
+.title a{
     color: black;
     font-size: 20px;
+    word-break:break-all;
 }
 
 .title:hover{
@@ -26,27 +32,38 @@
     float: right;
     display: inline-block;
     font-size: 20px;
+    color: #026670;
 }
 
 @media screen and (max-width: 1150px) {
     .strip {
         width: 800px;
     }
+
 }
 @media screen and (max-width: 1050px) {
     .strip {
         width: 700px;
     }
+    .stripRow {
+        flex-direction: column;
+    }
+    .title {
+        margin-bottom: 10px;
+    }
+
 }
 @media screen and (max-width: 950px) {
     .strip {
         width: 600px;
     }
+
 }
 @media screen and (max-width: 850px) {
     .strip {
         width: 500px;
     }
+
 }
 @media screen and (max-width: 700px) {
     .strip {
