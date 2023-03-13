@@ -75,19 +75,21 @@ const AnswerMessage = ({answer, question}) => {
                         locat={'/question/' + answer.questionId} action={reloadPage}/>
              <PhotoPopap active={activePhoto} setActive={setActivePhoto} imageURL={imgURL}/>
             <div className={styles.answerForm} style={{background: color}}>
-                <p className={styles.desc}>{answer.text}
-                    {(store.user.id === question.userId && question.isAnswered !== true) &&
-                        <ButtonOne width={"125px"} height={"50px"} float={"right"} onClick={setBest}>Отметить
-                            лучшим</ButtonOne>}</p>
-                {
+                <p className={styles.desc}>{answer.text}</p>
+                    {
                     answer.files != undefined &&
                     answer.files.map((image, index) =>
                         <img key={index} className={styles.imgSmall}
                              src={process.env.REACT_APP_SERVER_URL + '/answers/' + answer.id + '/' + image}
                              onClick={event => {
-                                clickPhoto(process.env.REACT_APP_SERVER_URL + '/' + image);
+                                clickPhoto(process.env.REACT_APP_SERVER_URL + '/answers/' + answer.id + '/' + image);
                             }}/>
                     )
+                }
+                {(store.user.id === question.userId && question.isAnswered !== true) &&
+                    <div className={styles.btnCont}>
+                        <ButtonOne width={"160px"} height={"50px"} float={"right"} onClick={setBest}>Отметить лучшим</ButtonOne>                        
+                    </div>
                 }
 
             </div>
