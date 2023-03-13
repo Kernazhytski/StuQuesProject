@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-
+import imageCompression from 'browser-image-compression';
 import styles from './FileInput.module.css'
 
 const FileInput = (props) => {
@@ -8,6 +8,10 @@ const FileInput = (props) => {
     const [URLimages, setURLimages] = useState([])
     const [flag, setFlag] = useState(true)
 
+    const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1920
+    }
 
     function clearImages() {
         setImages([])
@@ -26,6 +30,28 @@ const FileInput = (props) => {
     }
 
 
+    async function compr(files) {
+        const options = {
+            maxSizeMB: 1,
+            maxWidthOrHeight: 1920
+        }
+
+
+
+        const finalFiles = []
+
+        for(var i=0;i<files.length;i++){
+            try {
+                const compressedFile = await imageCompression(files[i], options);
+                finalFiles.push(compressedFile)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        setImages(finalFiles)
+    }
+
     function onDropHandler(e) {
         e.preventDefault();
         let copy = Object.assign([], images);
@@ -38,12 +64,13 @@ const FileInput = (props) => {
             setImages(copy);
         }
         setDrag(false)
+
+        console.log(images)
         props.update(images);
     }
 
     const ImageGet = (e) => {
         e.preventDefault();
-        const formData = new FormData();
         let copy = Object.assign([], images);
         let add = [...e.target.files];
         if (images.length + add.length > 3) {
@@ -51,7 +78,6 @@ const FileInput = (props) => {
         } else {
             setFlag(true)
             add.forEach(img => copy.push(img))
-            //copy.forEach(img=>formData.append(img.name,img,img.name))
             setImages(copy);
         }
     }
@@ -61,6 +87,8 @@ const FileInput = (props) => {
         const newImageURLS = [];
         images.forEach((image) => newImageURLS.push(URL.createObjectURL(image)));
         setURLimages(newImageURLS);
+
+        console.log(images)
         props.update(images);
     }, [images])
 
