@@ -9,6 +9,7 @@ import TextAreaOne from '../../components/UI/textareas/textarea1/TextAreaOne'
 import InputThree from '../../components/UI/inputs/input3/InputThree'
 
 import styles from './UserInfo.module.css';
+import PhotoPopap from '../UI/notifications/photoPop/PhotoPopap'
 
 
 const UserInfo = ({setFlag1, setFlag2, ban, setBan, userId}) => {
@@ -29,6 +30,8 @@ const UserInfo = ({setFlag1, setFlag2, ban, setBan, userId}) => {
     const descrMistake = useRef()
     const nicknameMistake = useRef()
     const [rang,setRang] = useState("")
+    const [activePhoto, setActivePhoto] = useState(false)
+    const [imgURL, setImgURL] = useState("")
     let cancell = false
     useMemo( async () => {
         store.checkAuth2()
@@ -62,6 +65,10 @@ const UserInfo = ({setFlag1, setFlag2, ban, setBan, userId}) => {
             setscore(response.data.score)
         }
     }, [useLocation().pathname.split('/').reverse()[0]])
+    const clickPhoto = (url) => {
+        setActivePhoto(true);
+        setImgURL(url);
+    }
     const edit = async (nickname, descr) => {
         if(editMode) {
             const check = checkInfo(nickname, descr)
@@ -124,6 +131,7 @@ const UserInfo = ({setFlag1, setFlag2, ban, setBan, userId}) => {
     }
     return (
         <div>
+            <PhotoPopap active={activePhoto} setActive={setActivePhoto} imageURL={imgURL}/>
             <div className={styles.userInfo}>
                 {editMode 
                 ?
@@ -135,7 +143,12 @@ const UserInfo = ({setFlag1, setFlag2, ban, setBan, userId}) => {
                     </div>
                 :
                     <div>
-                        <img className={styles.userAvatar} src={process.env.REACT_APP_SERVER_URL + '/' + avatarImg}  ref={userImg}/> 
+                        <img className={styles.userAvatar}
+                            src={process.env.REACT_APP_SERVER_URL + '/' + avatarImg}
+                            ref={userImg}
+                            onClick={event => {
+                                clickPhoto(process.env.REACT_APP_SERVER_URL + '/' + avatarImg);
+                            }}/> 
                     </div>
                 }
                 {editMode 

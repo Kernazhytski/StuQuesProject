@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useMemo, useState} from 'react';
+import React, {useContext, useEffect, useMemo, useRef, useState} from 'react';
 import styles from './QuestionPage.module.css'
 import Footer from '../../components/footer/Footer';
 import MenuBar from "../../components/menuBar/MenuBar";
@@ -31,6 +31,8 @@ const QuestionPage = () => {
     const [files, setFiles] = useState([])
     const [activePhoto, setActivePhoto] = useState(false)
     const [imgURL, setImgURL] = useState("")
+
+    const answerMistake = useRef();
 
     const update = (images) => {
         setFiles(images)
@@ -65,7 +67,16 @@ const QuestionPage = () => {
             console.log(e)
         }
     }
-
+    const checkAnswer = () => {
+        if(answer.length < 5 || answer.length > 3800) {
+            answerMistake.current.style.display = 'block'
+            return false
+        } 
+        else {
+            answerMistake.current.style.display = 'none'
+            return true
+        }
+    }
     const clickPhoto = (url) => {
         setActivePhoto(true);
         setImgURL(url);
@@ -121,24 +132,35 @@ const QuestionPage = () => {
                         (question.isAnswered !== true && store.user.id !== undefined) &&
                         <div>
 
-                            {
-                                question.userId === store.user.id
-                                    ?
-                                    <div>
-                                        <p className={styles.header}>Действия с вопросом:</p>
-                                        <ButtonOne onClick={deleteQuestion} width={"200px"}>Удалить вопрос</ButtonOne>
+
+                        {
+                            question.userId === store.user.id
+                                ?
+                                <div>
+                                    <p className={styles.header}>Действия с вопросом:</p>
+                                    <ButtonOne onClick={deleteQuestion} width={"200px"}>Удалить вопрос</ButtonOne>
+                                </div>
+                                :
+                                <div>
+                                    <p className={styles.header}>Напишите ответ:</p>
+                                    <div className={styles.txtAreaCont}>
+                                        <p className={styles.mistake} ref={answerMistake}>Ответ должен содержать от 5 до 3800 символов</p>
+                                        <TextAreaOne onChange={e => setAnswer(e.target.value)} value={answer}/>    
                                     </div>
-                                    :
-                                    <div>
-                                        <p className={styles.header}>Напишите ответ:</p>
-                                        <div className={styles.txtAreaCont}>
-                                            <TextAreaOne onChange={e => setAnswer(e.target.value)} value={answer}/>
-                                        </div>
-                                        <div className={styles.fileInpCont}><FileInput update={update}/></div>
-                                        <ButtonOne marginTop={"10px"} onClick={sendAnswer}
-                                                   width={"125px"}>Отправить</ButtonOne>
-                                    </div>
-                            }
+                                    <div className={styles.fileInpCont}><FileInput update={update}/></div>
+                                    <ButtonOne marginTop={"10px"} onClick={() => {
+                                        const response = checkAnswer();
+                                        if(response) {
+                                            sendAnswer()
+                                        }
+                                        else {
+                                            answerMistake.current.style.display = 'block'
+                                        }
+                                    }}
+                                               width={"125px"}>Отправить</ButtonOne>
+                                </div>
+                        }
+
 
                         </div>
                     }

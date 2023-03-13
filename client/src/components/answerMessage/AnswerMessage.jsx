@@ -3,18 +3,22 @@ import styles from './AnswerMessage.module.css'
 import UserService from "../../service/UserService";
 import {Context} from "../../index";
 import QuestionsServise from "../../service/QuestionsService";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import PopupEmail from "../UI/notifications/emailNotify/PopupEmail";
 import ButtonOne from "../UI/buttons/button1/ButtonOne";
+import PhotoPopap from '../UI/notifications/photoPop/PhotoPopap';
 
 const AnswerMessage = ({answer, question}) => {
 
     let data = []
+    const id = useParams().id;
     const [user, setUser] = useState([])
     const {store} = useContext(Context);
     const loc = useNavigate();
     const [activeDel, setActiveDel] = useState(false)
     const [color, setColor] = useState("#FEF9C7")
+    const [activePhoto, setActivePhoto] = useState(false)
+    const [imgURL, setImgURL] = useState("")
 
     const deleteAnswer = async () => {
         try {
@@ -25,7 +29,6 @@ const AnswerMessage = ({answer, question}) => {
             console.log(e)
         }
     }
-
     useEffect(() => {
         if (answer.isBest === true) {
             setColor('#9FEDD7')
@@ -41,7 +44,11 @@ const AnswerMessage = ({answer, question}) => {
     const reloadPage = () => {
         window.location.reload()
     }
-
+    const clickPhoto = (url) => {
+        console.log(url)
+        setActivePhoto(true);
+        setImgURL(url);
+    }
     useMemo(async () => {
         try {
             const responce = await UserService.authorOfAnswer(answer.userId)
@@ -66,17 +73,23 @@ const AnswerMessage = ({answer, question}) => {
             {answer.isBest === true && <p className={styles.header}>Лучший ответ</p>}
             <PopupEmail active={activeDel} setActive={setActiveDel} popupText={"Ответ успешно удален"}
                         locat={'/question/' + answer.questionId} action={reloadPage}/>
+             <PhotoPopap active={activePhoto} setActive={setActivePhoto} imageURL={imgURL}/>
             <div className={styles.answerForm} style={{background: color}}>
-                <p className={styles.desc}>{answer.text}
-                    {(store.user.id === question.userId && question.isAnswered !== true) &&
-                        <ButtonOne width={"125px"} height={"50px"} float={"right"} onClick={setBest}>Отметить
-                            лучшим</ButtonOne>}</p>
-                {
+                <p className={styles.desc}>{answer.text}</p>
+                    {
                     answer.files != undefined &&
                     answer.files.map((image, index) =>
                         <img key={index} className={styles.imgSmall}
-                             src={process.env.REACT_APP_SERVER_URL + '/answers/' + answer.id + '/' + image}/>
+                             src={process.env.REACT_APP_SERVER_URL + '/answers/' + answer.id + '/' + image}
+                             onClick={event => {
+                                clickPhoto(process.env.REACT_APP_SERVER_URL + '/answers/' + answer.id + '/' + image);
+                            }}/>
                     )
+                }
+                {(store.user.id === question.userId && question.isAnswered !== true) &&
+                    <div className={styles.btnCont}>
+                        <ButtonOne width={"160px"} height={"50px"} float={"right"} onClick={setBest}>Отметить лучшим</ButtonOne>                        
+                    </div>
                 }
 
             </div>
