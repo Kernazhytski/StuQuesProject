@@ -73,8 +73,8 @@ const QuestionPage = () => {
 
     const sendAnswer = async () => {
         try {
-            const responce2 = await QuestionsServise.addAnswer(answer, question.id, store.user.id, files)
             setActiveAns(true)
+            const responce2 = await QuestionsServise.addAnswer(answer, question.id, store.user.id, files)
         } catch (e) {
             console.log(e)
         }
@@ -86,9 +86,11 @@ const QuestionPage = () => {
 
     return (
         <div className={styles.wrapper}>
-            <PopupEmail active={active} setActive={setActive} popupText={"Вопрос успешно удален"} locat={'/'}/>
             <PopupEmail active={activeAns} setActive={setActiveAns} popupText={"Ответ успешно отправлен"}
                         locat={'/question/' + id} action={reloadPage}/>
+
+            <PopupEmail active={active} setActive={setActive} popupText={"Вопрос успешно удален"} locat={'/'}/>
+
             <PhotoPopap active={activePhoto} setActive={setActivePhoto} imageURL={imgURL}/>
             <MenuBar/>
             <main className={styles.main}>
@@ -119,24 +121,24 @@ const QuestionPage = () => {
                         (question.isAnswered !== true && store.user.id !== undefined) &&
                         <div>
 
-                        {
-                            question.userId === store.user.id
-                                ?
-                                <div>
-                                    <p className={styles.header}>Действия с вопросом:</p>
-                                    <ButtonOne onClick={deleteQuestion} width={"200px"}>Удалить вопрос</ButtonOne>
-                                </div>
-                                :
-                                <div>
-                                    <p className={styles.header}>Напишите ответ:</p>
-                                    <div className={styles.txtAreaCont}>
-                                        <TextAreaOne onChange={e => setAnswer(e.target.value)} value={answer}/>    
+                            {
+                                question.userId === store.user.id
+                                    ?
+                                    <div>
+                                        <p className={styles.header}>Действия с вопросом:</p>
+                                        <ButtonOne onClick={deleteQuestion} width={"200px"}>Удалить вопрос</ButtonOne>
                                     </div>
-                                    <div className={styles.fileInpCont}><FileInput update={update}/></div>
-                                    <ButtonOne marginTop={"10px"} onClick={sendAnswer}
-                                               width={"125px"}>Отправить</ButtonOne>
-                                </div>
-                        }
+                                    :
+                                    <div>
+                                        <p className={styles.header}>Напишите ответ:</p>
+                                        <div className={styles.txtAreaCont}>
+                                            <TextAreaOne onChange={e => setAnswer(e.target.value)} value={answer}/>
+                                        </div>
+                                        <div className={styles.fileInpCont}><FileInput update={update}/></div>
+                                        <ButtonOne marginTop={"10px"} onClick={sendAnswer}
+                                                   width={"125px"}>Отправить</ButtonOne>
+                                    </div>
+                            }
 
                         </div>
                     }
