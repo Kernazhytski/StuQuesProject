@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import axios from 'axios'
 
 import QuestionsServise from "../../service/QuestionsService";
@@ -39,6 +39,10 @@ export const AddQuesPage = observer(() => {
     const updateData = (value) => {
         setFiles(value);
     }
+
+    useEffect(() =>{
+        if(!store.isAuth) loc('/login');
+    } ,[])
 
     const post = async (e) => {
         e.preventDefault()
