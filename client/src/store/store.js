@@ -46,10 +46,10 @@ export default class Store {
         try {
             const response = await AuthService.register(email, password, nickname);
             if(response.data.success) {
-                //localStorage.setItem('token', response.data.userData.accessToken);
-                //localStorage.setItem('userData', JSON.stringify(response.data.userData))
-                //this.setAuth(true);
-                //this.setUser(response.data.userData.message);
+                localStorage.setItem('token', response.data.userData.accessToken);
+                localStorage.setItem('userData', JSON.stringify(response.data.userData))
+                this.setAuth(true);
+                this.setUser(response.data.userData.message);
                 return {
                     success: true
                 }              
@@ -76,10 +76,8 @@ export default class Store {
     }
 
     async checkAuth2() {
-        console.log(JSON.parse(localStorage.getItem('userData')).userData.isActivated)
-        if(localStorage.getItem('token') !== 'undefined' && localStorage.getItem('token') && JSON.parse(localStorage.getItem('userData')).userData.isActivated) {
+        if(localStorage.getItem('token') !== 'undefined' && localStorage.getItem('token')) {
             this.user = JSON.parse(localStorage.getItem('userData')).userData;
-            console.log(this.user)
             this.isAuth = true        
         }
         else {

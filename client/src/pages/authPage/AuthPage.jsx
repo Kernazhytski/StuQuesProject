@@ -195,7 +195,6 @@ const AuthPage = () => {
               const response = checkRegister(email, password, nickname)
               if(response) {
                 const response = await store.register(email, password, nickname);
-                console.log(response)
                 if(response.success) {
                   setPopupText('Ссылка отправлена на почту')
                   setFlag(true);
