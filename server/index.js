@@ -18,16 +18,12 @@ const app = express();
 app.use(cookieParser());
 const PORT = process.env.PORT || 2000;
 
-app.use(express.json({limit: '50mb'}));
-app.use(express.urlencoded({limit: '50mb'}));
-
 app.use(fileUpload({}))
 app.use(cors({
     credentials: true,
     origin: process.env.CLIENT_URL
 }));
 app.use(express.json());
-
 
 
 app.use(express.static(path.resolve(__dirname, 'static', 'usersAvatars')));
