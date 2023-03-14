@@ -5,11 +5,11 @@ require('dotenv').config();
 class QuestionService {
     async getUserQuestions(userId) {
         const userQuestions = await Question.findAll({where: {userId}});
-        return userQuestions
+        return userQuestions.length
     }
     async getUserAnswers(userId) {
         const userAnswers = await Answer.findAll({where: {userId}});
-        return userAnswers
+        return userAnswers.length
     }
     async deleteUserQuestions(userId) {
         const userQuestions = await Question.findAll({where: {userId}});
