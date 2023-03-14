@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
 import ButtonOne from '../UI/buttons/button1/ButtonOne';
 import { observer } from 'mobx-react-lite';
 
@@ -11,7 +10,6 @@ const DropDown = ({...props}) => {
 
   
   const {store} = useContext(Context);
-  console.log(`allUsers/${store.user.id}`)
   return (
     <div className={styles.dropDown} onClick={e => e.stopPropagation()}>
         <ul>

@@ -4,6 +4,7 @@ import {makeAutoObservable} from 'mobx'
 import AuthService from '../service/AuthService';
 import UserService from '../service/UserService';
 
+
 export default class Store {
     user = {};
     isAuth = false;
@@ -27,7 +28,7 @@ export default class Store {
                 localStorage.setItem('token', response.data.userData.accessToken);
                 localStorage.setItem('userData', JSON.stringify(response.data.userData))
                 this.setAuth(true);
-                this.setUser(response.data.userData.message);
+                this.setUser(response.data.userData.userData);
                 return {
                     success: true
                 }                
@@ -48,8 +49,8 @@ export default class Store {
             if(response.data.success) {
                 localStorage.setItem('token', response.data.userData.accessToken);
                 localStorage.setItem('userData', JSON.stringify(response.data.userData))
-                this.setAuth(true);
-                this.setUser(response.data.userData.message);
+                /*this.setAuth(true);
+                this.setUser(response.data.userData.message);*/
                 return {
                     success: true
                 }              
@@ -65,6 +66,7 @@ export default class Store {
     }
     async logout(email, password, nickname) {
         try {
+            
             const response = await AuthService.logout(email, password, nickname);
             localStorage.removeItem('token');
             localStorage.removeItem('userData');
@@ -75,8 +77,9 @@ export default class Store {
         }
     }
 
-    async checkAuth2() {
+    /*async checkAuth2() {
         if(localStorage.getItem('token') !== 'undefined' && localStorage.getItem('token')) {
+            console.log(JSON.parse(localStorage.getItem('userData')).userData)
             this.user = JSON.parse(localStorage.getItem('userData')).userData;
             this.isAuth = true        
         }
@@ -85,8 +88,23 @@ export default class Store {
             this.isAuth = false
         }
 
+    }*/
+    async checkAuth3() {
+        //console.log(localStorage.getItem('token'))
+        if(localStorage.getItem('token') !== 'undefined' && localStorage.getItem('token')) {
+            const response = await UserService.getOneUser(JSON.parse(localStorage.getItem('userData')).userData.id);
+            //console.log(response.data)
+            if(response.data.isActivated) {
+                //console.log(response.data)
+                this.user = response.data
+                this.isAuth = true   
+            }
+            else {
+                this.user = {}
+                this.isAuth = false
+            }
+        }
     }
-
     async checkAuth() {
         try {
             //console.log(this.isAuth)

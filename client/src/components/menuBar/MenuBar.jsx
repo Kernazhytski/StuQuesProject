@@ -40,7 +40,8 @@ const MenuBar = (props) => {
         })
     }
     useMemo(async () => {
-        store.checkAuth2()
+        //store.checkAuth2();
+        store.checkAuth3()
     }, [])
     const dropDownChange = (e) => {
         e.stopPropagation()
@@ -59,7 +60,7 @@ const MenuBar = (props) => {
     }
     const leaveAccount = async () => {
         await store.logout()
-        //loc('/login')
+        loc('/login')
     }
 
 
