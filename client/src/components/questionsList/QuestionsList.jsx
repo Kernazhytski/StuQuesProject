@@ -34,7 +34,6 @@ const QuestionsList = (props) => {
             const totalCount = response.headers['x-total-count']
             setTotalPages(getPagesCount(totalCount, limit));
             const data = response.data
-            console.log(data)
             setQuestions(data)
 
         } catch (e) {
@@ -59,8 +58,6 @@ const QuestionsList = (props) => {
 
     useMemo(async () => {
         setIsLoading(true)
-
-        console.log(location, location2)
         if (location2 == 'myQuestions') {
             await getMyQuestions()
             setIsLoading(false)
