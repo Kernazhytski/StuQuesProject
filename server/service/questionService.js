@@ -19,7 +19,7 @@ class QuestionService {
         return userQuestions
     }
     async deleteUserAnswers(userId) {
-        const userAnswers = await Answer.findAll({where: {userId}});
+        const userAnswers = await Answer.findAll({where: {userId,isBest:false}});
         userAnswers.forEach(userAnswer => {
             userAnswer.destroy()
         });
