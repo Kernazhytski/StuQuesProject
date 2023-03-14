@@ -51,6 +51,7 @@ class UserService {
                         role: newUser.role, 
                         score: newUser.score, 
                         aboutMe: newUser.aboutMe,
+                        rang: newUser.rang,
                         userQuestions,
                         userAnswers
                     }
@@ -115,6 +116,7 @@ class UserService {
                         role: user.role, 
                         score: user.score,
                         aboutMe: user.aboutMe,
+                        rang: user.rang,
                         userAnswers,
                         userQuestions
                     }
