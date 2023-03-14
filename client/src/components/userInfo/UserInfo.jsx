@@ -35,7 +35,10 @@ const UserInfo = ({setFlag1, setFlag2, ban, setBan, userId}) => {
     const [imgURL, setImgURL] = useState("")
     let cancell = false
     useMemo(async () => {
-        store.checkAuth2()
+        await store.checkAuth3()
+        /*console.log(+store.user.id)
+        console.log(+userId)
+        console.log(store.isAuth)*/
         if (+store.user.id === +userId && store.isAuth) {
             console.log(JSON.parse(localStorage.getItem('userData')).userData)
             setNickname(JSON.parse(localStorage.getItem('userData')).userData.nickname)
@@ -232,9 +235,9 @@ const UserInfo = ({setFlag1, setFlag2, ban, setBan, userId}) => {
                             className={styles.statisticsNumb}>{questions}</span></p></Link>
                         <Link to={'/myAnswers/' + userId}><p className={styles.statisticsText}>Ответы: <span
                             className={styles.statisticsNumb}>{answers}</span></p></Link>
-                        <p className={styles.statisticsText}>Звание: <span
+                        <p className={styles.statisticsText}>Ранг: <span
                             className={styles.statisticsNumb}>{rang}</span></p>
-                        <p className={styles.statisticsText}>Баллы: <span
+                        <p className={styles.statisticsText}>Очки: <span
                             className={styles.statisticsNumb}>{score}</span></p>
                     </div>
                     <div className={styles.descrContainer}>

@@ -2,6 +2,7 @@
     min-height: 100%;
     display: flex;
     flex-direction: column;
+    word-break: break-word;
 }
 .main {
     padding-top: 50px;
