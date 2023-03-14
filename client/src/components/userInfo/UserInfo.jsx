@@ -36,15 +36,12 @@ const UserInfo = ({setFlag1, setFlag2, ban, setBan, userId}) => {
     let cancell = false
     useMemo(async () => {
         await store.checkAuth3()
-        /*console.log(+store.user.id)
-        console.log(+userId)
-        console.log(store.isAuth)*/
         if (+store.user.id === +userId && store.isAuth) {
             console.log(JSON.parse(localStorage.getItem('userData')).userData)
             setNickname(JSON.parse(localStorage.getItem('userData')).userData.nickname)
             setDescr(JSON.parse(localStorage.getItem('userData')).userData.aboutMe)
-            setAnswers(JSON.parse(localStorage.getItem('userData')).userData.userAnswers.length)
-            setqQuestions(JSON.parse(localStorage.getItem('userData')).userData.userQuestions.length)
+            setAnswers(JSON.parse(localStorage.getItem('userData')).userData.userAnswers)
+            setqQuestions(JSON.parse(localStorage.getItem('userData')).userData.userQuestions)
             setOldNickname(JSON.parse(localStorage.getItem('userData')).userData.nickname)
             setOldDescr(JSON.parse(localStorage.getItem('userData')).userData.aboutMe)
             setAvatarImg(store.user.avatarImg)
@@ -56,8 +53,8 @@ const UserInfo = ({setFlag1, setFlag2, ban, setBan, userId}) => {
             const response = await UserService.getOneUser(+userId);
             setNickname(response.data.nickname)
             setDescr(response.data.aboutMe)
-            setAnswers(response.data.userAnswers.length)
-            setqQuestions(response.data.userQuestions.length)
+            setAnswers(response.data.userAnswers)
+            setqQuestions(response.data.userQuestions)
             setOldNickname(response.data.nickname)
             setOldDescr(response.data.aboutMe)
             setAvatarImg(response.data.avatarImg)
