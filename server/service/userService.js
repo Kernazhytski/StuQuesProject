@@ -17,6 +17,7 @@ class UserService {
         //Если нашли, то кидаем ошибку
 
         if(candidate && candidate.isActivated) {
+            console.log(2)
             return {
                 success: false,
                 message: `Пользователь с почтовым адресом ${email} уже зарегистрирован`,
@@ -39,7 +40,7 @@ class UserService {
         await TokenService.saveToken(newUser.id, tokens.refreshToken);
         const userQuestions = await questionService.getUserQuestions(newUser.id);
         const userAnswers = await questionService.getUserAnswers(newUser.id);
-
+        console.log(1)
         return {
             success: true,
             ...tokens,
@@ -51,6 +52,8 @@ class UserService {
                         role: newUser.role, 
                         score: newUser.score, 
                         aboutMe: newUser.aboutMe,
+                        rang: newUser.rang,
+                        isActivated: newUser.isActivated,
                         userQuestions,
                         userAnswers
                     }
@@ -115,6 +118,7 @@ class UserService {
                         role: user.role, 
                         score: user.score,
                         aboutMe: user.aboutMe,
+                        rang: user.rang,
                         userAnswers,
                         userQuestions
                     }

@@ -52,6 +52,9 @@ class AuthController {
         try {
             const activationLink = req.params.link;
             await userService.activate(activationLink);
+            //const tokens = TokenService.generateToken({userId :newUser.id, email, isActivated: newUser.isActivated});
+        //Отправляем refresh токен в базу данных
+            //await TokenService.saveToken(newUser.id, tokens.refreshToken);
             return res.redirect(process.env.CLIENT_URL)
         } catch(e) {
             res.json({success: false, message: 'Ошибка при активации ссылки.', error: e})
