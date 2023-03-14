@@ -75,6 +75,7 @@ class QuestionsController {
             if (titS === "" || titS == undefined) {
                 if (subS === "Все" || subS == undefined) {
                     const questions = await Question.findAll();
+                    questions.reverse()
                     cut(questions, res, page, limit)
                 } else {
                     const questions = await Question.findAll({
@@ -82,6 +83,7 @@ class QuestionsController {
                             subject: subS
                         }
                     })
+                    questions.reverse()
                     cut(questions, res, page, limit)
                 }
             } else {
@@ -99,6 +101,7 @@ class QuestionsController {
                             }]
                         }
                     })
+                    questions.reverse()
                     cut(questions, res, page, limit)
                 } else {
                     const questions = await Question.findAll({
@@ -118,6 +121,7 @@ class QuestionsController {
                             }]
                         }
                     })
+                    questions.reverse()
                     cut(questions, res, page, limit)
                 }
             }
@@ -185,6 +189,7 @@ class QuestionsController {
             if (titS === "" || titS == undefined) {
                 if (subS === "Все" || subS == undefined) {
                     const questions = await Question.findAll({where: {userId: userId}});
+                    questions.reverse()
                     cut(questions, res, page, limit)
                 } else {
                     const questions = await Question.findAll({
@@ -193,6 +198,7 @@ class QuestionsController {
                             userId: userId
                         }
                     })
+                    questions.reverse()
                     cut(questions, res, page, limit)
                 }
             } else {
@@ -211,6 +217,7 @@ class QuestionsController {
                             userId: userId
                         }
                     })
+                    questions.reverse()
                     cut(questions, res, page, limit)
                 } else {
                     const questions = await Question.findAll({
@@ -231,6 +238,7 @@ class QuestionsController {
                             }]
                         }
                     })
+                    questions.reverse()
                     cut(questions, res, page, limit)
                 }
             }
@@ -410,6 +418,7 @@ class QuestionsController {
                     }
                 }     
             }
+            questions.reverse()
             cut(questions, res, page, limit)
         } catch (e) {
             console.log(e);

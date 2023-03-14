@@ -18,14 +18,14 @@
     margin-bottom: 30px;
     display: inline-block;
     width: 100%;
-    word-break:break-all;
+    word-break:break-word;
 }
 
 .date{
     margin-bottom: 30px;
     font-family: Girloy-light;
     display: inline-block;
-    word-break:break-all;
+    word-break:break-word;
 }
 
 .nickname{
@@ -36,7 +36,7 @@
     float: right;
     font-size: 20px;
     cursor: pointer;
-    word-break:break-all;
+    word-break:break-word;
 }
 .btnCont {
     display: inline-block;

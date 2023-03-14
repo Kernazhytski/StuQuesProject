@@ -30,15 +30,13 @@ class UserController {
         const {id} = req.params;
         const userQuestions = await questionService.getUserQuestions(id);
         const userAnswers = await questionService.getUserAnswers(id);
-        //console.log('----')
-        //console.log(id)
-        //console.log('----')
         const searchUser = await User.findOne({
             where: {id},
             attributes: ['id', 'aboutMe', 'role', 'nickname', 'avatarImg', 'score', 'ban','rang', 'isActivated']
         });
         searchUser.dataValues.userQuestions = userQuestions;
         searchUser.dataValues.userAnswers = userAnswers;
+        console.log(userQuestions);
         return res.json(searchUser)
     }
 
