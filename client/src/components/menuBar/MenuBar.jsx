@@ -12,10 +12,12 @@ import styles from './MenuBar.module.css'
 import Burger from '../UI/burger/Burger';
 
 const MenuBar = (props) => {
-    const [state, setState] = useState("")
-
+    const [state, setState] = useState("");
+    const [a,setA] = useState("");
+    
     const keyPress = (e) => {
-        if (e.key == 'Enter') {
+        setA(e.key);
+        if (e.key == 13) {
             setState(e.target.value)
             if (props.changeS) {
                 props.changeS(e.target.value)
@@ -78,6 +80,7 @@ const MenuBar = (props) => {
                               onChange={e => change(e)}></InputTwo>
                     <div className={styles.lupa}></div>
                 </div>
+<p>{a}</p>
 
                 {
                     store.isAuth
