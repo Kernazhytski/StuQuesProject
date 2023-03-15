@@ -68,11 +68,10 @@ const QuestionPage = () => {
         }
     }
     const checkAnswer = () => {
-        if(answer.length < 5 || answer.length > 3800) {
+        if (answer.length < 5 || answer.length > 3800) {
             answerMistake.current.style.display = 'block'
             return false
-        } 
-        else {
+        } else {
             answerMistake.current.style.display = 'none'
             return true
         }
@@ -129,37 +128,39 @@ const QuestionPage = () => {
                         </div>
                     }
                     {
-                        (question.isAnswered !== true && store.user.id !== undefined) &&
+                        ((question.isAnswered !== true || store.user.role === "ADMIN") && store.user.id !== undefined) &&
                         <div>
-
-
-                        {
-                            question.userId === store.user.id
-                                ?
+                            {
+                                (question.userId === store.user.id || store.user.role === "ADMIN")
+                                &&
                                 <div>
                                     <p className={styles.header}>Действия с вопросом:</p>
                                     <ButtonOne onClick={deleteQuestion} width={"200px"}>Удалить вопрос</ButtonOne>
                                 </div>
-                                :
+                            }
+                            {
+                                (question.userId === store.user.id || store.user.role === "ADMIN" &&
+                                    question.isAnswered !== true)
+                                &&
                                 <div>
                                     <p className={styles.header}>Напишите ответ:</p>
                                     <div className={styles.txtAreaCont}>
-                                        <p className={styles.mistake} ref={answerMistake}>Ответ должен содержать от 5 до 3800 символов</p>
-                                        <TextAreaOne onChange={e => setAnswer(e.target.value)} value={answer}/>    
+                                        <p className={styles.mistake} ref={answerMistake}>Ответ должен содержать от 5 до
+                                            3800 символов</p>
+                                        <TextAreaOne onChange={e => setAnswer(e.target.value)} value={answer}/>
                                     </div>
                                     <div className={styles.fileInpCont}><FileInput update={update}/></div>
                                     <ButtonOne marginTop={"10px"} onClick={() => {
                                         const response = checkAnswer();
-                                        if(response) {
+                                        if (response) {
                                             sendAnswer()
-                                        }
-                                        else {
+                                        } else {
                                             answerMistake.current.style.display = 'block'
                                         }
                                     }}
                                                width={"125px"}>Отправить</ButtonOne>
                                 </div>
-                        }
+                            }
 
 
                         </div>
