@@ -15,8 +15,7 @@ const MenuBar = (props) => {
     const [state, setState] = useState("")
 
     const keyPress = (e) => {
-        console.log(e);
-        if (e.code == 'Enter') {
+        if (e.key == 'Enter') {
             setState(e.target.value)
             if (props.changeS) {
                 props.changeS(e.target.value)
