@@ -139,7 +139,7 @@ const QuestionPage = () => {
                                 </div>
                             }
                             {
-                                (question.userId === store.user.id || store.user.role === "ADMIN" &&
+                                (question.userId !== store.user.id &&
                                     question.isAnswered !== true)
                                 &&
                                 <div>
