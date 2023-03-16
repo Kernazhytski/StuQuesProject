@@ -15,10 +15,8 @@
 }
 
 .questions {
-    padding-left: 50px;
-    margin-left: 10px;
     border-left: 1px solid #000;
-    width: 70%;
+    width: 100%;
     padding-bottom: 30px;
 }
 
@@ -33,6 +31,17 @@
     .questions {
         border-left: none;
         padding-left: 10px;
+    }
+    .header{
+        display: block;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (min-width: 700px) {
+    .questions {
+        padding-left: 50px;
+        margin-left: 10px;
     }
     .header{
         display: block;

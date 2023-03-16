@@ -1,99 +1,79 @@
-.strip{
-    width: 100%;
+.strip {
+
     background: #FEF9C7;
     padding: 20px 10px 20px 50px;
     border-bottom: 1px solid #000;
     border-top: 1px solid #000;
     overflow: hidden;
 }
+
 .stripRow {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.sub{
+.sub {
     font-family: Girloy-light;
     font-size: 15px;
     display: inline-block;
 }
 
-.title a{
+.title a {
     color: black;
     font-size: 20px;
-    word-break:break-word;
+    word-break: break-word;
 }
 
-.title:hover{
+.title:hover {
     text-decoration: underline;
 }
 
-.resh{
+.resh {
     float: right;
     display: inline-block;
     font-size: 20px;
     color: #026670;
 }
 
-@media screen and (max-width: 1150px) {
-    .strip {
-        width: 800px;
-    }
 
-}
-@media screen and (max-width: 1050px) {
+@media screen and (min-width: 700px) {
     .strip {
-        width: 700px;
+        width: calc(100vw - 280px);
     }
-    .stripRow {
-        flex-direction: column;
-    }
-    .title {
-        margin-bottom: 10px;
-    }
-
-}
-@media screen and (max-width: 950px) {
-    .strip {
-        width: 600px;
-    }
-
-}
-@media screen and (max-width: 850px) {
-    .strip {
-        width: 500px;
-    }
-
 }
 
 @media screen and (max-width: 700px) {
     .strip {
-        width: 600px;
+        width: calc(100vw - 20px);
+    }
+
+    .stripRow {
+        flex-direction: column;
+    }
+
+    .title {
+        margin-bottom: 10px;
     }
 }
+
 @media screen and (max-width: 650px) {
-    .strip {
-        width: 500px;
-    }
+
 }
+
 @media screen and (max-width: 550px) {
-    .strip {
-        width: 400px;
-    }
+
 }
+
 @media screen and (max-width: 450px) {
-    .strip {
-        width: 350px;
-    }
+
 }
+
 @media screen and (max-width: 400px) {
-    .strip {
-        width: 300px;
-    }
+
 }
+
 @media screen and (max-width: 350px) {
-    .strip {
-        width: 260px;
-    }
+
 }
- 
+
