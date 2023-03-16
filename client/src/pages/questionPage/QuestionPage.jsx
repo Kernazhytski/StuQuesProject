@@ -107,6 +107,10 @@ const QuestionPage = () => {
                 <SideBar/>
                 <div className={styles.questionPad}>
                     <p className={styles.header}>{question.title}</p>
+                    <p className={styles.header}>{question.isAnswered}</p>
+                    <p className={styles.header}>{store.user.role}</p>
+                    <p className={styles.header}>{store.user.id}</p>
+                    <p className={styles.header}>{question.userId}</p>
                     <div className={styles.questionForm}>
                         <p className={styles.desc}>{question.description}</p>
                         {
