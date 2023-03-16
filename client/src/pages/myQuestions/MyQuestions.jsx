@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, { useState} from 'react';
 
 import MenuBar from "../../components/menuBar/MenuBar";
 import SideBar from '../../components/sideBar/SideBar'
@@ -6,7 +6,6 @@ import Footer from "../../components/footer/Footer";
 
 import styles from "./MyQuestions.module.css";
 import QuestionsList from "../../components/questionsList/QuestionsList";
-import {Context} from "../../index";
 
 import SelectGetQuestion from '../../components/UI/selects/selectGetQuestions/selectGetQuestion';
 
@@ -15,8 +14,6 @@ import {useParams} from "react-router-dom";
 
 
 const MyQuestions = () => {
-    const {store} = useContext(Context);
-
     const [subject, setSubject] = useState("Все")
     const [search, setSearch] = useState("")
 
@@ -33,7 +30,7 @@ const MyQuestions = () => {
 
     return (
         <div className={styles.wrapper}>
-            <MenuBar/>
+            <MenuBar changeS={changeSearch}/>
             <main className={styles.main}>
                 <SideBar />
                 <div className={styles.questions}>

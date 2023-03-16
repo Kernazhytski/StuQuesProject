@@ -6,14 +6,11 @@ import Footer from "../../components/footer/Footer";
 
 import styles from "./MyAnswersPage.module.css";
 import QuestionsList from "../../components/questionsList/QuestionsList";
-import {Context} from "../../index";
-import { observer } from 'mobx-react-lite';
 
 import SelectGetQuestion from '../../components/UI/selects/selectGetQuestions/selectGetQuestion';
 import {useParams} from "react-router-dom";
 
 const MyAnswersPage = () => {
-    const {store} = useContext(Context);
     const [subject, setSubject] = useState("Все")
     const [search, setSearch] = useState("")
     const id = useParams().id;
@@ -28,7 +25,7 @@ const MyAnswersPage = () => {
 
     return (
         <div className={styles.wrapper}>
-            <MenuBar/>
+            <MenuBar  changeS={changeSearch}/>
             <main className={styles.main}>
                 <SideBar />
                 <div className={styles.answers}>
@@ -45,4 +42,4 @@ const MyAnswersPage = () => {
     );
 };
 
-export default observer(MyAnswersPage);
+export default MyAnswersPage;
