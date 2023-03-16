@@ -31,6 +31,11 @@ const QuestionPage = () => {
     const [files, setFiles] = useState([])
     const [activePhoto, setActivePhoto] = useState(false)
     const [imgURL, setImgURL] = useState("")
+    const [isAns,setIsAns] = useState(true)
+    const [role,setRole] = useState(store.user.role)
+    const [userId,setUserId] = useState(0)
+    const [idStore,setIdStore] = useState(store.user.id)
+
 
     const answerMistake = useRef();
 
@@ -38,9 +43,13 @@ const QuestionPage = () => {
         setFiles(images)
     }
 
-    useMemo(()=>{
-        store.checkAuth3();
-    },[])
+    useMemo(async () => {
+        await store.checkAuth3();
+        setIsAns(question.isAnswered)
+        setRole(store.user.role)
+        setIdStore(store.user.id)
+        setUserId(question.userId)
+    })
 
     useMemo(async () => {
         try {
@@ -110,10 +119,6 @@ const QuestionPage = () => {
                 <SideBar/>
                 <div className={styles.questionPad}>
                     <p className={styles.header}>{question.title}</p>
-                    <p className={styles.header}>{question.isAnswered}</p>
-                    <p className={styles.header}>{store.user.role}</p>
-                    <p className={styles.header}>{store.user.id}</p>
-                    <p className={styles.header}>{question.userId}</p>
                     <div className={styles.questionForm}>
                         <p className={styles.desc}>{question.description}</p>
                         {
@@ -135,10 +140,10 @@ const QuestionPage = () => {
                         </div>
                     }
                     {
-                        ((question.isAnswered !== true || store.user.role === "ADMIN") && store.user.id !== undefined) &&
+                        ((isAns !== true || role === "ADMIN") && idStore !== undefined) &&
                         <div>
                             {
-                                (question.userId === store.user.id || store.user.role === "ADMIN")
+                                (userId === idStore || role === "ADMIN")
                                 &&
                                 <div>
                                     <p className={styles.header}>Действия с вопросом:</p>
@@ -146,8 +151,8 @@ const QuestionPage = () => {
                                 </div>
                             }
                             {
-                                (question.userId !== store.user.id &&
-                                    question.isAnswered !== true)
+                                (userId !== idStore &&
+                                    isAns !== true)
                                 &&
                                 <div>
                                     <p className={styles.header}>Напишите ответ:</p>
