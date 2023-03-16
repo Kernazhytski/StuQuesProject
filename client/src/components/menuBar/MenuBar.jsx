@@ -14,12 +14,10 @@ import Burger from '../UI/burger/Burger';
 const MenuBar = (props) => {
     const [state, setState] = useState("")
 
-    const keyPress = (e) => {
-        if (e.keyCode == 13) {
-            setState(e.target.value)
-            if (props.changeS) {
-                props.changeS(e.target.value)
-            }
+    const search = (e) => {
+        e.preventDefault();
+        if (props.changeS) {
+            props.changeS(state)
         }
     }
 
@@ -40,7 +38,6 @@ const MenuBar = (props) => {
         })
     }
     useMemo(async () => {
-        //store.checkAuth2();
         store.checkAuth3()
     }, [])
     const dropDownChange = (e) => {
@@ -74,9 +71,12 @@ const MenuBar = (props) => {
                 
                 <div className={styles.logo} onClick={logoClick}/>
                 <div className={styles.containerInput}>
-                    <InputTwo value={state} placeholder={"Поиск"} onKeyDown={e => keyPress(e)}
-                              onChange={e => change(e)}></InputTwo>
-                    <div className={styles.lupa}></div>
+                    <form onSubmit={e => search(e)}>
+                        <InputTwo value={state} placeholder={"Поиск"}
+                                onChange={e => change(e)}></InputTwo>
+                        <div className={styles.lupa}></div>                        
+                    </form>
+
                 </div>
 
                 {
