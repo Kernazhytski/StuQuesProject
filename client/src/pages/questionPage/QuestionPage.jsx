@@ -38,6 +38,9 @@ const QuestionPage = () => {
         setFiles(images)
     }
 
+    useMemo(()=>{
+        store.checkAuth3();
+    },[])
 
     useMemo(async () => {
         try {
