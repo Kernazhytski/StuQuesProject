@@ -44,7 +44,6 @@ const MyQuestions = () => {
 
                                onChange={e => setCriterion(e.target.value)} />
                     <QuestionsList  user={id} search={search} subjectS={subject}/>
-
                 </div>
             </main>
             <Footer/>
