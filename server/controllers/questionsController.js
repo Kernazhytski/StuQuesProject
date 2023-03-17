@@ -68,45 +68,31 @@ class QuestionsController {
 
     async list(req, res) {
         try {
+            console.log("asdasd",req.query.criterion)
             let titS = req.query.titleSearch;
             let subS = req.query.sub;
             const limit = +req.query.limit;
             const page = +req.query.page;
-            if (titS === "" || titS == undefined) {
-                if (subS === "Все" || subS == undefined) {
-                    const questions = await Question.findAll();
-                    questions.reverse()
-                    cut(questions, res, page, limit)
+            let crit = req.query.criterion;
+            if (crit === "Все" || crit == undefined) {
+                if (titS === "" || titS == undefined) {
+                    if (subS === "Все" || subS == undefined) {
+                        const questions = await Question.findAll();
+                        questions.reverse()
+                        cut(questions, res, page, limit)
+                    } else {
+                        const questions = await Question.findAll({
+                            where: {
+                                subject: subS
+                            }
+                        })
+                        questions.reverse()
+                        cut(questions, res, page, limit)
+                    }
                 } else {
-                    const questions = await Question.findAll({
-                        where: {
-                            subject: subS
-                        }
-                    })
-                    questions.reverse()
-                    cut(questions, res, page, limit)
-                }
-            } else {
-                if (subS === "Все" || subS == undefined) {
-                    const questions = await Question.findAll({
-                        where: {
-                            [Op.or]: [{
-                                title: {
-                                    [Op.substring]: titS
-                                }
-                            }, {
-                                description: {
-                                    [Op.substring]: titS
-                                }
-                            }]
-                        }
-                    })
-                    questions.reverse()
-                    cut(questions, res, page, limit)
-                } else {
-                    const questions = await Question.findAll({
-                        where: {
-                            [Op.and]: [{
+                    if (subS === "Все" || subS == undefined) {
+                        const questions = await Question.findAll({
+                            where: {
                                 [Op.or]: [{
                                     title: {
                                         [Op.substring]: titS
@@ -116,13 +102,91 @@ class QuestionsController {
                                         [Op.substring]: titS
                                     }
                                 }]
-                            }, {
-                                subject: subS
-                            }]
-                        }
-                    })
-                    questions.reverse()
-                    cut(questions, res, page, limit)
+                            }
+                        })
+                        questions.reverse()
+                        cut(questions, res, page, limit)
+                    } else {
+                        const questions = await Question.findAll({
+                            where: {
+                                [Op.and]: [{
+                                    [Op.or]: [{
+                                        title: {
+                                            [Op.substring]: titS
+                                        }
+                                    }, {
+                                        description: {
+                                            [Op.substring]: titS
+                                        }
+                                    }]
+                                }, {
+                                    subject: subS
+                                }]
+                            }
+                        })
+                        questions.reverse()
+                        cut(questions, res, page, limit)
+                    }
+                }
+            }
+            else {
+                if (titS === "" || titS == undefined) {
+                    if (subS === "Все" || subS == undefined) {
+                        const questions = await Question.findAll({where:{
+                            isAnswered: crit==="Решённые"?1:0
+                            }});
+                        questions.reverse()
+                        cut(questions, res, page, limit)
+                    } else {
+                        const questions = await Question.findAll({
+                            where: {
+                                subject: subS,
+                                isAnswered: crit==="Решённые"?1:0
+                            }
+                        })
+                        questions.reverse()
+                        cut(questions, res, page, limit)
+                    }
+                } else {
+                    if (subS === "Все" || subS == undefined) {
+                        const questions = await Question.findAll({
+                            where: {
+                                [Op.or]: [{
+                                    title: {
+                                        [Op.substring]: titS
+                                    }
+                                }, {
+                                    description: {
+                                        [Op.substring]: titS
+                                    }
+                                }],
+                                isAnswered: crit==="Решённые"?1:0
+                            }
+                        })
+                        questions.reverse()
+                        cut(questions, res, page, limit)
+                    } else {
+                        const questions = await Question.findAll({
+                            where: {
+                                [Op.and]: [{
+                                    [Op.or]: [{
+                                        title: {
+                                            [Op.substring]: titS
+                                        }
+                                    }, {
+                                        description: {
+                                            [Op.substring]: titS
+                                        }
+                                    }]
+                                }, {
+                                    subject: subS
+                                }],
+                                isAnswered: crit==="Решённые"?1:0
+                            }
+                        })
+                        questions.reverse()
+                        cut(questions, res, page, limit)
+                    }
                 }
             }
         } catch (e) {
@@ -416,7 +480,7 @@ class QuestionsController {
                         if (q != null)
                             questions.push(q);
                     }
-                }     
+                }
             }
             questions.reverse()
             cut(questions, res, page, limit)

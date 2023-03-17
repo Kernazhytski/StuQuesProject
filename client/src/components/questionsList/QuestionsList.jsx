@@ -19,7 +19,7 @@ const QuestionsList = (props) => {
 
     const getAllQuestions = async () => {
         try {
-            const response = await QuestionsServise.getAllQuestions(props.search, props.subjectS, limit, page)
+            const response = await QuestionsServise.getAllQuestions(props.search, props.subjectS, limit, page, props.criterion)
             const totalCount = response.headers['x-total-count']
             setTotalPages(getPagesCount(totalCount, limit));
             const data = response.data
@@ -30,7 +30,7 @@ const QuestionsList = (props) => {
     }
     const getMyQuestions = async () => {
         try {
-            const response = await QuestionsServise.getMyQuestions(props.user, limit, page, props.search, props.subjectS)
+            const response = await QuestionsServise.getMyQuestions(props.user, limit, page, props.search, props.subjectS, props.criterion)
             const totalCount = response.headers['x-total-count']
             setTotalPages(getPagesCount(totalCount, limit));
             const data = response.data
@@ -73,7 +73,7 @@ const QuestionsList = (props) => {
 
         setPagesArray(getPagesArray(totalPages))
 
-    }, [setQuestions, props.search, props.subjectS, props.user, totalPages, page])
+    }, [setQuestions, props.search, props.subjectS, props.user, totalPages, page, props.criterion])
 
     return (
         <div className={styles.spis}>
