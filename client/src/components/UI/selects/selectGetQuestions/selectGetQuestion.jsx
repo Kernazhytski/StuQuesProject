@@ -9,7 +9,11 @@ const SelectGetQuestion = (props) => {
             <option>Философия</option>
             <option>Физика</option>
             <option>Программирование</option>
-            <option>Казахский</option>
+            <option>Русский</option>
+            <option>Политология</option>
+            <option>Инженерная графика</option>
+            <option>Биология/Химия</option>
+            <option>Иностранный</option>
         </select>
     );
 };
