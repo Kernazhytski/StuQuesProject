@@ -18,7 +18,7 @@
 }
 
 @media screen and (max-width: 700px) {
-    inp{
+    .inp{
         display: block;
     }
 }

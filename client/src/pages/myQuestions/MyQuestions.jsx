@@ -41,7 +41,7 @@ const MyQuestions = () => {
                     <SelectGetQuestion style={{padding: "0"}} onChange={e => changeSub(e.target.value)}
                                        value={subject}/>
                     <SelectOne options={['Все', 'Решённые', 'Не решённые']} value={criterion}
-                               style={{marginLeft: "10px"}}
+
                                onChange={e => setCriterion(e.target.value)} />
                     <QuestionsList  user={id} search={search} subjectS={subject}/>
 
