@@ -1,4 +1,4 @@
-import React, {useContext, useMemo, useState} from 'react';
+import React, { useMemo, useState} from 'react';
 import QuestionLink from "../questionLink/QuestionLink";
 import styles from "./QuestionsList.module.css"
 import QuestionsServise from "../../service/QuestionsService";
@@ -16,6 +16,7 @@ const QuestionsList = (props) => {
     const [totalPages, setTotalPages] = useState(0)
     const [pagesArray, setPagesArray] = useState([])
     const [isLoading, setIsLoading] = useState(false);
+    const [loc, setLoc] = useState('')
 
     const getAllQuestions = async () => {
         try {
@@ -42,33 +43,59 @@ const QuestionsList = (props) => {
     }
     const getMyAnswers = async () => {
         try {
+            //console.log(props.user, limit, page, props.search, props.subjectS)
             const response = await QuestionsServise.getMyAnswers(props.user, limit, page, props.search, props.subjectS)
+            //console.log(response)
             const totalCount = response.headers['x-total-count']
             setTotalPages(getPagesCount(totalCount, limit));
             const data = response.data
+            //console.log(data)
             setQuestions(data)
-
         } catch (e) {
             console.log(e)
         }
     }
-    const changePage = (page) => {
+    const changePage = async (page) => {
+        localStorage.setItem('page', page)
+        if (location2 == 'myQuestions') {
+            localStorage.setItem('myQuestionsPages', page)
+        } 
+        else if (location2 == 'myAnswers') {
+            //console.log(page)
+            localStorage.setItem('myAnswersPages', page)
+        } 
+        else if (location == '') {
+            localStorage.setItem('allQuestionsPages', page)
+        }
         setPage(page)
     }
 
     useMemo(async () => {
         setIsLoading(true)
         if (location2 == 'myQuestions') {
+            setPage(localStorage.getItem('myQuestionsPages'))
+            setLoc('myQuestionsPages')
             await getMyQuestions()
             setIsLoading(false)
+            localStorage.setItem('myAnswersPages', 1)
+            localStorage.setItem('allQuestionsPages', 1)
+            localStorage.setItem('allUsersPages', 1)
         } else if (location2 == 'myAnswers') {
-
-
-            await getMyAnswers(props.answer)
+            setPage(localStorage.getItem('myAnswersPages'))
+            setLoc('myAnswersPages')
+            await getMyAnswers()
             setIsLoading(false)
+            localStorage.setItem('myQuestionsPages', 1)
+            localStorage.setItem('allQuestionsPages', 1)
+            localStorage.setItem('allUsersPages', 1)
         } else if (location == '') {
+            setPage(localStorage.getItem('allQuestionsPages'))
+            setLoc('allQuestionsPages')
             await getAllQuestions()
             setIsLoading(false)
+            localStorage.setItem('myQuestionsPages', 1)
+            localStorage.setItem('myAnswersPages', 1)
+            localStorage.setItem('allUsersPages', 1)
         }
 
         setPagesArray(getPagesArray(totalPages))
@@ -104,7 +131,7 @@ const QuestionsList = (props) => {
             {totalPages > 1
                 ?
                 <div style={isLoading ? {display: 'none'} : null}>
-                    <PaginationList pagesArray={pagesArray} changePage={changePage} page={page}/>
+                    <PaginationList pagesArray={pagesArray} changePage={changePage} page={page} loc={loc}/>
                 </div>
                 :
                 null
