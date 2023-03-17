@@ -14,6 +14,7 @@ const SelectGetQuestion = (props) => {
             <option>Инженерная графика</option>
             <option>Биология/Химия</option>
             <option>Иностранный</option>
+            <option>История</option>
         </select>
     );
 };
