@@ -30,9 +30,8 @@ const AllUsers = () => {
     }
     const getAllUsers = async () => {
         try {
-            console.log(3)
+
             const response = await UserService.getAllUsers(limit, page, search, criterion);
-            console.log(4)
             const totalCount = response.headers['x-total-count']
             setTotalPages(getPagesCount(totalCount, limit));
             const users = response.data;    
@@ -46,12 +45,17 @@ const AllUsers = () => {
         
     }
     const changePage = (page) => {
+        console.log(page)
         setPage(page)
+        localStorage.setItem('allUsersPages', page)
     }
 
 
     useMemo(async () => {
-        console.log(1)
+        localStorage.setItem('myQuestionsPages', 1)
+        localStorage.setItem('myAnswersPages', 1)
+        localStorage.setItem('allQuestionsPages', 1)
+        setPage(localStorage.getItem('allUsersPages'))
         setIsLoading(true)
         await getAllUsers();
         setIsLoading(false)
@@ -90,7 +94,7 @@ const AllUsers = () => {
                     {totalPages > 1
                         ?
                         <div style={isLoading ? {display: 'none'} : null}>
-                            <PaginationList pagesArray={pagesArray} changePage={changePage} page={page}/>
+                            <PaginationList pagesArray={pagesArray} changePage={changePage} page={page} loc={'allUsersPages'}/>
                         </div>
                         :
                         null

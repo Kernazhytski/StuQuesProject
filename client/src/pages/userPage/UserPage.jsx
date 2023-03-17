@@ -32,7 +32,7 @@ const UserPage = () => {
             <main className={styles.main}>
             <SideBar/>
                 <div className={styles.container}>
-                    <UserInfo setFlag1={setFlag1} setFlag2={setFlag2} ban={ban} setBan={setBan} userId={userId}/>
+                    <UserInfo setFlag1={setFlag1} setFlag2={setFlag2} ban={ban} setBan={setBan} userId={userId} loc={'allUsersPages'}/>
                 </div>            
             </main>
             <Footer/>

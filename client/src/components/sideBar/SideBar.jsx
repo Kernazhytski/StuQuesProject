@@ -4,6 +4,7 @@ import { ADD_QUES, ALL_USERS, MAIN_ROUTE, MY_ANSW, MY_QUES, USER_PAGE } from '..
 import SelectAddQuestion from "../UI/selects/selectAddQuestion/selectAddQuestion";
 import styles from './SideBar.module.css'
 import {Context} from "../../index";
+import { observer } from 'mobx-react-lite';
 
 const SideBar = (props) => {
 
@@ -75,4 +76,4 @@ const SideBar = (props) => {
     )
 }
 
-export default SideBar
+export default observer(SideBar)
