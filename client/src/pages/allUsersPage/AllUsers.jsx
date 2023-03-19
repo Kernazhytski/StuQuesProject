@@ -25,8 +25,13 @@ const AllUsers = () => {
 
     const changeUsers = async (e) => {
         if (e.key == 'Enter') {
+            localStorage.setItem('allUsersPages', 1)
             setTotalPages([])
         }
+    }
+    function changeCriterion(value) {
+        localStorage.setItem('allUsersPages', 1)
+        setCriterion(value)
     }
     const getAllUsers = async () => {
         try {
@@ -45,7 +50,6 @@ const AllUsers = () => {
         
     }
     const changePage = (page) => {
-        console.log(page)
         setPage(page)
         localStorage.setItem('allUsersPages', page)
     }
@@ -76,7 +80,7 @@ const AllUsers = () => {
                     <div className={styles.navigate}>
                         <p className={styles.header}>Пользователи</p>
                         <SelectOne options={['Все', 'Новыe', 'Репутация']} value={criterion}
-                                   onChange={e => setCriterion(e.target.value)} onKeyDown={e => changeUsers(e)}/>
+                                   onChange={e => changeCriterion(e.target.value)} onKeyDown={e => changeUsers(e)}/>
                     </div>
                     {isLoading
                         ?

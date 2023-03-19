@@ -15,10 +15,16 @@ const MainPage = () => {
     const [criterion, setCriterion] = useState('Все');
 
     function changeSearch(value) {
+        localStorage.setItem('allQuestionsPages', 1)
         setSearch(value)
     }
-
+    function changeCriterion(value) {
+        localStorage.setItem('allQuestionsPages', 1)
+        setCriterion(value)
+    }
     function changeSub(value) {
+        console.log(1)
+        localStorage.setItem('allQuestionsPages', 1)
         setSubject(value)
     }
 
@@ -32,7 +38,7 @@ const MainPage = () => {
                     <SelectGetQuestion style={{padding: "0"}} onChange={e => changeSub(e.target.value)}
                                        value={subject}/>
                     <SelectOne options={['Все', 'Решённые', 'Не решённые']} value={criterion}
-                               onChange={e => setCriterion(e.target.value)} />
+                               onChange={e => changeCriterion(e.target.value)} />
                     <QuestionsList search={search} subjectS={subject} criterion={criterion}/>
                 </div>
             </main>
