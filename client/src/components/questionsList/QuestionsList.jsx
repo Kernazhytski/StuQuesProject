@@ -73,7 +73,7 @@ const QuestionsList = (props) => {
     useMemo(async () => {
         setIsLoading(true)
         if (location2 == 'myQuestions') {
-            setPage(localStorage.getItem('myQuestionsPages'))
+            setPage(localStorage.getItem('myQuestionsPages') || 1)
             setLoc('myQuestionsPages')
             await getMyQuestions()
             setIsLoading(false)
@@ -81,7 +81,7 @@ const QuestionsList = (props) => {
             localStorage.setItem('allQuestionsPages', 1)
             localStorage.setItem('allUsersPages', 1)
         } else if (location2 == 'myAnswers') {
-            setPage(localStorage.getItem('myAnswersPages'))
+            setPage(localStorage.getItem('myAnswersPages') || 1)
             setLoc('myAnswersPages')
             await getMyAnswers()
             setIsLoading(false)
@@ -89,7 +89,7 @@ const QuestionsList = (props) => {
             localStorage.setItem('allQuestionsPages', 1)
             localStorage.setItem('allUsersPages', 1)
         } else if (location == '') {
-            setPage(localStorage.getItem('allQuestionsPages'))
+            setPage(localStorage.getItem('allQuestionsPages') || 1)
             setLoc('allQuestionsPages')
             await getAllQuestions()
             setIsLoading(false)

@@ -55,7 +55,7 @@ const AllUsers = () => {
         localStorage.setItem('myQuestionsPages', 1)
         localStorage.setItem('myAnswersPages', 1)
         localStorage.setItem('allQuestionsPages', 1)
-        setPage(localStorage.getItem('allUsersPages'))
+        setPage(localStorage.getItem('allUsersPages') || 1)
         setIsLoading(true)
         await getAllUsers();
         setIsLoading(false)
