@@ -31,6 +31,11 @@ const QuestionPage = () => {
     const [files, setFiles] = useState([])
     const [activePhoto, setActivePhoto] = useState(false)
     const [imgURL, setImgURL] = useState("")
+    const [isAns,setIsAns] = useState(true)
+    const [role,setRole] = useState(store.user.role)
+    const [userId,setUserId] = useState(0)
+    const [idStore,setIdStore] = useState(store.user.id)
+
 
     const answerMistake = useRef();
 
@@ -38,6 +43,13 @@ const QuestionPage = () => {
         setFiles(images)
     }
 
+    useMemo(async () => {
+        await store.checkAuth3();
+        setIsAns(question.isAnswered)
+        setRole(store.user.role)
+        setIdStore(store.user.id)
+        setUserId(question.userId)
+    })
 
     useMemo(async () => {
         try {
@@ -68,11 +80,10 @@ const QuestionPage = () => {
         }
     }
     const checkAnswer = () => {
-        if(answer.length < 5 || answer.length > 3800) {
+        if (answer.length < 5 || answer.length > 3800) {
             answerMistake.current.style.display = 'block'
             return false
-        } 
-        else {
+        } else {
             answerMistake.current.style.display = 'none'
             return true
         }
@@ -129,37 +140,39 @@ const QuestionPage = () => {
                         </div>
                     }
                     {
-                        (question.isAnswered !== true && store.user.id !== undefined) &&
+                        ((isAns !== true || role === "ADMIN") && idStore !== undefined) &&
                         <div>
-
-
-                        {
-                            question.userId === store.user.id
-                                ?
+                            {
+                                (userId === idStore || role === "ADMIN")
+                                &&
                                 <div>
                                     <p className={styles.header}>Действия с вопросом:</p>
                                     <ButtonOne onClick={deleteQuestion} width={"200px"}>Удалить вопрос</ButtonOne>
                                 </div>
-                                :
+                            }
+                            {
+                                (userId !== idStore &&
+                                    isAns !== true)
+                                &&
                                 <div>
                                     <p className={styles.header}>Напишите ответ:</p>
                                     <div className={styles.txtAreaCont}>
-                                        <p className={styles.mistake} ref={answerMistake}>Ответ должен содержать от 5 до 3800 символов</p>
-                                        <TextAreaOne onChange={e => setAnswer(e.target.value)} value={answer}/>    
+                                        <p className={styles.mistake} ref={answerMistake}>Ответ должен содержать от 5 до
+                                            3800 символов</p>
+                                        <TextAreaOne onChange={e => setAnswer(e.target.value)} value={answer}/>
                                     </div>
                                     <div className={styles.fileInpCont}><FileInput update={update}/></div>
                                     <ButtonOne marginTop={"10px"} onClick={() => {
                                         const response = checkAnswer();
-                                        if(response) {
+                                        if (response) {
                                             sendAnswer()
-                                        }
-                                        else {
+                                        } else {
                                             answerMistake.current.style.display = 'block'
                                         }
                                     }}
                                                width={"125px"}>Отправить</ButtonOne>
                                 </div>
-                        }
+                            }
 
 
                         </div>

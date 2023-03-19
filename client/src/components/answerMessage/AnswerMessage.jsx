@@ -102,7 +102,7 @@ const AnswerMessage = ({answer, question}) => {
                     <img className={styles.userImg} src={process.env.REACT_APP_SERVER_URL + '/' + user.avatarImg}
                          onClick={Click}/>
                     <h1 className={styles.nickname} onClick={Click}>{user.nickname}</h1>
-                    {(store.user.id === answer.userId && answer.isBest !== true) &&
+                    {((store.user.id === answer.userId || store.user.role === "ADMIN") && answer.isBest !== true) &&
                         <div className={styles.knopkaDel} onClick={deleteAnswer}></div>}
                 </div>
             }

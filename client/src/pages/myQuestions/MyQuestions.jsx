@@ -10,12 +10,14 @@ import QuestionsList from "../../components/questionsList/QuestionsList";
 import SelectGetQuestion from '../../components/UI/selects/selectGetQuestions/selectGetQuestion';
 
 import {useParams} from "react-router-dom";
+import SelectOne from "../../components/UI/selects/selectOne/SelectOne";
 
 
 
 const MyQuestions = () => {
     const [subject, setSubject] = useState("Все")
     const [search, setSearch] = useState("")
+    const [criterion, setCriterion] = useState('Все');
 
     function changeSearch(value) {
         setSearch(value)
@@ -38,8 +40,10 @@ const MyQuestions = () => {
                     <p className={styles.header}>Мои вопросы</p>
                     <SelectGetQuestion style={{padding: "0"}} onChange={e => changeSub(e.target.value)}
                                        value={subject}/>
-                    <QuestionsList  user={id} search={search} subjectS={subject}/>
+                    <SelectOne options={['Все', 'Решённые', 'Не решённые']} value={criterion}
 
+                               onChange={e => setCriterion(e.target.value)} />
+                    <QuestionsList  user={id} search={search} subjectS={subject}/>
                 </div>
             </main>
             <Footer/>

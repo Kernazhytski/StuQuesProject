@@ -12,7 +12,7 @@ import styles from './MenuBar.module.css'
 import Burger from '../UI/burger/Burger';
 
 const MenuBar = (props) => {
-    const [state, setState] = useState("")
+    const [state, setState] = useState("");
 
     const search = (e) => {
         e.preventDefault();
@@ -78,6 +78,7 @@ const MenuBar = (props) => {
                     </form>
 
                 </div>
+
 
                 {
                     store.isAuth

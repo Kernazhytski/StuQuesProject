@@ -1,5 +1,4 @@
 .strip{
-    width: 100%;
     background: #FEF9C7;
     padding: 20px 10px 20px 50px;
     border-bottom: 1px solid #000;
@@ -65,33 +64,10 @@
     }
 
 }
+
 @media screen and (max-width: 700px) {
-    .strip {
-        width: 600px;
+    .strip{
+        width: calc(100vw - 40px);
     }
 }
-@media screen and (max-width: 650px) {
-    .strip {
-        width: 500px;
-    }
-}
-@media screen and (max-width: 550px) {
-    .strip {
-        width: 400px;
-    }
-}
-@media screen and (max-width: 450px) {
-    .strip {
-        width: 350px;
-    }
-}
-@media screen and (max-width: 400px) {
-    .strip {
-        width: 300px;
-    }
-}
-@media screen and (max-width: 350px) {
-    .strip {
-        width: 260px;
-    }
-}
+
