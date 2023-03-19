@@ -15,10 +15,12 @@ const MyAnswersPage = () => {
     const [search, setSearch] = useState("")
     const id = useParams().id;
     function changeSearch(value) {
+        localStorage.setItem('myAnswersPages', 1)
         setSearch(value)
     }
 
     function changeSub(value) {
+        localStorage.setItem('myAnswersPages', 1)
         setSubject(value)
     }
 

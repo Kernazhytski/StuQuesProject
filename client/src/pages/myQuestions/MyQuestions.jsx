@@ -20,13 +20,18 @@ const MyQuestions = () => {
     const [criterion, setCriterion] = useState('Все');
 
     function changeSearch(value) {
+        localStorage.setItem('allQuestionsPages', 1)
         setSearch(value)
     }
 
     function changeSub(value) {
+        localStorage.setItem('allQuestionsPages', 1)
         setSubject(value)
     }
-
+    function changeCriterion(value) {
+        localStorage.setItem('allQuestionsPages', 1)
+        setCriterion(value)
+    }
     const id = useParams().id;
 
 
@@ -42,7 +47,7 @@ const MyQuestions = () => {
                                        value={subject}/>
                     <SelectOne options={['Все', 'Решённые', 'Не решённые']} value={criterion}
 
-                               onChange={e => setCriterion(e.target.value)} />
+                               onChange={e => changeCriterion(e.target.value)} />
                     <QuestionsList  user={id} search={search} subjectS={subject}/>
                 </div>
             </main>
