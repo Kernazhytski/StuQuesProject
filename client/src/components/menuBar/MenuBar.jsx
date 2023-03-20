@@ -51,8 +51,9 @@ const MenuBar = (props) => {
     }
     const logoClick = () => {
         localStorage.setItem('allQuestionsPages', 1)
-        window.location.reload();
         loc('/')
+        window.location.reload();
+        
     }
     const loginClick = () => {
         loc('/login')
