@@ -11,18 +11,21 @@ const PaginationList = ({pagesArray, changePage, page, loc}) => {
     const [retArray, setRetArray] = useState([]);
     const [arrow, serArrow] = useState(false)
     const changePagesButtons = (side) => {
-        serArrow(true)
+        serArrow(true);
         if (side == 'left' && startIndex - 9 >= 0) {
             setStartIndex(startIndex - 10);
             setEndIndex(endIndex - 9)
         }
+        
         else if(side == 'right' && startIndex + 9 <= pagesArray.length) {
+            //console.log(999)
             setStartIndex(startIndex + 10);
             setEndIndex(endIndex + 9)                
         }
     }
     useMemo(() => {
         let end = endIndex;
+        //let start = startIndex
         let page;
         if (loc == 'myQuestionsPages') {
             page = localStorage.getItem('myQuestionsPages')
@@ -35,6 +38,9 @@ const PaginationList = ({pagesArray, changePage, page, loc}) => {
         }
         else if (loc == 'allUsersPages') {
             page = localStorage.getItem('allUsersPages')
+        }
+        if(page == undefined || page == null) {
+            page = 1;
         }
         while (page > end + 1 && !arrow){
             

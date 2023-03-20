@@ -50,6 +50,8 @@ const MenuBar = (props) => {
         setShowDropdow(!showDropDown)
     }
     const logoClick = () => {
+        localStorage.setItem('allQuestionsPages', 1)
+        window.location.reload();
         loc('/')
     }
     const loginClick = () => {
