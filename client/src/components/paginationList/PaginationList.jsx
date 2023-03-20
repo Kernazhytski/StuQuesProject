@@ -39,14 +39,9 @@ const PaginationList = ({pagesArray, changePage, page, loc}) => {
         else if (loc == 'allUsersPages') {
             page = localStorage.getItem('allUsersPages')
         }
-
-        /*while (page < start && arrow) {
-            console.log(999)
-            console.log(startIndex)
-            setEndIndex(endIndex - 9)
-            setStartIndex(startIndex - 10)
-            start -= 10
-        }*/
+        if(page == undefined || page == null) {
+            page = 1;
+        }
         while (page > end + 1 && !arrow){
             
             setEndIndex(endIndex + 9)
