@@ -13,15 +13,22 @@ const Footer = () => {
         window.location.href='https://twitter.com/CrossoWar';
     }
 
+    const inst = () => {
+        window.location.href='https://www.instagram.com/kernozh1607/';
+    }
+
+    const teleg = () => {
+        window.location.href='https://t.me/vavilenTat';
+    }
 
   return (
     <footer className={styles.footer}>
         <div className={styles.container}>
             <div className={styles.column}>
                 <div className={styles.socialMedia}>
-                    <div className={styles.pictInst}></div>
+                    <div className={styles.pictInst} onClick={inst}></div>
                     <div className={styles.pictVk} onClick={vk}></div>
-                    <div className={styles.pictTg}></div>
+                    <div className={styles.pictTg} onClick={teleg}></div>
                     <div className={styles.pictTwit} onClick={twt}></div>
                 </div>
                 <div className={styles.info}>
